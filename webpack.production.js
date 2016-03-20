@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var devFlagPlugin = new webpack.DefinePlugin({
+  'process.env.NODE_ENV': '"production"',
   __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
 });
 
