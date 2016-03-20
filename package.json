@@ -19,7 +19,8 @@
     "redux-devtools": "^2.1.5",
     "redux-thunk": "^1.0.0",
     "express": "^4.13.4",
-    "webpack": "^1.0.0"
+    "webpack": "^1.0.0",
+    "extract-text-webpack-plugin": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.3.15",
@@ -36,7 +37,6 @@
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-react": "^3.11.3",
     "eventsource-polyfill": "^0.9.6",
-    "extract-text-webpack-plugin": "^1.0.1",
     "path": "^0.12.7",
     "style-loader": "^0.13.0",
     "webpack-dev-middleware": "^1.5.1",
