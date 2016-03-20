@@ -4,7 +4,6 @@ var express = require('express');
 
 var app = express();
 var isDevelopment = (process.env.NODE_ENV !== 'production');
-var static_path = path.join(__dirname, 'static');
 
 if (isDevelopment) {
   var config = require('./webpack.config');
