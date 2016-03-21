@@ -17,6 +17,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
   <!-- App CSS Files -->
+  <link href="./demo/intercom.css" rel="stylesheet" type="text/css" />
   <link href="./demo/template.css" rel="stylesheet" type="text/css" />
   <link href="./static/app.css" rel="stylesheet" type="text/css" />
 </head>
@@ -85,6 +86,115 @@
     </div>
   </div>
   <!-- /.container -->
+
+  <!--
+  TODO: Point of mounting, remove the code and move it to the component
+  -->
+  <div id="intercom-container" class="intercom-container intercom-reset intercom-acquire">
+    <div class="intercom-launcher">
+      <div class="intercom-launcher-button intercom-launcher-button-high-contrast">
+        <!--
+        <div class="intercom-launcher-initials"> 1 </div>
+        -->
+        <div class="intercom-launcher-notification"> 1 </div>
+      </div>
+    </div>
+    <div class="intercom-messenger intercom-messenger-active">
+      <div class="intercom-loading intercom-sheet intercom-sheet-loading">
+      </div>
+      <div class="intercom-conversation intercom-sheet intercom-emoji-support intercom-powered-by-enabled intercom-sheet-active">
+        <div class="intercom-sheet-header">
+          <div class="intercom-sheet-header-title-container">
+            <b class="intercom-sheet-header-title">LIVE SUPPORT CHAT</b>
+          </div>
+          <a class="intercom-sheet-header-button intercom-sheet-header-close-button" href="#">
+            <div class="intercom-sheet-header-button-icon"></div>
+          </a>
+        </div>
+        <div class="intercom-sheet-body">
+          <div class="intercom-sheet-spinner"></div>
+        </div>
+        <div class="intercom-sheet-content">
+
+          <!-- NOTE: The profile -->
+          <div class="intercom-app-profile-container" style="display: block;">
+            <div class="intercom-admin-profile">
+              <div class="intercom-admin-profile-data-container">
+                <div class="intercom-admin-profile-data">
+                  <div class="intercom-active-admin">
+                    <div class="intercom-admin-avatar">
+                      <img src="./demo/7.png" alt="Skyler">
+                    </div>
+                    <div class="intercom-active-admin-name">
+                      Martin Simpson
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="intercom-admin-profile-text-container">
+                <p class="intercom-admin-profile-text">Hey, I’m Martin, fronder of Mockduckt, let me know if you have any questions about our product.methods.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="intercom-article-card-container"></div>
+          <div class="intercom-conversation-parts-container">
+            <div class="intercom-conversation-parts">
+
+              <!-- NOTE: The hide message -->
+              <div class="intercom-conversation-part" style="transform: translate(0px, 0px); opacity: 100;">
+                <div class="intercom-comment intercom-comment-by-user ">
+
+                  <div class="intercom-comment-body-container ">
+                    <div class="intercom-comment-body intercom-embed-body">
+                      <p>You: <br/> Hello Support,
+                        I’m having issue with your product, I
+                        purchased it and package is not
+                        showing me additional options.</p>
+                    </div>
+                    <div class="intercom-attachments" style="display: none;">
+
+                    </div>
+                    <div class="intercom-comment-caret"></div>
+                    <div class="intercom-lwr-composer-container"></div>
+                  </div>
+                  <!--
+                  <div class="intercom-comment-metadata-container">
+                    <div class="intercom-comment-metadata">
+                      <span class="intercom-comment-state">
+
+                      </span>
+                      <span class="intercom-relative-time">8m ago</span>. Seen.
+                    </div>
+                    <div class="intercom-comment-readstate"></div>
+                  </div>
+                  -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="intercom-composer-container">
+          <form class="intercom-composer">
+            <div class="intercom-composer-textarea-container">
+              <div class="intercom-composer-textarea">
+                <pre><span></span><br></pre>
+                <textarea placeholder="Ask anything..."></textarea>
+              </div>
+              <img class="submit-button" src="demo/button.png">
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!--
+  TODO: End point of mounting
+  -->
   <!--
   <div id="main"></div>
   -->

@@ -56,3 +56,82 @@ body {
   font-size: 20pt;
   font-family: 'PT Serif', serif;
 }
+
+/* Intercom overrides */
+
+#intercom-container {
+  font-family: 'Proxima Nova W01 Medium', serif;
+}
+
+#intercom-container .intercom-composer-textarea-container {
+  margin-bottom: 10px;
+}
+
+#intercom-container .intercom-launcher {
+  visibility: visible;
+}
+
+#intercom-container .intercom-messenger {
+  display: none;
+}
+
+#intercom-container.intercom-acquire .intercom-launcher-button{
+  background-image: none;
+}
+
+#intercom-container .intercom-launcher {
+  top: 20px;
+}
+
+#intercom-container.intercom-acquire .intercom-launcher-button .intercom-launcher-notification {
+  font-size: 22px;
+  line-height: 48px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+#intercom-container .intercom-active-admin-name {
+  font-family: 'Proxima Nova W01 Medium', serif;
+  font-size: 14pt;
+  color: #3d4c53;
+  width: 150px;
+}
+
+#intercom-container .intercom-admin-profile-text-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 20px;
+}
+
+#intercom-container .intercom-sheet-header-generic-title, #intercom-container .intercom-sheet-header-title {
+  font-family: 'Proxima Nova W01 Medium', serif;
+}
+
+#intercom-container .intercom-admin-profile-text-container .intercom-admin-profile-text {
+  text-align: left;
+  font-family: 'Proxima Nova W01 Medium', serif;
+}
+
+#intercom-container .intercom-comment-body p{
+  font-family: 'Proxima Nova W01 Medium', serif;
+}
+
+#intercom-container .intercom-comment-by-user .intercom-comment-body-container {
+  background-color: #1b83db;
+}
+
+#intercom-container .intercom-composer-textarea {
+  width: 275px;
+  display: inline-block;
+  border-radius: 4px 0px 0px 4px;
+}
+
+#intercom-container .intercom-composer-textarea pre, #intercom-container .intercom-composer-textarea textarea {
+  min-height: 44px;
+}
+
+#intercom-container .submit-button {
+  margin-left: -4px;
+}
