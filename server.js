@@ -16,6 +16,7 @@ if (isDevelopment) {
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
+  app.use('/demo', express.static('demo'));
 
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
