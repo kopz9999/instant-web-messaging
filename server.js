@@ -5,6 +5,7 @@ var express = require('express');
 var app = express();
 var isDevelopment = (process.env.NODE_ENV !== 'production');
 
+app.use('/demo', express.static('demo'));
 if (isDevelopment) {
   var config = require('./webpack.config');
   var compiler = webpack(config);
@@ -16,7 +17,6 @@ if (isDevelopment) {
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
-  app.use('/demo', express.static('demo'));
 
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
