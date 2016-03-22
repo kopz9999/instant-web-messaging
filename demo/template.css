@@ -123,7 +123,7 @@ body {
 }
 
 #intercom-container .intercom-composer-textarea {
-  width: 275px;
+  width: 215px;
   display: inline-block;
   border-radius: 4px 0px 0px 4px;
 }
@@ -134,4 +134,54 @@ body {
 
 #intercom-container .submit-button {
   margin-left: -4px;
+}
+
+#intercom-container .intercom-admin-profile {
+  background-color: #f5f7fa;
+  border: 1px solid #e6e9ee;
+  box-shadow: none;
+}
+
+#intercom-container .intercom-admin-profile-data-container {
+  background-color: transparent;
+}
+
+#intercom-container .intercom-sheet-body {
+  background-color: #ffffff;
+}
+
+#intercom-container .intercom-sheet {
+  width: 305px;
+}
+
+#intercom-container .intercom-powered-by-enabled .intercom-composer {
+  padding: 8px 15px 0;
+}
+
+#intercom-container .intercom-admin-profile-text {
+  color: #8599a2;
+}
+
+#intercom-container .intercom-composer-textarea pre, #intercom-container .intercom-composer-textarea textarea {
+  padding: 10px 14px 5px 14px;
+  background-color: #f5f6f8;
+  color: #8599a2;
+}
+
+#intercom-container .submit-button {
+  cursor: pointer;
+}
+
+#intercom-container .intercom-comment.intercom-comment-by-user {
+  width: 100%;
+  max-width: none;
+}
+
+#intercom-container .intercom-comment-body-container {
+  width: 90%;
+}
+
+#intercom-container .intercom-comment-by-user {
+  float: left;
+  text-align: left;
 }
