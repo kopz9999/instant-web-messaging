@@ -36,11 +36,39 @@ function getIdentityToken(nonce, callback){
   });
 }
 
+function renderMessages(messages) {
+  console.log(messages.length);
+  for (var i = 0; i < messages.length; ++i) {
+    var message = messages[i];
+    console.log(message.parts);
+    for (var j = 0; j < message.parts.length; ++j) {
+      console.log(message.parts[j]);
+      renderCustomerMessage(message.parts[j].body);
+    }
+  }
+}
+
 function onClientReady() {
   conversation = client.createConversation({
     participants: [ clientUser.name ],
     distinct: true
   });
+  /*
+  var query = client.createQuery({
+    model: layer.Query.Message,
+    predicate: 'conversation.id = \'' + conversation.id + '\'',
+    paginationWindow: 20
+  });
+
+  var rendered = false;
+  query.on('change', function(evt) {
+    var messages = query.data;
+    if (!rendered) {
+      renderMessages(messages);
+      //rendered = true;
+    }
+  });
+  */
 }
 
 function initializeLayer() {
@@ -60,11 +88,12 @@ function initializeLayer() {
 }
 
 function renderCustomerMessage(textMessage) {
+  var formattedTextMessage = textMessage.replace("\n", '<br/>');
   var html = '<div class="intercom-conversation-part" style="transform: translate(0px, 0px); opacity: 100;"> \
     <div class="intercom-comment intercom-comment-by-user "> \
       <div class="intercom-comment-body-container "> \
         <div class="intercom-comment-body intercom-embed-body"> \
-          <p>You: <br/> '+textMessage+' </p> \
+          <p>You: <br/> '+formattedTextMessage+' </p> \
         </div> \
         <div class="intercom-attachments" style="display: none;"> \
         </div> \
@@ -78,10 +107,11 @@ function renderCustomerMessage(textMessage) {
 
 function sendMessage() {
   var textMessage = textArea.val(), message;
-  if (textMessage && textMessage != '') {
+  if (textMessage && textMessage != '' && conversation != null) {
     message = conversation.createMessage(textMessage);
     message.send();
     renderCustomerMessage(textMessage);
+    $('.intercom-sheet-content').get(0).scrollTop = $('.intercom-sheet-content').get(0).scrollHeight;
     textArea.val('');
   }
 }
@@ -102,8 +132,12 @@ $(document).ready(function(){
   });
   submitBtn.click(function(e) {
     e.preventDefault();
-    if (conversation != null) {
+    sendMessage();
+  });
+  textArea.keydown(function(event) {
+    if (event.keyCode == 13 && !event.shiftKey) {
       sendMessage();
+      event.preventDefault();
     }
   });
   initializeLayer();

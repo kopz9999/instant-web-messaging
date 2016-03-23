@@ -24,37 +24,68 @@ body {
   background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
 }
 
-#navbar{
-  margin-top: 30px;
-}
+/* Desktops and laptops ----------- */
+
 #navbar.navbar-inverse .navbar-nav > li > a {
-  font-size: 11pt;
   color: white;
 }
-.bottom-columns p.title{
-  font-size: 11pt;
+#title .jumbotron p {
+  font-family: 'PT Serif', serif;
 }
 .bottom-columns p.description{
-  font-size: 14pt;
   font-family: 'PT Serif', serif;
 }
 
-#title {
-  margin-top: 150px;
-  margin-bottom: 150px;
+@media only screen  and (min-width : 1224px) {
+  #title {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }
+  #title .jumbotron h1 {
+    font-size: 51pt;
+  }
+  #title .jumbotron p {
+    font-size: 20pt;
+  }
+  #navbar{
+    margin-top: 30px;
+  }
+  #navbar.navbar-inverse .navbar-nav > li > a {
+    font-size: 11pt;
+  }
+  .bottom-columns p.title{
+    font-size: 11pt;
+  }
+  .bottom-columns p.description{
+    font-size: 14pt;
+  }
+}
+
+@media only screen  and (max-width : 1224px) {
+  #navbar{
+    margin-top: 10px;
+  }
+  #title .jumbotron h1 {
+    font-size: 31pt;
+  }
+  #title .jumbotron p {
+    font-size: 15pt;
+  }
+  #navbar.navbar-inverse .navbar-nav > li > a {
+    font-size: 11pt;
+  }
+  .bottom-columns p.title{
+    font-size: 11pt;
+  }
+  .bottom-columns p.description{
+    font-size: 11pt;
+    font-family: 'PT Serif', serif;
+  }
+
 }
 
 #title .jumbotron {
   background-color: transparent;
-}
-
-#title .jumbotron h1 {
-  font-size: 51pt;
-}
-
-#title .jumbotron p {
-  font-size: 20pt;
-  font-family: 'PT Serif', serif;
 }
 
 /* Intercom overrides */
@@ -125,6 +156,7 @@ body {
 #intercom-container .intercom-composer-textarea {
   width: 215px;
   display: inline-block;
+  vertical-align: top;
   border-radius: 4px 0px 0px 4px;
 }
 
@@ -184,4 +216,17 @@ body {
 #intercom-container .intercom-comment-by-user {
   float: left;
   text-align: left;
+}
+
+#intercom-container .intercom-conversation-parts-container {
+  padding-bottom: 60px;
+}
+
+#intercom-container .intercom-composer-textarea textarea {
+  border-radius: 4px 0px 0px 4px;
+}
+
+#intercom-container .submit-button {
+  width: 57px;
+  height: 46px;
 }
