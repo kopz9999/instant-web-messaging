@@ -7,9 +7,10 @@ var textArea = null;
 var messagesArea = null;
 // Layer variables
 var client = null;
-var conversation = null;
+var customerSupportConversation = null;
 // Layer custom variables
 var currentUser = { name: 'Customer' };
+var customerSupportUser = { name: 'Customer Support' };
 var clientUser = { name: 'Martin Simpson' };
 
 function getIdentityToken(nonce, callback){
@@ -37,38 +38,57 @@ function getIdentityToken(nonce, callback){
 }
 
 function renderMessages(messages) {
-  console.log(messages.length);
-  for (var i = 0; i < messages.length; ++i) {
+  messagesArea.empty();
+  for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
-    console.log(message.parts);
     for (var j = 0; j < message.parts.length; ++j) {
-      console.log(message.parts[j]);
-      renderCustomerMessage(message.parts[j].body);
+      if (message.sender.userId == 'Customer') {
+        renderCustomerMessage(message.parts[j].body);
+      } else {
+        renderCustomerSupportMessage(message.parts[j].body);
+      }
     }
   }
+  scrollBoxToBottom();
+}
+
+function verifyConversations(conversations) {
+  var conversation, participant = null;
+  for (var i = 0; i < conversations.length; ++i) {
+    conversation = conversations[i];
+    if (conversation.participants.length < 2) {
+      for (var j = 0; j < conversation.participants.length; ++j) {
+        participant = conversation.participants[j];
+        if (participant == customerSupportUser.name) {
+          customerSupportConversation = conversation;
+        }
+      }
+    }
+  }
+  if (customerSupportConversation == null) {
+    customerSupportConversation = client.createConversation({
+      participants: [ customerSupportUser.name ],
+      distinct: true
+    });
+  }
+  var query = client.createQuery({
+    model: layer.Query.Message,
+    predicate: 'conversation.id = \'' + customerSupportConversation.id + '\''
+  });
+  query.on('change', function(evt) {
+    renderMessages(query.data);
+  });
 }
 
 function onClientReady() {
-  conversation = client.createConversation({
-    participants: [ clientUser.name ],
-    distinct: true
-  });
-  /*
   var query = client.createQuery({
-    model: layer.Query.Message,
-    predicate: 'conversation.id = \'' + conversation.id + '\'',
-    paginationWindow: 20
+    model: layer.Query.Conversation
   });
 
-  var rendered = false;
   query.on('change', function(evt) {
-    var messages = query.data;
-    if (!rendered) {
-      renderMessages(messages);
-      //rendered = true;
-    }
+    var conversations = query.data;
+    verifyConversations(conversations);
   });
-  */
 }
 
 function initializeLayer() {
@@ -93,7 +113,25 @@ function renderCustomerMessage(textMessage) {
     <div class="intercom-comment intercom-comment-by-user "> \
       <div class="intercom-comment-body-container "> \
         <div class="intercom-comment-body intercom-embed-body"> \
-          <p>You: <br/> '+formattedTextMessage+' </p> \
+          <p><span class="display-name">You:</span><br/> '+formattedTextMessage+' </p> \
+        </div> \
+        <div class="intercom-attachments" style="display: none;"> \
+        </div> \
+        <div class="intercom-lwr-composer-container"></div> \
+      </div> \
+    </div> \
+  </div>';
+  var htmlNode = $.parseHTML(html);
+  messagesArea.append(htmlNode);
+}
+
+function renderCustomerSupportMessage(textMessage) {
+  var formattedTextMessage = textMessage.replace("\n", '<br/>');
+  var html = '<div class="intercom-conversation-part"> \
+    <div class="intercom-comment intercom-comment-by-admin"> \
+      <div class="intercom-comment-body-container "> \
+        <div class="intercom-comment-body intercom-embed-body"> \
+          <p><span class="display-name">Martin:</span> <br/> '+formattedTextMessage+' </p> \
         </div> \
         <div class="intercom-attachments" style="display: none;"> \
         </div> \
@@ -107,13 +145,17 @@ function renderCustomerMessage(textMessage) {
 
 function sendMessage() {
   var textMessage = textArea.val(), message;
-  if (textMessage && textMessage != '' && conversation != null) {
-    message = conversation.createMessage(textMessage);
+  if (textMessage && textMessage != '' && customerSupportConversation != null) {
+    message = customerSupportConversation.createMessage(textMessage);
     message.send();
     renderCustomerMessage(textMessage);
-    $('.intercom-sheet-content').get(0).scrollTop = $('.intercom-sheet-content').get(0).scrollHeight;
+    scrollBoxToBottom();
     textArea.val('');
   }
+}
+
+function scrollBoxToBottom() {
+  $('.intercom-sheet-content').get(0).scrollTop = $('.intercom-sheet-content').get(0).scrollHeight;
 }
 
 $(document).ready(function(){
@@ -126,6 +168,9 @@ $(document).ready(function(){
 
   launcher.click(function() {
     messenger.show();
+    setTimeout(function(){
+      scrollBoxToBottom();
+    }, 100);
   });
   closeBtn.click(function() {
     messenger.hide();

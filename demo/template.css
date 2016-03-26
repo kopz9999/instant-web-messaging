@@ -145,7 +145,7 @@ body {
   font-family: 'Proxima Nova W01 Medium', serif;
 }
 
-#intercom-container .intercom-comment-body p{
+#intercom-container .intercom-comment-body p, #intercom-container .intercom-comment-body span{
   font-family: 'Proxima Nova W01 Medium', serif;
 }
 
@@ -187,7 +187,8 @@ body {
 }
 
 #intercom-container .intercom-powered-by-enabled .intercom-composer {
-  padding: 8px 15px 0;
+  padding: 15px 15px 0;
+  background-color: white;
 }
 
 #intercom-container .intercom-admin-profile-text {
@@ -207,6 +208,10 @@ body {
 #intercom-container .intercom-comment.intercom-comment-by-user {
   width: 100%;
   max-width: none;
+}
+
+#intercom-container .intercom-comment-by-user .intercom-comment-body-container .display-name {
+  font-weight: bold;
 }
 
 #intercom-container .intercom-comment-body-container {
@@ -229,4 +234,21 @@ body {
 #intercom-container .submit-button {
   width: 57px;
   height: 46px;
+}
+
+#intercom-container .intercom-comment-by-admin {
+  padding-left: 25px;
+  width: 100%;
+}
+
+#intercom-container .intercom-comment-by-admin .intercom-comment-body-container {
+  background-color: #f5f7fa;
+  border: 1px solid #e6e9ee;
+  box-shadow: none;
+  color: #78909c;
+}
+
+#intercom-container .intercom-comment-by-admin .intercom-comment-body-container .display-name {
+  color: #3d4c53;
+  font-weight: bold;
 }
