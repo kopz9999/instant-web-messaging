@@ -5,6 +5,8 @@ var layerAppId ='layer:///apps/staging/52e7c9b4-e9cb-11e5-a188-7d4ed71366e8';
 // UI variables
 var textArea = null;
 var messagesArea = null;
+var pageContent = null;
+var messenger = null;
 // Layer variables
 var client = null;
 var customerSupportConversation = null;
@@ -158,22 +160,35 @@ function scrollBoxToBottom() {
   $('.intercom-sheet-content').get(0).scrollTop = $('.intercom-sheet-content').get(0).scrollHeight;
 }
 
+function resizePageContent() {
+  var splitWidth;
+  if (messenger.is(':visible')) {
+    splitWidth = window.innerWidth - 305;
+    pageContent.css('width', splitWidth);
+  } else {
+    pageContent.css('width', '100%');
+  }
+}
+
 $(document).ready(function(){
   var launcher = $('.intercom-launcher');
-  var messenger = $('.intercom-messenger');
   var closeBtn = $('.intercom-sheet-header-close-button');
   var submitBtn = $('#intercom-container .submit-button');
   textArea = $('#intercom-container .intercom-composer-textarea textarea');
   messagesArea = $('#intercom-container .intercom-conversation-parts');
+  pageContent = $('.page-content');
+  messenger = $('.intercom-messenger');
 
   launcher.click(function() {
     messenger.show();
     setTimeout(function(){
       scrollBoxToBottom();
+      resizePageContent();
     }, 100);
   });
   closeBtn.click(function() {
     messenger.hide();
+    resizePageContent();
   });
   submitBtn.click(function(e) {
     e.preventDefault();
@@ -185,5 +200,9 @@ $(document).ready(function(){
       event.preventDefault();
     }
   });
+  $( window ).resize(function() {
+    resizePageContent();
+  });
+  resizePageContent();
   initializeLayer();
 });
