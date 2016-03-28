@@ -38,6 +38,10 @@ body {
   max-width: 100%;
 }
 
+#intercom-container .intercom-sheet {
+  right: -305px;
+}
+
 /* Customization */
 
 .navbar.transparent.navbar-inverse {
@@ -131,10 +135,6 @@ body {
 
 #intercom-container .intercom-launcher {
   visibility: visible;
-}
-
-#intercom-container .intercom-messenger {
-  display: none;
 }
 
 #intercom-container.intercom-acquire .intercom-launcher-button{

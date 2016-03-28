@@ -162,12 +162,30 @@ function scrollBoxToBottom() {
 
 function resizePageContent() {
   var splitWidth;
-  if (messenger.is(':visible')) {
+  if (messenger.css('right') >= 0) {
     splitWidth = window.innerWidth - 305;
     pageContent.css('width', splitWidth);
   } else {
     pageContent.css('width', '100%');
   }
+}
+
+function animateHideMessenger() {
+  messenger.animate({
+    right: "-305px"
+  });
+  pageContent.animate({
+    width: "+=305px"
+  })
+}
+
+function animateShowMessenger() {
+  messenger.animate({
+    right: "0"
+  });
+  pageContent.animate({
+    width: "-=305px"
+  })
 }
 
 $(document).ready(function(){
@@ -177,18 +195,13 @@ $(document).ready(function(){
   textArea = $('#intercom-container .intercom-composer-textarea textarea');
   messagesArea = $('#intercom-container .intercom-conversation-parts');
   pageContent = $('.page-content');
-  messenger = $('.intercom-messenger');
+  messenger = $('#intercom-container .intercom-sheet');
 
   launcher.click(function() {
-    messenger.show();
-    setTimeout(function(){
-      scrollBoxToBottom();
-      resizePageContent();
-    }, 100);
+    animateShowMessenger();
   });
   closeBtn.click(function() {
-    messenger.hide();
-    resizePageContent();
+    animateHideMessenger();
   });
   submitBtn.click(function(e) {
     e.preventDefault();
