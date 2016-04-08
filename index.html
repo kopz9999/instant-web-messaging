@@ -52,7 +52,7 @@
                 <a href="#">Crew</a>
               </li>
               <li>
-                <a href="#">Contact</a>
+                <a data-toggle="modal" data-target="#login-modal" href="#">Contact</a>
               </li>
             </ul>
           </div>
@@ -88,6 +88,26 @@
         </div>
       </div>
       <!-- /.container -->
+      <!-- Modal for testing purposes -->
+      <div id="login-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Login</h4>
+            </div>
+            <div class="modal-body">
+              <form method="get">
+                <div class="form-group">
+                  <label for="user-name" class="control-label">User:</label>
+                  <input type="text" name="username" class="form-control" id="user-name">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
     </div>
     <!--
     TODO: Point of mounting, remove the code and move it to the component
@@ -106,9 +126,6 @@
         </div>
         <div class="intercom-conversation intercom-sheet intercom-emoji-support intercom-powered-by-enabled intercom-sheet-active">
           <div class="intercom-sheet-header">
-            <div class="intercom-sheet-header-title-container">
-              <b class="intercom-sheet-header-title">LIVE SUPPORT CHAT</b>
-            </div>
             <a class="intercom-sheet-header-button intercom-sheet-header-close-button" href="#">
               <div class="intercom-sheet-header-button-icon"></div>
             </a>
@@ -125,16 +142,17 @@
                   <div class="intercom-admin-profile-data">
                     <div class="intercom-active-admin">
                       <div class="intercom-admin-avatar">
-                        <img src="./demo/7.png" alt="Skyler">
+                        <img src="./demo/admin-avatar.png">
                       </div>
                       <div class="intercom-active-admin-name">
-                        Martin Simpson
+                        Margaret Bell
                       </div>
+                      <div class="intercom-active-admin-title">
+                        Product Support
+                      </div>
+                      <div class="intercom-separator">&nbsp;</div>
                     </div>
                   </div>
-                </div>
-                <div class="intercom-admin-profile-text-container">
-                  <p class="intercom-admin-profile-text">Hey, I’m Martin, fronder of Mockduckt, let me know if you have any questions about our product.methods.</p>
                 </div>
               </div>
             </div>
@@ -142,6 +160,25 @@
             <div class="intercom-article-card-container"></div>
             <div class="intercom-conversation-parts-container">
               <div class="intercom-conversation-parts">
+                <div class="intercom-conversation-part">
+                  <div class="intercom-comment intercom-comment-by-admin">
+                    <div class="intercom-comment-body-container ">
+                      <div class="intercom-comment-body intercom-embed-body">
+                        <p>
+                          Hello, I’m Margaret, realtor at
+                          Bridgewater, Warren, if you have any
+                          questions please feel free to write
+                          anytime.
+                        </p>
+                      </div>
+                      <div class="intercom-attachments" style="display: none;"></div>
+                      <div class="intercom-lwr-composer-container"></div>
+                    </div>
+                    <img src="./demo/admin-avatar-small.png" class="intercom-comment-avatar">
+                  </div>
+                </div>
+              </div>
+              <div class="intercom-conversation-parts dynamic">
 
                 <!-- NOTE: The hide message -->
                 <!---

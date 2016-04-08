@@ -13,7 +13,7 @@ var customerSupportConversation = null;
 // Layer custom variables
 var currentUser = { name: 'Customer' };
 var customerSupportUser = { name: 'Customer Support' };
-var clientUser = { name: 'Martin Simpson' };
+var clientUser = { name: 'Judy' };
 
 function getIdentityToken(nonce, callback){
   layer.xhr({
@@ -44,7 +44,7 @@ function renderMessages(messages) {
   for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
     for (var j = 0; j < message.parts.length; ++j) {
-      if (message.sender.userId == 'Customer') {
+      if (message.sender.userId == currentUser.name) {
         renderCustomerMessage(message.parts[j].body);
       } else {
         renderCustomerSupportMessage(message.parts[j].body);
@@ -113,6 +113,7 @@ function renderCustomerMessage(textMessage) {
   var formattedTextMessage = textMessage.replace("\n", '<br/>');
   var html = '<div class="intercom-conversation-part" style="transform: translate(0px, 0px); opacity: 100;"> \
     <div class="intercom-comment intercom-comment-by-user "> \
+      <img src="./demo/user-avatar-small.png" class="intercom-comment-avatar"> \
       <div class="intercom-comment-body-container "> \
         <div class="intercom-comment-body intercom-embed-body"> \
           <p><span class="display-name">You:</span><br/> '+formattedTextMessage+' </p> \
@@ -129,16 +130,18 @@ function renderCustomerMessage(textMessage) {
 
 function renderCustomerSupportMessage(textMessage) {
   var formattedTextMessage = textMessage.replace("\n", '<br/>');
+  var clientDisplayName = clientUser.name.split(' ')[0];
   var html = '<div class="intercom-conversation-part"> \
     <div class="intercom-comment intercom-comment-by-admin"> \
       <div class="intercom-comment-body-container "> \
         <div class="intercom-comment-body intercom-embed-body"> \
-          <p><span class="display-name">Martin:</span> <br/> '+formattedTextMessage+' </p> \
+          <p><span class="display-name">' + clientDisplayName +'</span> <br/> '+formattedTextMessage+' </p> \
         </div> \
         <div class="intercom-attachments" style="display: none;"> \
         </div> \
         <div class="intercom-lwr-composer-container"></div> \
       </div> \
+      <img src="./demo/admin-avatar-small.png" class="intercom-comment-avatar"> \
     </div> \
   </div>';
   var htmlNode = $.parseHTML(html);
@@ -163,7 +166,7 @@ function scrollBoxToBottom() {
 function resizePageContent() {
   var splitWidth;
   if (messenger.css('right') >= 0) {
-    splitWidth = window.innerWidth - 305;
+    splitWidth = window.innerWidth - 320;
     pageContent.css('width', splitWidth);
   } else {
     pageContent.css('width', '100%');
@@ -172,10 +175,10 @@ function resizePageContent() {
 
 function animateHideMessenger() {
   messenger.animate({
-    right: "-305px"
+    right: "-320px"
   });
   pageContent.animate({
-    width: "+=305px"
+    width: "+=320px"
   })
 }
 
@@ -184,16 +187,39 @@ function animateShowMessenger() {
     right: "0"
   });
   pageContent.animate({
-    width: "-=305px"
+    width: "-=320px"
   })
 }
+
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+      // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+      // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  }
+  return query_string;
+}();
 
 $(document).ready(function(){
   var launcher = $('.intercom-launcher');
   var closeBtn = $('.intercom-sheet-header-close-button');
   var submitBtn = $('#intercom-container .submit-button');
   textArea = $('#intercom-container .intercom-composer-textarea textarea');
-  messagesArea = $('#intercom-container .intercom-conversation-parts');
+  messagesArea = $('#intercom-container .intercom-conversation-parts.dynamic');
   pageContent = $('.page-content');
   messenger = $('#intercom-container .intercom-sheet');
 
@@ -216,6 +242,11 @@ $(document).ready(function(){
   $( window ).resize(function() {
     resizePageContent();
   });
+  // Initialize test user if required
+  if (QueryString.username) {
+    currentUser.name =QueryString.username;
+  }
+
   resizePageContent();
   initializeLayer();
 });

@@ -39,7 +39,7 @@ body {
 }
 
 #intercom-container .intercom-sheet {
-  right: -305px;
+  right: -320px;
 }
 
 /* Customization */
@@ -155,10 +155,27 @@ body {
 }
 
 #intercom-container .intercom-active-admin-name {
-  font-family: 'Proxima Nova W01 Medium', serif;
-  font-size: 14pt;
+  font-family: 'Proxima N W01 Bold', serif;
+  font-size: 16pt;
   color: #3d4c53;
   width: 150px;
+}
+
+#intercom-container .intercom-active-admin-title {
+  font-family: 'Proxima N W01 Thin Reg', serif;
+  font-weight: bold;
+  font-size: 9.5pt;
+  color: #3d4c53;
+  text-align: center;
+}
+
+#intercom-container .intercom-active-admin .intercom-separator {
+  height: 1px;
+  width: 30px;
+  background-color: #d4dae4;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
 }
 
 #intercom-container .intercom-admin-profile-text-container {
@@ -200,13 +217,22 @@ body {
 }
 
 #intercom-container .intercom-admin-profile {
-  background-color: #f5f7fa;
-  border: 1px solid #e6e9ee;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#intercom-container .intercom-app-profile-container {
+  padding: 0;
+}
+
+#intercom-container .intercom-sheet-header {
   box-shadow: none;
 }
 
 #intercom-container .intercom-admin-profile-data-container {
   background-color: transparent;
+  padding: 0;
 }
 
 #intercom-container .intercom-sheet-body {
@@ -214,7 +240,7 @@ body {
 }
 
 #intercom-container .intercom-sheet {
-  width: 305px;
+  width: 320px;
 }
 
 #intercom-container .intercom-powered-by-enabled .intercom-composer {
@@ -255,6 +281,9 @@ body {
 }
 
 #intercom-container .intercom-conversation-parts-container {
+  padding-top: 0;
+  padding-left: 13px;
+  padding-right: 13px;
   padding-bottom: 60px;
 }
 
@@ -268,7 +297,7 @@ body {
 }
 
 #intercom-container .intercom-comment-by-admin {
-  padding-left: 25px;
+  padding-left: 0px;
   width: 100%;
 }
 
@@ -287,4 +316,32 @@ body {
 #intercom-container .intercom-launcher-button.intercom-launcher-button-high-contrast {
   background-color: #ff2d50;
   border-color: transparent;
+}
+
+#intercom-container .intercom-comment-avatar {
+  height: 24px;
+  width: 24px;
+}
+
+#intercom-container .intercom-comment-by-admin .intercom-comment-body-container, #intercom-container .intercom-comment-by-user .intercom-comment-body-container {
+  margin-right: 30px;
+  margin-left: 30px;
+  width: auto;
+  display: block;
+}
+
+#intercom-container .intercom-comment-by-admin .intercom-comment-avatar {
+  left: initial;
+  right: 0;
+}
+
+#intercom-container .intercom-admin-profile-data .intercom-admin-avatar, #intercom-container .intercom-admin-profile-data .intercom-admin-avatar img {
+  width: 107px;
+  height: 107px;
+}
+
+/* Modal testing code */
+
+.modal {
+  color: black;
 }

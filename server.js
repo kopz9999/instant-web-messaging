@@ -1,14 +1,17 @@
 var path = require('path');
-var webpack = require('webpack');
 var express = require('express');
-
 var app = express();
 var isDevelopment = (process.env.NODE_ENV !== 'production');
+// Dev variables
+var webpack = null;
+var config = null;
+var compiler = null;
 
 app.use('/demo', express.static('demo'));
 if (isDevelopment) {
-  var config = require('./webpack.config');
-  var compiler = webpack(config);
+  config = require('./webpack.config');
+  webpack = require('webpack');
+  compiler = webpack(config);
 
   app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
