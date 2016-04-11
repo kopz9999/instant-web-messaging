@@ -7,6 +7,10 @@ var textArea = null;
 var messagesArea = null;
 var pageContent = null;
 var messenger = null;
+var typingIndicatorContainer;
+// UI triggers
+var doingAnimation = false;
+var doingTypingIndicatorAnimation = false;
 // Layer variables
 var client = null;
 var customerSupportConversation = null;
@@ -15,7 +19,6 @@ var currentUser = { name: 'Customer' };
 var customerSupportUser = { name: 'Customer Support' };
 var clientUser = { name: 'Judy' };
 var sheetContent = null;
-var doingAnimation = false;
 
 function getIdentityToken(nonce, callback){
   layer.xhr({
@@ -58,6 +61,7 @@ function renderMessages(messages, isInsert) {
 
 function verifyConversations(conversations) {
   var conversation, participant = null;
+  var typingListener = client.createTypingListener(textArea[0]);
   for (var i = 0; i < conversations.length; ++i) {
     conversation = conversations[i];
     if (conversation.participants.length < 2) {
@@ -82,6 +86,47 @@ function verifyConversations(conversations) {
   query.on('change', function(evt) {
     onConversationChange(query, evt);
   });
+  client.on('typing-indicator-change', function(evt) {
+    verifyCustomerSupportTyping(evt);
+  });
+  typingListener.setConversation(customerSupportConversation);
+}
+
+function showCustomerSupportTyping() {
+  if (!doingTypingIndicatorAnimation) {
+    doingTypingIndicatorAnimation = true;
+    typingIndicatorContainer.show("drop", {
+      direction: "down",
+      complete: function() {
+        doingTypingIndicatorAnimation = false;
+        setTimeout(function () {
+          hideCustomerSupportTyping();
+        }, 2000);
+      }
+    });
+    scrollBoxToBottom();
+  }
+}
+
+function hideCustomerSupportTyping() {
+  typingIndicatorContainer.fadeOut();
+}
+
+function verifyCustomerSupportTyping(evt) {
+  if (evt.conversationId === customerSupportConversation.id) {
+    console.log('The following users are typing: ' + evt.typing.join(', '));
+    console.log('The following users are paused: ' + evt.paused.join(', '));
+    for (var i = 0; i < evt.typing.length; i++) {
+      if (evt.typing[i] === customerSupportUser.name) {
+        showCustomerSupportTyping();
+      }
+    }
+    for (var j = 0; j < evt.paused.length; j++) {
+      if (evt.paused[j] === customerSupportUser.name) {
+        hideCustomerSupportTyping();
+      }
+    }
+  }
 }
 
 function onConversationChange(query, evt) {
@@ -309,6 +354,7 @@ $(document).ready(function(){
   pageContent = $('.page-content');
   messenger = $('#intercom-container .intercom-sheet');
   sheetContent = $('.intercom-sheet-content');
+  typingIndicatorContainer = $('.intercom-conversation-parts.typing-indicator');
 
   launcher.click(function() {
     animateShowMessenger();

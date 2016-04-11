@@ -367,6 +367,61 @@ body {
 }
 /* End Metadata overrides */
 
+/* Start typing indicator */
+
+#intercom-container .intercom-conversation-parts.typing-indicator {
+  display: none;
+}
+
+#intercom-container .intercom-conversation-parts.typing-indicator .intercom-comment-body p {
+  font-size: 30px;
+}
+#intercom-container .intercom-conversation-parts.typing-indicator .intercom-comment-body-container {
+  float: right;
+}
+
+#intercom-container .intercom-conversation-parts.typing-indicator .intercom-comment-body-container .intercom-comment-body {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#intercom-container .intercom-conversation-parts.typing-indicator .intercom-comment-avatar {
+  top: 0;
+}
+
+
+@keyframes blink {
+  0% {
+    color: #3d4c53;
+  }
+  50% {
+    color: #e6e9ee;
+  }
+  100% {
+    color: #3d4c53;
+  }
+}
+
+.blink-animation {
+  -moz-transition:all 0.5s ease-in-out;
+  -webkit-transition:all 0.5s ease-in-out;
+  -o-transition:all 0.5s ease-in-out;
+  -ms-transition:all 0.5s ease-in-out;
+  transition:all 0.5s ease-in-out;
+  -moz-animation:blink normal 1.5s infinite ease-in-out;
+  /* Firefox */
+  -webkit-animation:blink normal 1.5s infinite ease-in-out;
+  /* Webkit */
+  -ms-animation:blink normal 1.5s infinite ease-in-out;
+  /* IE */
+  animation:blink normal 1.5s infinite ease-in-out;
+  /* Opera */
+}
+
+/* End typing indicator */
+
 /* Modal testing code */
 
 .modal {
