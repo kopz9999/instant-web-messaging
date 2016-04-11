@@ -8,6 +8,7 @@ var messagesArea = null;
 var pageContent = null;
 var messenger = null;
 var typingIndicatorContainer;
+var adminHeaderContainer;
 // UI triggers
 var doingAnimation = false;
 var doingTypingIndicatorAnimation = false;
@@ -321,6 +322,18 @@ function animateShowMessenger() {
   })
 }
 
+function showAdminHeaderContainer() {
+  if (sheetContent.get(0).scrollTop > 180) {
+    adminHeaderContainer.show("drop", {
+      direction: "up"
+    });
+  } else {
+    adminHeaderContainer.hide("drop", {
+      direction: "up"
+    });
+  }
+}
+
 var QueryString = function () {
   // This function is anonymous, is executed immediately and
   // the return value is assigned to QueryString!
@@ -355,6 +368,7 @@ $(document).ready(function(){
   messenger = $('#intercom-container .intercom-sheet');
   sheetContent = $('.intercom-sheet-content');
   typingIndicatorContainer = $('.intercom-conversation-parts.typing-indicator');
+  adminHeaderContainer = $('#intercom-container .intercom-sheet-header.admin-header');
 
   launcher.click(function() {
     animateShowMessenger();
@@ -382,6 +396,9 @@ $(document).ready(function(){
   if (QueryString.username) {
     currentUser.name =QueryString.username;
   }
+  sheetContent.get(0).addEventListener("scroll", function(){
+    showAdminHeaderContainer();
+  });
 
   resizePageContent();
   initializeLayer();

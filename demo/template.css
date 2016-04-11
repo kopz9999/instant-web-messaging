@@ -422,6 +422,43 @@ body {
 
 /* End typing indicator */
 
+/* Animation header indicator */
+
+#intercom-container .intercom-sheet-header.admin-header {
+  z-index: 2147483032;
+  display: none;
+}
+
+#intercom-container .intercom-sheet-header.admin-header .admin-description {
+  float: left;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+#intercom-container .intercom-sheet-header.admin-header .admin-description .avatar {
+  border-radius: 50%;
+  height: 35px;
+  float: left;
+}
+
+#intercom-container .intercom-sheet-header.admin-header .admin-description .admin-body {
+  float: right;
+  margin-left: 15px;
+}
+
+#intercom-container .intercom-sheet-header.admin-header .admin-description .admin-body .name{
+  font-family: 'Proxima N W01 Bold', serif;
+  color: #3d4c53;
+  font-size: 14px;
+}
+
+#intercom-container .intercom-sheet-header.admin-header .admin-description .admin-body .title{
+  font-family: 'Proxima N W01 Thin Reg', serif;
+  font-weight: bold;
+  color: #3d4c53;
+  font-size: 12px;
+}
+
 /* Modal testing code */
 
 .modal {
