@@ -226,6 +226,8 @@ body {
   padding: 0;
 }
 
+/* Start Intercom sheet customizations */
+
 #intercom-container .intercom-sheet-header {
   box-shadow: none;
 }
@@ -242,6 +244,12 @@ body {
 #intercom-container .intercom-sheet {
   width: 320px;
 }
+
+#intercom-container .intercom-sheet-active .intercom-sheet-content {
+  bottom: 80px;
+}
+
+/* End Intercom sheet customizations */
 
 #intercom-container .intercom-powered-by-enabled .intercom-composer {
   padding: 15px 15px 0;
@@ -284,7 +292,7 @@ body {
   padding-top: 0;
   padding-left: 13px;
   padding-right: 13px;
-  padding-bottom: 60px;
+  padding-bottom: 0;
 }
 
 #intercom-container .intercom-composer-textarea textarea {
@@ -339,6 +347,25 @@ body {
   width: 107px;
   height: 107px;
 }
+
+/* Start Metadata overrides */
+
+#intercom-container .intercom-comment-by-user .intercom-comment-metadata {
+  float: left;
+}
+
+#intercom-container .intercom-comment-metadata {
+  margin-left: 30px;
+}
+
+#intercom-container .intercom-comment-readstate {
+  color: #1b83db;
+  font-size: 12px;
+  float: right;
+  margin-right: 30px;
+  font-weight: bold;
+}
+/* End Metadata overrides */
 
 /* Modal testing code */
 

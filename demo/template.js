@@ -43,12 +43,10 @@ function renderMessages(messages) {
   messagesArea.empty();
   for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
-    for (var j = 0; j < message.parts.length; ++j) {
-      if (message.sender.userId == currentUser.name) {
-        renderCustomerMessage(message.parts[j].body);
-      } else {
-        renderCustomerSupportMessage(message.parts[j].body);
-      }
+    if (message.sender.userId == currentUser.name) {
+      renderCustomerMessage(message);
+    } else {
+      renderCustomerSupportMessage(message);
     }
   }
   scrollBoxToBottom();
@@ -109,7 +107,43 @@ function initializeLayer() {
   });
 }
 
-function renderCustomerMessage(textMessage) {
+function renderMessageMetadata(message, recipientUser) {
+  var statusHtml = '', statusString;
+  var userId = recipientUser ? recipientUser.name : null;
+  if (userId != null) {
+    statusString = message.recipientStatus[userId] == 'read' ? 'Read' : null;
+    if (statusString != null) {
+      statusHtml = '<div class="intercom-comment-readstate">Read</div>';
+    }
+  }
+  var html = '<div class="intercom-comment-metadata-container"> \
+    <div class="intercom-comment-metadata"> \
+      <span class="intercom-comment-state"> \
+      </span> \
+      <span class="intercom-relative-time">'+formatTimestamp(message.sentAt)+'</span> \
+    </div> \
+    ' + statusHtml + ' \
+  </div>';
+  return html;
+}
+
+function formatTimestamp(date) {
+  var now = new Date();
+  if (!date) return now.toLocaleDateString();
+  if (date.toLocaleDateString() === now.toLocaleDateString()) {
+    return date.toLocaleTimeString(navigator.language,
+        {
+          hour12: false,
+          hour: '2-digit',
+          minute:'2-digit'
+        }
+    );
+  }
+  else return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+}
+
+function renderCustomerMessage(message) {
+  var textMessage = message.parts[0].body;
   var formattedTextMessage = textMessage.replace("\n", '<br/>');
   var html = '<div class="intercom-conversation-part" style="transform: translate(0px, 0px); opacity: 100;"> \
     <div class="intercom-comment intercom-comment-by-user "> \
@@ -122,13 +156,15 @@ function renderCustomerMessage(textMessage) {
         </div> \
         <div class="intercom-lwr-composer-container"></div> \
       </div> \
+      ' + renderMessageMetadata(message, customerSupportUser) + ' \
     </div> \
   </div>';
   var htmlNode = $.parseHTML(html);
   messagesArea.append(htmlNode);
 }
 
-function renderCustomerSupportMessage(textMessage) {
+function renderCustomerSupportMessage(message) {
+  var textMessage = message.parts[0].body;
   var formattedTextMessage = textMessage.replace("\n", '<br/>');
   var clientDisplayName = clientUser.name.split(' ')[0];
   var html = '<div class="intercom-conversation-part"> \
@@ -142,6 +178,7 @@ function renderCustomerSupportMessage(textMessage) {
         <div class="intercom-lwr-composer-container"></div> \
       </div> \
       <img src="./demo/admin-avatar-small.png" class="intercom-comment-avatar"> \
+      ' + renderMessageMetadata(message, null) + ' \
     </div> \
   </div>';
   var htmlNode = $.parseHTML(html);
@@ -153,7 +190,7 @@ function sendMessage() {
   if (textMessage && textMessage != '' && customerSupportConversation != null) {
     message = customerSupportConversation.createMessage(textMessage);
     message.send();
-    renderCustomerMessage(textMessage);
+    renderCustomerMessage(message);
     scrollBoxToBottom();
     textArea.val('');
   }
