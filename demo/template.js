@@ -14,6 +14,8 @@ var customerSupportConversation = null;
 var currentUser = { name: 'Customer' };
 var customerSupportUser = { name: 'Customer Support' };
 var clientUser = { name: 'Judy' };
+var sheetContent = null;
+var doingAnimation = false;
 
 function getIdentityToken(nonce, callback){
   layer.xhr({
@@ -39,17 +41,19 @@ function getIdentityToken(nonce, callback){
   });
 }
 
-function renderMessages(messages) {
+function renderMessages(messages, isInsert) {
   messagesArea.empty();
   for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
     if (message.sender.userId == currentUser.name) {
-      renderCustomerMessage(message);
+      renderCustomerMessage(message, i == 0 && isInsert );
     } else {
-      renderCustomerSupportMessage(message);
+      renderCustomerSupportMessage(message, i == 0  && isInsert );
     }
   }
-  scrollBoxToBottom();
+  if (!isInsert) {
+    scrollBoxToBottom();
+  }
 }
 
 function verifyConversations(conversations) {
@@ -76,18 +80,43 @@ function verifyConversations(conversations) {
     predicate: 'conversation.id = \'' + customerSupportConversation.id + '\''
   });
   query.on('change', function(evt) {
-    renderMessages(query.data);
+    onConversationChange(query, evt);
   });
 }
 
+function onConversationChange(query, evt) {
+  if (doingAnimation) {
+    var interval = setInterval(function () {
+      if (!doingAnimation) {
+        doOnConversationChange(query, evt);
+        clearInterval(interval);
+      }
+    }, 1000);
+  } else {
+    doOnConversationChange(query, evt);
+  }
+}
+
+function doOnConversationChange(query, evt) {
+  if (evt.type === 'insert') {
+    renderMessages(query.data, true);
+  } else {
+    renderMessages(query.data, false);
+  }
+}
+
 function onClientReady() {
+  var rendered = false;
   var query = client.createQuery({
     model: layer.Query.Conversation
   });
 
   query.on('change', function(evt) {
     var conversations = query.data;
-    verifyConversations(conversations);
+    if (!rendered) {
+      verifyConversations(conversations);
+      rendered = true;
+    }
   });
 }
 
@@ -142,7 +171,28 @@ function formatTimestamp(date) {
   else return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 }
 
-function renderCustomerMessage(message) {
+function appendHtml(html, doAnimation) {
+  var htmlNode = $.parseHTML(html);
+  var jqueryNode = $(htmlNode[0]);
+  if (doAnimation) {
+    jqueryNode.hide();
+    messagesArea.append(jqueryNode);
+    sheetContent.css('padding-bottom', 110);
+    scrollBoxToBottom();
+    doingAnimation = true;
+    jqueryNode.show("drop", {
+      direction: "down",
+      complete: function() {
+        sheetContent.css('padding-bottom', 0);
+        doingAnimation = false;
+      }
+    });
+  } else {
+    messagesArea.append(jqueryNode);
+  }
+}
+
+function renderCustomerMessage(message, doAnimation) {
   var textMessage = message.parts[0].body;
   var formattedTextMessage = textMessage.replace("\n", '<br/>');
   var html = '<div class="intercom-conversation-part" style="transform: translate(0px, 0px); opacity: 100;"> \
@@ -159,11 +209,10 @@ function renderCustomerMessage(message) {
       ' + renderMessageMetadata(message, customerSupportUser) + ' \
     </div> \
   </div>';
-  var htmlNode = $.parseHTML(html);
-  messagesArea.append(htmlNode);
+  appendHtml(html, doAnimation);
 }
 
-function renderCustomerSupportMessage(message) {
+function renderCustomerSupportMessage(message, doAnimation) {
   var textMessage = message.parts[0].body;
   var formattedTextMessage = textMessage.replace("\n", '<br/>');
   var clientDisplayName = clientUser.name.split(' ')[0];
@@ -181,8 +230,7 @@ function renderCustomerSupportMessage(message) {
       ' + renderMessageMetadata(message, null) + ' \
     </div> \
   </div>';
-  var htmlNode = $.parseHTML(html);
-  messagesArea.append(htmlNode);
+  appendHtml(html, doAnimation);
 }
 
 function sendMessage() {
@@ -190,14 +238,14 @@ function sendMessage() {
   if (textMessage && textMessage != '' && customerSupportConversation != null) {
     message = customerSupportConversation.createMessage(textMessage);
     message.send();
-    renderCustomerMessage(message);
-    scrollBoxToBottom();
+    // renderCustomerMessage(message, true);
+    // scrollBoxToBottom();
     textArea.val('');
   }
 }
 
 function scrollBoxToBottom() {
-  $('.intercom-sheet-content').get(0).scrollTop = $('.intercom-sheet-content').get(0).scrollHeight;
+  sheetContent.get(0).scrollTop = sheetContent.get(0).scrollHeight;
 }
 
 function resizePageContent() {
@@ -255,10 +303,12 @@ $(document).ready(function(){
   var launcher = $('.intercom-launcher');
   var closeBtn = $('.intercom-sheet-header-close-button');
   var submitBtn = $('#intercom-container .submit-button');
+  var cleanTrigger = $('#clean-trigger');
   textArea = $('#intercom-container .intercom-composer-textarea textarea');
   messagesArea = $('#intercom-container .intercom-conversation-parts.dynamic');
   pageContent = $('.page-content');
   messenger = $('#intercom-container .intercom-sheet');
+  sheetContent = $('.intercom-sheet-content');
 
   launcher.click(function() {
     animateShowMessenger();
@@ -278,6 +328,9 @@ $(document).ready(function(){
   });
   $( window ).resize(function() {
     resizePageContent();
+  });
+  cleanTrigger.click(function() {
+    customerSupportConversation.delete(true);
   });
   // Initialize test user if required
   if (QueryString.username) {
