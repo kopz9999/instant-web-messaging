@@ -135,6 +135,7 @@ body {
 
 #intercom-container .intercom-launcher {
   visibility: visible;
+  display: none;
 }
 
 #intercom-container.intercom-acquire .intercom-launcher-button{

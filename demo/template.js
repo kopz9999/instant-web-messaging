@@ -7,8 +7,9 @@ var textArea = null;
 var messagesArea = null;
 var pageContent = null;
 var messenger = null;
-var typingIndicatorContainer;
-var adminHeaderContainer;
+var launcher = null;
+var typingIndicatorContainer = null;
+var adminHeaderContainer = null;
 // UI triggers
 var doingAnimation = false;
 var doingTypingIndicatorAnimation = false;
@@ -182,6 +183,7 @@ function onClientReady() {
     model: layer.Query.Conversation
   });
 
+  launcher.show();
   query.on('change', function(evt) {
     var conversations = query.data;
     if (!rendered) {
@@ -397,10 +399,10 @@ var QueryString = function () {
 }();
 
 $(document).ready(function(){
-  var launcher = $('.intercom-launcher');
   var closeBtn = $('.intercom-sheet-header-close-button');
   var submitBtn = $('#intercom-container .submit-button');
   var cleanTrigger = $('#clean-trigger');
+  launcher = $('.intercom-launcher');
   textArea = $('#intercom-container .intercom-composer-textarea textarea');
   messagesArea = $('#intercom-container .intercom-conversation-parts.dynamic');
   pageContent = $('.page-content');
