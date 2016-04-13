@@ -12,6 +12,7 @@ var adminHeaderContainer;
 // UI triggers
 var doingAnimation = false;
 var doingTypingIndicatorAnimation = false;
+var isMessengerVisible = false;
 // Layer variables
 var client = null;
 var customerSupportConversation = null;
@@ -20,6 +21,7 @@ var currentUser = { name: 'Customer' };
 var customerSupportUser = { name: 'Customer Support' };
 var clientUser = { name: 'Judy' };
 var sheetContent = null;
+var currentMessages = null;
 
 function getIdentityToken(nonce, callback){
   layer.xhr({
@@ -45,19 +47,35 @@ function getIdentityToken(nonce, callback){
   });
 }
 
+function renderNotifications(notifications) {
+  var tag = $('.intercom-launcher-notification');
+  tag.text(notifications);
+}
+
 function renderMessages(messages, isInsert) {
   messagesArea.empty();
+  currentMessages = messages;
+  var notifications = 0;
   for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
     if (message.sender.userId == currentUser.name) {
       renderCustomerMessage(message, i == 0 && isInsert );
-    } else {
+    } else if (message.sender.userId == customerSupportUser.name) {
+      if (isMessengerVisible) {
+        message.isRead = true;
+      } else {
+        if (!message.isRead) {
+          ++notifications;
+        }
+      }
       renderCustomerSupportMessage(message, i == 0  && isInsert );
     }
   }
   if (!isInsert) {
     scrollBoxToBottom();
   }
+  if (notifications <= 0) notifications = 1;
+  renderNotifications(notifications);
 }
 
 function verifyConversations(conversations) {
@@ -115,8 +133,6 @@ function hideCustomerSupportTyping() {
 
 function verifyCustomerSupportTyping(evt) {
   if (evt.conversationId === customerSupportConversation.id) {
-    console.log('The following users are typing: ' + evt.typing.join(', '));
-    console.log('The following users are paused: ' + evt.paused.join(', '));
     for (var i = 0; i < evt.typing.length; i++) {
       if (evt.typing[i] === customerSupportUser.name) {
         showCustomerSupportTyping();
@@ -304,22 +320,36 @@ function resizePageContent() {
   }
 }
 
+function tagReadMessages() {
+  if (currentMessages != null) {
+    for (var i = currentMessages.length - 1; i >= 0; --i) {
+      var message = currentMessages[i];
+      if (message.sender.userId == customerSupportUser.name) {
+        message.isRead = true;
+      }
+    }
+  }
+}
+
 function animateHideMessenger() {
+  isMessengerVisible = false;
   messenger.animate({
     right: "-320px"
   });
   pageContent.animate({
     width: "+=320px"
-  })
+  });
 }
 
 function animateShowMessenger() {
+  isMessengerVisible = true;
   messenger.animate({
     right: "0"
   });
   pageContent.animate({
     width: "-=320px"
-  })
+  });
+  tagReadMessages();
 }
 
 function showAdminHeaderContainer() {
@@ -394,7 +424,8 @@ $(document).ready(function(){
   });
   // Initialize test user if required
   if (QueryString.username) {
-    currentUser.name =QueryString.username;
+    currentUser.name =
+      decodeURIComponent(QueryString.username.replace(/\+/g, '%20'));
   }
   sheetContent.get(0).addEventListener("scroll", function(){
     showAdminHeaderContainer();
