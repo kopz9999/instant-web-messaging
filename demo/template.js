@@ -12,6 +12,7 @@ var adminHeaderContainer;
 // UI triggers
 var doingAnimation = false;
 var doingTypingIndicatorAnimation = false;
+var hidingTypingIndicatorAnimation = false;
 var isMessengerVisible = false;
 // Layer variables
 var client = null;
@@ -112,7 +113,7 @@ function verifyConversations(conversations) {
 }
 
 function showCustomerSupportTyping() {
-  if (!doingTypingIndicatorAnimation) {
+  if (!doingTypingIndicatorAnimation && !hidingTypingIndicatorAnimation) {
     doingTypingIndicatorAnimation = true;
     typingIndicatorContainer.show("drop", {
       direction: "down",
@@ -120,7 +121,7 @@ function showCustomerSupportTyping() {
         doingTypingIndicatorAnimation = false;
         setTimeout(function () {
           hideCustomerSupportTyping();
-        }, 2000);
+        }, 1000);
       }
     });
     scrollBoxToBottom();
@@ -128,7 +129,15 @@ function showCustomerSupportTyping() {
 }
 
 function hideCustomerSupportTyping() {
-  typingIndicatorContainer.fadeOut();
+  if (!hidingTypingIndicatorAnimation) {
+    hidingTypingIndicatorAnimation = true;
+    typingIndicatorContainer.fadeOut({
+      duration: 'slow',
+      complete: function() {
+        hidingTypingIndicatorAnimation = false;
+      }
+    });
+  }
 }
 
 function verifyCustomerSupportTyping(evt) {
