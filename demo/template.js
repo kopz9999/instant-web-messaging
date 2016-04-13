@@ -57,7 +57,7 @@ function renderNotifications(notifications) {
 function renderMessages(messages, isInsert) {
   messagesArea.empty();
   currentMessages = messages;
-  var notifications = 0;
+  var notifications = 1;
   for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
     if (message.sender.userId == currentUser.name) {
@@ -76,7 +76,6 @@ function renderMessages(messages, isInsert) {
   if (!isInsert) {
     scrollBoxToBottom();
   }
-  if (notifications <= 0) notifications = 1;
   renderNotifications(notifications);
 }
 
