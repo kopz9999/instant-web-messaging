@@ -460,6 +460,78 @@ body {
   font-size: 12px;
 }
 
+/* Start Notifications CSS */
+
+#intercom-container .intercom-launcher {
+  right: 40px;
+}
+
+#intercom-container .notification-profile-container {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 0 31px -2px rgba(0,0,0,0.75);
+}
+
+#intercom-container .notification-profile-container img {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 4px;
+  left: -1px;
+  cursor: pointer;
+}
+
+#intercom-container .intercom-launcher-button.small {
+  z-index: 101;
+  height: 20px;
+  width: 20px;
+  top: -5px;
+  right: -5px;
+}
+
+#intercom-container .intercom-launcher-button.small .intercom-launcher-notification {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+#intercom-container .notification-container {
+  display: none;
+  position: fixed;
+  top: 75px;
+  right: 30px;
+  width: 240px;
+  height: auto;
+  z-index: 2147483001;
+}
+
+#intercom-container .notification-container .intercom-comment-body-container {
+  background-color: #ffffff;
+  border: none;
+  box-shadow: none;
+  color: #78909c;
+  width: 100%;
+}
+
+#intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body p span {
+  color: #3d4c53;
+}
+
+#intercom-container .notification-container .intercom-comment-body-container .arrow-up {
+  position: absolute;
+  top: -4px;
+  right: 30px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid white;
+}
+
+/* End Notifications CSS */
+
 /* Modal testing code */
 
 .modal {

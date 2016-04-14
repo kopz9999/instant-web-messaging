@@ -15,6 +15,7 @@ var doingAnimation = false;
 var doingTypingIndicatorAnimation = false;
 var hidingTypingIndicatorAnimation = false;
 var isMessengerVisible = false;
+var notificationContainer = null;
 // Layer variables
 var client = null;
 var customerSupportConversation = null;
@@ -183,6 +184,12 @@ function onClientReady() {
   });
 
   launcher.show();
+  notificationContainer.show("drop", {
+    direction: "up"
+  });
+  setTimeout(function () {
+    notificationContainer.fadeOut();
+  }, 5000);
   query.on('change', function(evt) {
     var conversations = query.data;
     if (!rendered) {
@@ -349,6 +356,9 @@ function animateHideMessenger() {
   pageContent.animate({
     width: "+=320px"
   });
+  setTimeout(function () {
+    notificationContainer.css('visibility', 'visible');
+  }, 1000);
 }
 
 function animateShowMessenger() {
@@ -359,6 +369,7 @@ function animateShowMessenger() {
   pageContent.animate({
     width: "-=320px"
   });
+  notificationContainer.css('visibility', 'hidden');
   tagReadMessages();
 }
 
@@ -409,6 +420,7 @@ $(document).ready(function(){
   sheetContent = $('.intercom-sheet-content');
   typingIndicatorContainer = $('.intercom-conversation-parts.typing-indicator');
   adminHeaderContainer = $('#intercom-container .intercom-sheet-header.admin-header');
+  notificationContainer = $('#intercom-container .notification-container');
 
   launcher.click(function() {
     animateShowMessenger();
