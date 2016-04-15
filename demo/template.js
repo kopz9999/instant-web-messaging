@@ -10,12 +10,15 @@ var messenger = null;
 var launcher = null;
 var typingIndicatorContainer = null;
 var adminHeaderContainer = null;
+var notificationContainer = null;
 // UI triggers
 var doingAnimation = false;
 var doingTypingIndicatorAnimation = false;
 var hidingTypingIndicatorAnimation = false;
 var isMessengerVisible = false;
-var notificationContainer = null;
+var hidingNotificationBox = false;
+var hideNotificationTimeouts = [];
+var pendingNotificationsCallbacks = [];
 // Layer variables
 var client = null;
 var customerSupportConversation = null;
@@ -50,10 +53,89 @@ function getIdentityToken(nonce, callback){
   });
 }
 
-function renderNotifications(notifications) {
+/* Start Notification related Functions */
+
+function renderNotificationBadge(notificationsNumber) {
   var tag = $('.intercom-launcher-notification');
-  tag.text(notifications);
+  tag.text(notificationsNumber);
 }
+
+function renderPendingNotifications() {
+  var callback;
+  if (pendingNotificationsCallbacks.length > 0) {
+    if (!notificationContainer.is(':visible')) {
+      showNotificationBox();
+    }
+    while((callback=pendingNotificationsCallbacks.pop()) != null) {
+      callback();
+    }
+  }
+}
+
+function showNotificationBox() {
+  notificationContainer.show("drop", {
+    direction: "up"
+  });
+}
+
+function hideNotificationBox() {
+  if (!hidingNotificationBox) {
+    hidingNotificationBox = true;
+    notificationContainer.fadeOut({
+      complete: function() {
+        hidingNotificationBox = false;
+        renderPendingNotifications();
+      }
+    });
+  }
+}
+
+function enqueueHideNotificationBox() {
+  var timeoutId;
+  while((timeoutId=hideNotificationTimeouts.pop()) != null) {
+    clearTimeout(timeoutId);
+  }
+  hideNotificationTimeouts.push(
+    setTimeout(function () {
+      hideNotificationBox();
+    }, 5000)
+  );
+}
+
+function updateNotificationMessage(message) {
+  var displayMessage = message, maxSize = 29;
+  var notificationTextContainer = $('#intercom-container .notification-container .display-message');
+  if (displayMessage.length > maxSize) {
+    displayMessage = displayMessage.substring(0, maxSize) + '...';
+  }
+  notificationTextContainer.text(displayMessage);
+  enqueueHideNotificationBox();
+}
+
+function verifyNotification() {
+  var lastTextMessage;
+  if (!isMessengerVisible) {
+    if (customerSupportConversation.lastMessage.sender.userId ==
+        customerSupportUser.name) {
+      if (!customerSupportConversation.lastMessage.isRead) {
+        lastTextMessage =
+            customerSupportConversation.lastMessage.parts[0].body;
+        if (hidingNotificationBox) {
+          pendingNotificationsCallbacks.push( function() {
+            updateNotificationMessage(lastTextMessage);
+          });
+        } else {
+          if (!notificationContainer.is(':visible')) {
+            showNotificationBox();
+          }
+          updateNotificationMessage(lastTextMessage);
+        }
+      }
+    }
+  }
+}
+
+/* End related notification functions */
 
 function renderMessages(messages, isInsert) {
   messagesArea.empty();
@@ -77,7 +159,8 @@ function renderMessages(messages, isInsert) {
   if (!isInsert) {
     scrollBoxToBottom();
   }
-  renderNotifications(notifications);
+  verifyNotification();
+  renderNotificationBadge(notifications);
 }
 
 function verifyConversations(conversations) {
@@ -177,19 +260,24 @@ function doOnConversationChange(query, evt) {
   }
 }
 
+function showInitialNotification() {
+  showNotificationBox();
+  enqueueHideNotificationBox();
+}
+
+function displayInitialContent() {
+  setTimeout(function(){
+    launcher.show();
+    showInitialNotification();
+  }, 500);
+}
+
 function onClientReady() {
   var rendered = false;
   var query = client.createQuery({
     model: layer.Query.Conversation
   });
-
-  launcher.show();
-  notificationContainer.show("drop", {
-    direction: "up"
-  });
-  setTimeout(function () {
-    notificationContainer.fadeOut();
-  }, 5000);
+  displayInitialContent();
   query.on('change', function(evt) {
     var conversations = query.data;
     if (!rendered) {

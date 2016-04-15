@@ -515,7 +515,7 @@ body {
   width: 100%;
 }
 
-#intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body p span {
+#intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body p span.display-name {
   color: #3d4c53;
 }
 
