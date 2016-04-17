@@ -519,6 +519,18 @@ body {
   color: #3d4c53;
 }
 
+#intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body.intercom-embed-body {
+  cursor: pointer;
+}
+
+#intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body.intercom-embed-body p {
+  cursor: pointer;
+}
+
+#intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body.intercom-embed-body p span {
+  cursor: pointer;
+}
+
 #intercom-container .notification-container .intercom-comment-body-container .arrow-up {
   position: absolute;
   top: -4px;

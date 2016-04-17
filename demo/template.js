@@ -513,6 +513,9 @@ $(document).ready(function(){
   launcher.click(function() {
     animateShowMessenger();
   });
+  notificationContainer.click(function() {
+    animateShowMessenger();
+  });
   closeBtn.click(function() {
     animateHideMessenger();
   });
