@@ -428,6 +428,7 @@ body {
 #intercom-container .intercom-sheet-header.admin-header {
   z-index: 2147483032;
   display: none;
+  box-shadow: 0 3px 7px 0 rgba(119, 125, 145, 0.27);
 }
 
 #intercom-container .intercom-sheet-header.admin-header .admin-description {
