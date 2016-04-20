@@ -470,18 +470,25 @@ body {
 #intercom-container .notification-profile-container {
   border-radius: 50%;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: 0;
+  left: 0;
   z-index: 100;
   box-shadow: 0 0 31px -2px rgba(0,0,0,0.75);
+  height: 100%;
+}
+
+#intercom-container .notification-profile-container svg {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 #intercom-container .notification-profile-container img {
+  -webkit-clip-path: url('#notification-profile-mask');
+  clip-path: url('#notification-profile-mask');
   height: 100%;
   width: 100%;
   position: relative;
-  top: 4px;
-  left: -1px;
   cursor: pointer;
 }
 
@@ -491,18 +498,6 @@ body {
   width: 20px;
   top: -5px;
   right: -5px;
-}
-
-#intercom-container .intercom-launcher-button.small .arrow-down {
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 8px solid #ff2d50;
-  transform: rotate(33deg);
 }
 
 #intercom-container .intercom-launcher-button.small .intercom-launcher-notification {
@@ -542,17 +537,6 @@ body {
 
 #intercom-container .notification-container .intercom-comment-body-container .intercom-comment-body.intercom-embed-body p span {
   cursor: pointer;
-}
-
-#intercom-container .notification-container .intercom-comment-body-container .arrow-up {
-  position: absolute;
-  top: -4px;
-  right: 30px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid white;
 }
 
 /* End Notifications CSS */
