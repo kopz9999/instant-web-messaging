@@ -493,18 +493,6 @@ body {
   right: -5px;
 }
 
-#intercom-container .intercom-launcher-button.small .arrow-down {
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 8px solid #ff2d50;
-  transform: rotate(33deg);
-}
-
 #intercom-container .intercom-launcher-button.small .intercom-launcher-notification {
   font-size: 12px;
   line-height: 20px;
