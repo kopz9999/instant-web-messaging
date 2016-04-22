@@ -137,14 +137,16 @@ function verifyNotification() {
 
 /* End related notification functions */
 
-function renderMessages(messages, isInsert) {
+function renderMessages(messages, newItem) {
   messagesArea.empty();
   currentMessages = messages;
   var notifications = 1;
   for (var i = messages.length - 1; i >= 0; --i) {
     var message = messages[i];
+    // Do not render if the item already exists
+    if (newItem!= null && newItem.id == message.id) continue;
     if (message.sender.userId == currentUser.name) {
-      renderCustomerMessage(message, i == 0 && isInsert );
+      renderCustomerMessage(message, false );
     } else if (message.sender.userId == customerSupportUser.name) {
       if (isMessengerVisible) {
         message.isRead = true;
@@ -153,10 +155,16 @@ function renderMessages(messages, isInsert) {
           ++notifications;
         }
       }
-      renderCustomerSupportMessage(message, i == 0  && isInsert );
+      renderCustomerSupportMessage(message, false );
     }
   }
-  if (!isInsert) {
+  if (newItem!= null) {
+    if (newItem.sender.userId == currentUser.name) {
+      renderCustomerMessage(newItem, true );
+    } else {
+      renderCustomerSupportMessage(newItem, true );
+    }
+  } else {
     scrollBoxToBottom();
   }
   verifyNotification();
@@ -183,10 +191,17 @@ function verifyConversations(conversations) {
       distinct: true
     });
   }
+  /*
   var query = client.createQuery({
     model: layer.Query.Message,
     predicate: 'conversation.id = \'' + customerSupportConversation.id + '\''
   });
+  */
+  var builder = layer.QueryBuilder
+      .messages()
+      .forConversation(customerSupportConversation.id)
+      .paginationWindow(50);
+  var query = client.createQuery(builder);
   query.on('change', function(evt) {
     onConversationChange(query, evt);
   });
@@ -254,9 +269,9 @@ function onConversationChange(query, evt) {
 
 function doOnConversationChange(query, evt) {
   if (evt.type === 'insert') {
-    renderMessages(query.data, true);
+    renderMessages(query.data, evt.target);
   } else {
-    renderMessages(query.data, false);
+    renderMessages(query.data, null);
   }
 }
 
