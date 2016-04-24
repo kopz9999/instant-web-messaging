@@ -561,4 +561,5 @@ $(document).ready(function(){
 
   resizePageContent();
   initializeLayer();
+  webMessenger.render('intercom-container');
 });

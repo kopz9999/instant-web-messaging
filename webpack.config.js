@@ -14,6 +14,8 @@ module.exports = {
     './js/index.js'
   ],
   output: {
+    library: 'webMessenger',
+    libraryTarget: 'window',
     path: path.join(__dirname, 'dist'),
     publicPath: '/static/',
     filename: 'bundle.js',

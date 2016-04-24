@@ -16,7 +16,7 @@
     "react-dom": "^0.14.0",
     "redux": "^3.0.4",
     "react-redux": "^4.0.0",
-    "redux-devtools": "^2.1.5",
+    "redux-devtools": "^3.2.0",
     "redux-thunk": "^1.0.0",
     "express": "^4.13.4",
     "webpack": "^1.0.0",
@@ -28,10 +28,11 @@
     "babel-preset-stage-0": "^6.3.13",
     "css-loader": "^0.23.1",
     "cssnext-loader": "^1.0.1",
-    "style-loader": "^0.13.0"
+    "style-loader": "^0.13.0",
+    "postcss-loader": "^0.4.3",
+    "autoprefixer": "^6.3.6"
   },
   "devDependencies": {
-    "babel-core": "^6.3.15",
     "babel-eslint": "^5.0.0-beta4",
     "cross-env": "^1.0.6",
     "eslint": "^1.10.3",
@@ -39,6 +40,8 @@
     "eslint-plugin-react": "^3.11.3",
     "eventsource-polyfill": "^0.9.6",
     "path": "^0.12.7",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.10.0"
   }

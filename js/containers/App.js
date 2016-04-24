@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import configureStore from '../store/configureStore';
 import Home from '../components/Home';
-import {renderDevTools} from '../utils/devTools';
+import DevTools from '../utils/DevTools';
 
 const store = configureStore();
 
@@ -15,10 +15,7 @@ export default React.createClass({
         <Provider store={store}>
           <Home />
         </Provider>
-
-        {/* only renders when running in DEV mode */
-          renderDevTools(store)
-        }
+        <DevTools store={store}/>
       </div>
     );
   }
