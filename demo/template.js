@@ -512,6 +512,7 @@ var QueryString = function () {
 }();
 
 $(document).ready(function(){
+  /*
   var closeBtn = $('.intercom-sheet-header-close-button');
   var submitBtn = $('#intercom-container .submit-button');
   var cleanTrigger = $('#clean-trigger');
@@ -561,5 +562,6 @@ $(document).ready(function(){
 
   resizePageContent();
   initializeLayer();
-  webMessenger.render('intercom-container');
+  */
+  webMessenger.render('app-container');
 });
