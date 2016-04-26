@@ -563,5 +563,11 @@ $(document).ready(function(){
   resizePageContent();
   initializeLayer();
   */
-  webMessenger.render('app-container');
+  webMessenger.render('app-container',
+    {
+      clientUser: {
+        name: 'Margaret Bell'
+      }
+    }
+  );
 });

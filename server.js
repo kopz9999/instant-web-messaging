@@ -16,7 +16,10 @@ if (isDevelopment) {
   app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath,
-    historyApiFallback: true
+    historyApiFallback: true,
+    watchOptions: {
+      poll: true
+    }
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
