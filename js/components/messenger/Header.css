@@ -1,0 +1,70 @@
+.hide {
+    display: none;
+}
+
+.header {
+    box-shadow: none;
+    z-index: 2147483002;
+    background: #fff;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 48px;
+}
+
+.header .closeButton {
+    float: right;
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    z-index: 2147483001;
+    position: relative;
+    height: 48px;
+    color: inherit;
+    background: 0 0;
+    text-shadow: none;
+}
+
+.header .closeButton .icon {
+    /* TODO: Use Webpack */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAq0lEQVR42o2RMQoCMRBFcwQ776C11upOekHEnaC47sQbWomIlWfRSm+wZiBFIAzfgYEw/PeKfLdYdyNiuSz5OHV/TLM9TTSvnPMsVx/ikPadBQh8aZ6C3Fyz62bp8SkFEOT4XQWZ670SaBCCeWwBBm0Bcb+xQSwYEFgLOO5L2LdyAEj9ObpGC7gOavuz0QLu0WoBgqhGCEJBOtwBWAly/qG1jInlWYJIoHnlfhcTzX2HEVUjAAAAAElFTkSuQmCC');
+    background-size: 13px 13px;
+    background-repeat: no-repeat;
+    width: 16px;
+    opacity: .4;
+    height: 100%;
+    background-position: 50%;
+}
+
+.header .description {
+    float: left;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.header .description .avatar {
+    border-radius: 50%;
+    height: 35px;
+    float: left;
+}
+
+.header .description .body {
+    float: right;
+    margin-left: 15px;
+}
+
+.header .description .body .name {
+    font-family: 'Proxima N W01 Bold', serif;
+    color: #3d4c53;
+    font-size: 14px;
+}
+
+.header .description .body .role {
+    font-family: 'Proxima N W01 Thin Reg', serif;
+    font-weight: bold;
+    color: #3d4c53;
+    font-size: 12px;
+}

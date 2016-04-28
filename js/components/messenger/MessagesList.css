@@ -1,0 +1,4 @@
+.list {
+    transition: opacity .2s;
+    display: block;
+}

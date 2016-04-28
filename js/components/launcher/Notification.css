@@ -1,0 +1,25 @@
+.notification {
+    z-index: 2;
+    height: 20px;
+    width: 20px;
+    top: -5px;
+    right: -5px;
+    background-color: #ff2d50;
+    border-color: transparent;
+    background-image: none;
+    background-size: 26px 25px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.notification .number {
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}

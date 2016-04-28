@@ -1,0 +1,39 @@
+.messenger {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.messenger .sheet {
+    right: 0;
+    width: 320px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: bottom right;
+    transform-origin: bottom right;
+    transition: opacity .1s linear .15s,-webkit-transform .25s ease-in-out;
+    transition: transform .25s ease-in-out,opacity .1s linear .15s;
+    transition: transform .25s ease-in-out,opacity .1s linear .15s,-webkit-transform .25s ease-in-out;
+    visibility: visible;
+    z-index: 10001;
+    position: fixed;
+    height: 100%;
+    bottom: 0;
+    background-color: #ffffff;
+}
+
+.messenger .content {
+    bottom: 80px;
+    overflow-y: auto;
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 100%;
+    -webkit-transform: translateZ(0);
+}
+
+.listContainer {
+    padding-top: 0;
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-bottom: 0;
+    display: block;
+}

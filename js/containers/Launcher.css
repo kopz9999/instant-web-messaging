@@ -2,8 +2,8 @@
     right: 40px;
     top: 20px;
     visibility: visible;
-    display: none;
-    z-index: 2147483000;
+    display: block;
+    z-index: 10000;
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     position: fixed;
     bottom: 20px;

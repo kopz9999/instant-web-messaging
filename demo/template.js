@@ -565,8 +565,14 @@ $(document).ready(function(){
   */
   webMessenger.render('app-container',
     {
+      welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
       clientUser: {
-        name: 'Margaret Bell'
+        displayName: 'Margaret Bell',
+        roleName: 'Product support',
+        layerId: 'Margaret Bell',
+        avatar: {
+          url: './demo/admin-avatar.png'
+        }
       }
     }
   );

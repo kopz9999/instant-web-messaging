@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 
 export default class MessengerProvider extends Component {
-  constructor(props) {
-    super(props);
-    const { clientUser } = this.props;
-    this.props.dispatch({ clientUser: clientUser, type: 'CLIENT_USER_SETUP' });
-  }
-
   render() {
-    return this.props.children;
+    const { clientUser } = this.props;
+    const childrenWithProps = React.Children.map(this.props.children,
+      (child) => React.cloneElement(child, { clientUser }));
+    return (
+      <div>
+        {childrenWithProps}
+      </div>
+    );
   }
 };
-
-// TODO: Use decorator
-const ConnectedMessengerProvider = connect()(MessengerProvider);
-export default ConnectedMessengerProvider;
