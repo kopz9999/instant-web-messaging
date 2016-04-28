@@ -565,6 +565,8 @@ $(document).ready(function(){
   */
   webMessenger.render('app-container',
     {
+      appId: layerAppId,
+      challengeCallback: getIdentityToken,
       welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
       clientUser: {
         displayName: 'Margaret Bell',

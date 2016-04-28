@@ -4,12 +4,11 @@ import App from './containers/App';
 
 class WebMessenger {
     render(selector, opts = {}) {
-        ReactDOM.render(
-          <App
-            clientUser={opts.clientUser}
-            welcomeMessage={opts.welcomeMessage}
-          />,
-          document.getElementById(selector));
+      ReactDOM.render(
+        <App
+          {...opts}
+        />,
+        document.getElementById(selector));
     }
 }
 
