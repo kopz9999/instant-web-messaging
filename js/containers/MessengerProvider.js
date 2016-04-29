@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// Layer
+import { QueryBuilder } from 'layer-sdk';
 
-export default class MessengerProvider extends Component {
+const mapStateToProps = (state) => {
+  return {
+    clientUser: state.App.clientUser,
+    consumerUser: state.App.consumerUser,
+    ready: state.App.ready,
+    conversation: state.Conversation
+  }
+};
+
+class MessengerProvider extends Component {
+  getChildrenWithProps() {
+    const { clientUser, consumerUser, conversation, composerActions } = this.props;
+    return React.Children.map(this.props.children,
+      (child) => React.cloneElement(child, {
+        clientUser,
+        consumerUser,
+        conversation,
+        composerActions
+      }))
+  }
+
   render() {
-    const { clientUser } = this.props;
-    const childrenWithProps = React.Children.map(this.props.children,
-      (child) => React.cloneElement(child, { clientUser }));
+    const { ready } = this.props;
+    const childrenWithProps = ready ? this.getChildrenWithProps() : null;
     return (
       <div>
         {childrenWithProps}
@@ -12,3 +34,7 @@ export default class MessengerProvider extends Component {
     );
   }
 };
+
+const ConnectedMessengerProvider =
+  connect(mapStateToProps)(MessengerProvider);
+export default ConnectedMessengerProvider;

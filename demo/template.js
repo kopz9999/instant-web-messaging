@@ -571,9 +571,16 @@ $(document).ready(function(){
       clientUser: {
         displayName: 'Margaret Bell',
         roleName: 'Product support',
-        layerId: 'Margaret Bell',
+        layerId: 'Customer Support',
         avatar: {
           url: './demo/admin-avatar.png'
+        }
+      },
+      consumerUser: {
+        displayName: 'Customer',
+        layerId: 'Customer',
+        avatar: {
+          url: './demo/user-avatar-small.png'
         }
       }
     }
