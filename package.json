@@ -30,7 +30,8 @@
     "cssnext-loader": "^1.0.1",
     "style-loader": "^0.13.0",
     "postcss-loader": "^0.4.3",
-    "autoprefixer": "^6.3.6"
+    "autoprefixer": "^6.3.6",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta4",

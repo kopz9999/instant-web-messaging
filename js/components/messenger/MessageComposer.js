@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './MessageComposer.css';
+import submitButtonIcon from './images/button.png';
 
 export default class MessageComposer extends Component {
   render() {
@@ -11,7 +12,7 @@ export default class MessageComposer extends Component {
               <pre><span></span><br/></pre>
               <textarea placeholder="Ask anything..."></textarea>
             </div>
-            <img className={styles.submitButton} src="./demo/button.png"/>
+            <img className={styles.submitButton} src={submitButtonIcon}/>
           </div>
         </form>
       </div>
