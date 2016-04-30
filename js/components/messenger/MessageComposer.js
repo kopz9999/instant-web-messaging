@@ -36,7 +36,11 @@ export default class MessageComposer extends Component {
                 placeholder="Ask anything..."
               />
             </div>
-            <img className={styles.submitButton} src={submitButtonIcon}/>
+            <img
+              onClick={this.verifySendMessage.bind(this)}
+              className={styles.submitButton}
+              src={submitButtonIcon}
+            />
           </div>
         </form>
       </div>

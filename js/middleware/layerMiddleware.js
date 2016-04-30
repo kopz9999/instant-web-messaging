@@ -40,6 +40,7 @@ function handleAction(layerClient, typingPublisher, state, action, next) {
 
   switch(type) {
     case SUBMIT_COMPOSER_MESSAGE:
+      console.log(state.Conversation.activeConversation);
       state.Conversation.activeConversation.createMessage(state.Conversation.composerMessage).send();
       // layerClient
       //   .getConversation(`layer:///conversations/${state.router.params.conversationId}`, true)

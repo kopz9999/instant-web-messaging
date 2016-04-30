@@ -26,6 +26,12 @@
     float: left;
 }
 
+.listItem .message.consumerMessage {
+    width: 100%;
+    float: left;
+    text-align: left;
+}
+
 .listItem .message .avatar {
     height: 24px;
     width: 24px;
@@ -50,8 +56,12 @@
 .listItem .message.clientMessage .body {
     background-color: #f5f7fa;
     border: 1px solid #e6e9ee;
-    box-shadow: none;
     color: #78909c;
+}
+
+.listItem .message.consumerMessage .body {
+    background-color: #1b83db;
+    color: #fff;
 }
 
 .listItem .message.clientMessage .avatar {
@@ -76,8 +86,11 @@
     word-wrap: break-word;
 }
 
-.listItem .message .body .embedBody .textPart .userName {
+.listItem .message.clientMessage .body .embedBody .textPart .userName {
     color: #3d4c53;
+}
+
+.listItem .message .body .embedBody .textPart .userName {
     font-weight: bold;
     font-family: 'Proxima Nova W01 Medium', serif;
 }

@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import styles from './MessageListItem.css';
 import TextMessagePart from './TextMessagePart';
+import MessageMetadata from './MessageMetadata';
+import { formatTimestamp } from '../../utils/FormatHelper';
 
 export default class MessageListItem extends Component {
   render() {
-    const { message, clientUser, customerUser } = this.props;
+    const { message, clientUser, consumerUser } = this.props;
     const isClientMessage = message.sender.userId == clientUser.layerId;
     const messageStyle = isClientMessage ?
-      styles.clientMessage : styles.customerMessage;
+      styles.clientMessage : styles.consumerMessage;
     const avatarURL = isClientMessage ?
-      clientUser.avatar.url : customerUser.avatar.url;
+      clientUser.avatar.url : consumerUser.avatar.url;
     const displayUserName = isClientMessage ?
-      clientUser.displayName : customerUser.displayName;
+      clientUser.displayName : consumerUser.displayName;
+    const timeAtText = formatTimestamp(message.sentAt);
 
     return (
       <div className={styles.listItem}>
@@ -29,6 +32,10 @@ export default class MessageListItem extends Component {
               })}
             </div>
           </div>
+          <MessageMetadata
+            timeAtText={timeAtText}
+            isRead={message.isRead}
+          />
         </div>
       </div>
     );
@@ -38,5 +45,5 @@ export default class MessageListItem extends Component {
 MessageListItem.propTypes = {
   message: React.PropTypes.object,
   clientUser: React.PropTypes.object,
-  customerUser: React.PropTypes.object,
+  consumerUser: React.PropTypes.object,
 };

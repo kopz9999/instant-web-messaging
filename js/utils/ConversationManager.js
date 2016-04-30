@@ -1,7 +1,7 @@
 import {
   setupConversation
 } from '../actions/ConversationActions';
-import { QueryBuilder } from 'layer-sdk';
+import { Query } from 'layer-sdk';
 
 export default class ConversationManager {
   assignProperties(client, App, next) {
@@ -14,9 +14,11 @@ export default class ConversationManager {
     const expectedUserIds = [ clientUser.layerId, consumerUser.layerId ];
     return conversations.filter((conversation) => {
       if (conversation.participants.length <= 2) {
-        return conversation.participants.reduce((previousValue, currentValue, i, arr) => {
-          return expectedUserIds.indexOf(arr[i]) > -1;
-        }, true);
+        return conversation
+          .participants
+          .reduce((previousValue, currentValue, i, arr) => (
+            expectedUserIds.indexOf(arr[i]) > -1
+          ), true);
       }
       return false;
     });
@@ -39,12 +41,11 @@ export default class ConversationManager {
   }
 
   queryForConversations() {
-    const self = this;
-    const builder = QueryBuilder.conversations();
-    const query = this.client.createQuery(builder);
-    query.once('change', function() {
-      self.onQueryReady(query.data)
+    // TODO: Check if there's a better way to query
+    const query = this.client.createQuery({
+      model: Query.Conversation
     });
+    query.once('change', ()=> this.onQueryReady(query.data) );
   }
 
   retrieveConversation(client, App, next) {

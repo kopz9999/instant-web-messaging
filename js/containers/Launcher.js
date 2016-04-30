@@ -3,30 +3,31 @@ import styles from './Launcher.css';
 import Avatar from '../components/launcher/Avatar';
 import Notification from '../components/launcher/Notification';
 
-/*
-import {connect} from 'react-redux';
-
-const mapStateToProps = (state) => {
-  return {
-    clientUser: state.Base.clientUser
-  }
-};
-*/
-
 export default class Launcher extends Component {
+  renderNotification(){
+    const { clientUser, conversation } = this.props;
+    return (
+      <Notification
+        {
+          ...({
+            ...conversation,
+            clientUser
+          })
+        }
+      />
+    );
+  }
+
   render() {
-    const { clientUser } = this.props;
+    const { clientUser, conversation } = this.props;
+    const messageReady = conversation.activeConversationId != null;
+    const notification = messageReady ? this.renderNotification() : null;
+
     return (
       <div className={styles.launcher}>
         <Avatar url={clientUser.avatar.url} />
-        <Notification count={1} />
+        { notification }
       </div>
     );
   };
 }
-
-/*
-// TODO: Use decorator
-const ConnectedLauncher = connect(mapStateToProps)(Launcher);
-export default ConnectedLauncher;
-*/
