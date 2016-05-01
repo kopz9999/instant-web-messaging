@@ -1,5 +1,6 @@
 import {
-  SETUP_CONVERSATION
+  SETUP_CONVERSATION,
+  LOAD_MORE_MESSAGES
 } from '../constants/ActionTypes';
 
 export function setupConversation(activeConversation) {
@@ -8,5 +9,11 @@ export function setupConversation(activeConversation) {
     payload: {
       activeConversation
     }
+  };
+}
+
+export function loadMoreMessages() {
+  return {
+    type: LOAD_MORE_MESSAGES
   };
 }

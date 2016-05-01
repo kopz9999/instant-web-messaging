@@ -40,30 +40,21 @@ function handleAction(layerClient, typingPublisher, state, action, next) {
 
   switch(type) {
     case SUBMIT_COMPOSER_MESSAGE:
-      console.log(state.Conversation.activeConversation);
       state.Conversation.activeConversation.createMessage(state.Conversation.composerMessage).send();
-      // layerClient
-      //   .getConversation(`layer:///conversations/${state.router.params.conversationId}`, true)
-      // .createMessage(state.activeConversation.composerMessage).send();
-
-      // typingPublisher.setState(FINISHED);
+      typingPublisher.setState(FINISHED);
       return;
     case MARK_MESSAGE_READ:
-      layerClient
-        .getMessage(payload.messageId).isRead = true;
+      layerClient.getMessage(payload.messageId).isRead = true;
       return;
     case CHANGE_COMPOSER_MESSAGE:
-      console.log('changing composer message pending ...');
-      /*
-      const conversationId = `layer:///conversations/${state.router.params.conversationId}`;
-      const composerMessage = state.activeConversation.composerMessage;
+      const conversationId = state.Conversation.activeConversationId;
+      const composerMessage = state.Conversation.composerMessage;
       const typingState = composerMessage.length > 0 ? STARTED : FINISHED;
 
       if (!typingPublisher.conversation || typingPublisher.conversation.id !== conversationId) {
         typingPublisher.setConversation({ id: conversationId });
       }
       typingPublisher.setState(typingState);
-      */
       return;
     default:
       return;

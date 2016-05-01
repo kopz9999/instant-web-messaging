@@ -1,12 +1,15 @@
 import {
   SETUP_CONVERSATION,
-  CHANGE_COMPOSER_MESSAGE
+  CHANGE_COMPOSER_MESSAGE,
+  LOAD_MORE_MESSAGES,
+  SUBMIT_COMPOSER_MESSAGE,
 } from '../constants/ActionTypes';
 
 const initialState = {
   activeConversationId: null,
   activeConversation: null,
-  messagePagination: 30
+  messagePagination: 30,
+  composerMessage: ''
 };
 
 export default function(state = initialState, action) {
@@ -23,6 +26,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         composerMessage: payload.value
+      };
+    case SUBMIT_COMPOSER_MESSAGE:
+      return {
+        ...state,
+        composerMessage: ''
+      };
+    case LOAD_MORE_MESSAGES:
+      return {
+        ...state,
+        messagePagination: state.messagePagination + 30
       };
     default:
       return state;

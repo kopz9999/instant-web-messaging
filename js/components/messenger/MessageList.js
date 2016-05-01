@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import styles from './MessagesList.css';
 // Layer
 import { QueryBuilder } from 'layer-sdk';
 import { connectQuery } from 'layer-react';
 // App
 import  MessageListItem from './MessageListItem';
+import styles from './MessagesList.css';
 
 const getQueries = ({activeConversationId, messagePagination}) => {
   return {
@@ -16,6 +16,9 @@ const getQueries = ({activeConversationId, messagePagination}) => {
 };
 
 export default class MessageList extends Component {
+  componentDidUpdate() {
+    this.props.requestScrollDown();
+  }
 
   renderMessageItem(message) {
     const { clientUser, consumerUser } = this.props;

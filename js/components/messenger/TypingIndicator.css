@@ -2,6 +2,10 @@
     TODO: Remove !important and get multiple files here
 */
 
+.hide {
+    display: none;
+}
+
 .typingIndicator .body {
     float: right;
 }
