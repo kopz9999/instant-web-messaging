@@ -1,3 +1,5 @@
 import App from './App';
 import Conversation from './Conversation';
-export {App, Conversation};
+import Container from './Container';
+
+export {App, Conversation, Container};

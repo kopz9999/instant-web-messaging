@@ -8,18 +8,21 @@ const mapStateToProps = (state) => {
     clientUser: state.App.clientUser,
     consumerUser: state.App.consumerUser,
     ready: state.App.ready,
-    conversation: state.Conversation
+    conversation: state.Conversation,
+    container: state.Container,
   }
 };
 
 class MessengerProvider extends Component {
   getChildrenWithProps() {
-    const { clientUser, consumerUser, conversation, composerActions } = this.props;
+    const { clientUser, consumerUser, conversation, container,
+      composerActions } = this.props;
     return React.Children.map(this.props.children,
       (child) => React.cloneElement(child, {
         clientUser,
         consumerUser,
         conversation,
+        container,
         composerActions
       }))
   }

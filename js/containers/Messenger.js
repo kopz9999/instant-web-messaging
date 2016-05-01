@@ -6,11 +6,12 @@ import styles from './Messenger.css';
 import Header from '../components/messenger/Header';
 import MessageComposer from '../components/messenger/MessageComposer';
 import ContentWrapper from '../components/messenger/ContentWrapper';
+import Container from '../components/messenger/Container';
 import * as ComposerActions from '../actions/ComposerActions';
 import * as ConversationActions from '../actions/ConversationActions';
 
 function mapDispatchToProps(dispatch) {
-  return { 
+  return {
     composerActions: bindActionCreators(ComposerActions, dispatch),
     conversationActions: bindActionCreators(ConversationActions, dispatch)
   };
@@ -24,7 +25,8 @@ class Messenger extends Component {
       clientUser,
       conversation,
       composerActions,
-      conversationActions
+      conversationActions,
+      container
     } = this.props;
     const composerMessage = this.props.conversation.composerMessage;
     const {
@@ -34,7 +36,7 @@ class Messenger extends Component {
 
     return (
       <div className={styles.messenger}>
-        <div className={styles.sheet}>
+        <Container { ...container }>
           <Header clientUser={clientUser} />
           <ContentWrapper
             welcomeMessage={welcomeMessage}
@@ -47,12 +49,10 @@ class Messenger extends Component {
             value={composerMessage}
             onChange={changeComposerMessage}
             onSubmit={submitComposerMessage} />
-        </div>
+        </Container>
       </div>
     );
   };
 };
 
-const ConnectedMessenger =
-  connect(null, mapDispatchToProps)(Messenger);
-export default ConnectedMessenger;
+export default connect(null, mapDispatchToProps)(Messenger);

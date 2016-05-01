@@ -3,7 +3,7 @@
 }
 
 .messenger .sheet {
-    right: 0;
+    right: -320px;
     width: 320px;
     -webkit-transform: scale(1);
     transform: scale(1);

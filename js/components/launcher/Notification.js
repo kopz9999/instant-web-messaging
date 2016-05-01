@@ -18,7 +18,7 @@ export default class Notification extends Component {
     const { messages, clientUser } = this.props;
     const notReadMessages = messages
       .filter((m) => (!m.isRead && m.sender.userId == clientUser.layerId ));
-    const count = notReadMessages.length;
+    const count = notReadMessages.length + 1;
 
     return (
       <div className={styles.notification}>

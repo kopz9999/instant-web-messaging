@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+// App
 import styles from './Header.css';
+import * as ContainerActions from '../../actions/ContainerActions';
 
-export default class Header extends Component {
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(ContainerActions, dispatch),
+  };
+}
+
+class Header extends Component {
   renderCloseButton() {
+    const { actions } = this.props;
     return (
-      <a className={styles.closeButton} href="#">
+      <a className={styles.closeButton}
+         href="#"
+         onClick={actions.hideContainer}
+      >
         <div className={styles.icon}></div>
       </a>
     );
@@ -31,3 +45,5 @@ export default class Header extends Component {
     );
   };
 };
+
+export default connect(null, mapDispatchToProps)(Header);
