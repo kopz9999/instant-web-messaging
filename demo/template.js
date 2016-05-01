@@ -567,6 +567,8 @@ $(document).ready(function(){
     {
       appId: layerAppId,
       challengeCallback: getIdentityToken,
+      viewMode: 'split',
+      pageContentNode: document.getElementsByClassName("page-content")[0],
       welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
       clientUser: {
         displayName: 'Margaret Bell',
