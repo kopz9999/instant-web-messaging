@@ -3,11 +3,13 @@ import {
   CHANGE_COMPOSER_MESSAGE,
   LOAD_MORE_MESSAGES,
   SUBMIT_COMPOSER_MESSAGE,
+  RECEIVE_MESSAGE,
 } from '../constants/ActionTypes';
 
 const initialState = {
   activeConversationId: null,
   activeConversation: null,
+  lastMessage: null,
   messagePagination: 30,
   composerMessage: ''
 };
@@ -36,6 +38,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         messagePagination: state.messagePagination + 30
+      };
+    case RECEIVE_MESSAGE:
+      return {
+        ...state,
+        lastMessage: payload.lastMessage
       };
     default:
       return state;

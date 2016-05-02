@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 // Layer
 import { QueryBuilder } from 'layer-sdk';
+// App
+import * as ContainerActions from '../actions/ContainerActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,17 +17,23 @@ const mapStateToProps = (state) => {
   }
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    containerActions: bindActionCreators(ContainerActions, dispatch),
+  };
+};
+
 class MessengerProvider extends Component {
   getChildrenWithProps() {
     const { clientUser, consumerUser, conversation, container,
-      composerActions } = this.props;
+      containerActions } = this.props;
     return React.Children.map(this.props.children,
       (child) => React.cloneElement(child, {
         clientUser,
         consumerUser,
         conversation,
         container,
-        composerActions
+        containerActions
       }))
   }
 
@@ -38,6 +48,4 @@ class MessengerProvider extends Component {
   }
 };
 
-const ConnectedMessengerProvider =
-  connect(mapStateToProps)(MessengerProvider);
-export default ConnectedMessengerProvider;
+export default connect(mapStateToProps, mapDispatchToProps)(MessengerProvider);

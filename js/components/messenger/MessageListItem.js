@@ -30,6 +30,7 @@ export default class MessageListItem extends Component {
     const displayUserName = isClientMessage ?
       clientUser.displayName : consumerUser.displayName;
     const timeAtText = formatTimestamp(message.sentAt);
+    const displayReadFlag = message.isRead && !isClientMessage;
 
     return (
       <div className={styles.listItem}>
@@ -49,7 +50,7 @@ export default class MessageListItem extends Component {
           </div>
           <MessageMetadata
             timeAtText={timeAtText}
-            isRead={message.isRead}
+            isRead={displayReadFlag}
           />
         </div>
       </div>

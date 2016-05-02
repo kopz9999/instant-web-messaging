@@ -1,5 +1,6 @@
 import {
-  setupConversation
+  setupConversation,
+  receiveMessage
 } from '../actions/ConversationActions';
 import { Query } from 'layer-sdk';
 
@@ -24,6 +25,16 @@ export default class ConversationManager {
     });
   }
 
+  handleConversationChange(e) {
+    if (e.changes) {
+      e.changes.forEach((change)=> {
+        if (change.property == "lastMessage") {
+          this.next(receiveMessage(change.newValue));
+        }
+      });
+    }
+  }
+
   onQueryReady(conversations) {
     let expectedConversation = null;
     const { clientUser, consumerUser } = this.App;
@@ -37,7 +48,10 @@ export default class ConversationManager {
         participants: [ this.App.clientUser.layerId ]
       });
     }
+    expectedConversation.on('conversations:change',
+      (e)=> this.handleConversationChange(e) );
     this.next(setupConversation(expectedConversation));
+    this.next(receiveMessage(expectedConversation.lastMessage));
   }
 
   queryForConversations() {

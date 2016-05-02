@@ -9,13 +9,11 @@ import ContentWrapper from '../components/messenger/ContentWrapper';
 import Container from '../components/messenger/Container';
 import * as ComposerActions from '../actions/ComposerActions';
 import * as ConversationActions from '../actions/ConversationActions';
-import * as ContainerActions from '../actions/ContainerActions';
 
 function mapDispatchToProps(dispatch) {
   return {
     composerActions: bindActionCreators(ComposerActions, dispatch),
     conversationActions: bindActionCreators(ConversationActions, dispatch),
-    containerActions: bindActionCreators(ContainerActions, dispatch),
   };
 }
 

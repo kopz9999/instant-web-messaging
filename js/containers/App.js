@@ -6,6 +6,7 @@ import { LayerProvider } from 'layer-react';
 // App
 import configureStore from '../store/configureStore';
 import Launcher from './Launcher';
+import MessageNotification from './MessageNotification';
 import Messenger from './Messenger';
 import MessengerProvider from './MessengerProvider';
 import styles from './App.css';
@@ -13,6 +14,7 @@ import * as ViewModes from '../constants/ViewModes';
 // Actions
 import { fetchUsersSuccess } from '../actions/AppActions';
 import { setupViewMode } from '../actions/ContainerActions';
+import { setupMessageNotification } from '../actions/NotificationActions';
 
 // DevTools
 import DevTools from '../utils/DevTools';
@@ -29,7 +31,7 @@ export default class App extends Component {
   render() {
     const {
       appId, challengeCallback, clientUser, consumerUser, viewMode,
-      pageContentNode
+      pageContentNode, messageNotification
     } = this.props;
     const client = App.generateClient(appId, challengeCallback);
     const store = configureStore(client);
@@ -37,6 +39,7 @@ export default class App extends Component {
     store.dispatch(fetchUsersSuccess(clientUser, consumerUser));
     store.dispatch(setupViewMode( viewMode || ViewModes.OVERLAY,
       pageContentNode ));
+    store.dispatch(setupMessageNotification());
 
     return (
       <div className={styles.app}>
@@ -44,6 +47,7 @@ export default class App extends Component {
           <Provider store={store}>
             <MessengerProvider>
               <Launcher />
+              <MessageNotification messageNotification={messageNotification} />
               <Messenger welcomeMessage={this.props.welcomeMessage} />
             </MessengerProvider>
           </Provider>

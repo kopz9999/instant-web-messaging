@@ -2,6 +2,7 @@ import {
   SETUP_CONVERSATION,
   LOAD_MORE_MESSAGES,
   MARK_MESSAGE_READ,
+  RECEIVE_MESSAGE,
 } from '../constants/ActionTypes';
 
 export function setupConversation(activeConversation) {
@@ -26,4 +27,13 @@ export function markMessageRead(messageId) {
       messageId
     }
   }
+}
+
+export function receiveMessage(lastMessage) {
+  return {
+    type: RECEIVE_MESSAGE,
+    payload: {
+      lastMessage
+    }
+  };
 }
