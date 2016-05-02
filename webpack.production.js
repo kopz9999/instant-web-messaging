@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var devFlagPlugin = new webpack.DefinePlugin({
   'process.env.NODE_ENV': '"production"',
@@ -12,22 +11,31 @@ module.exports = {
     './js/index.js'
   ],
   output: {
+    library: 'webMessenger',
+    libraryTarget: 'umd',
     path: path.join(__dirname, 'dist'),
     publicPath: '/static/',
     filename: 'bundle.js',
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
     devFlagPlugin,
-    new ExtractTextPlugin('app.css')
   ],
+  externals: {
+    'layer-sdk': 'layer'
+  },
   module: {
     loaders: [
       { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader') }
+      { test: /\.css$/, loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' },
+      { test: /\.png$/, loader: 'url-loader?limit=10000&mimetype=image/png' }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json']
+    extensions: ['', '.js', '.json'],
+    alias: {
+      'layer-react': path.join(__dirname, 'layer-react')
+    }
   }
 };
