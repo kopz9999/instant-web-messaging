@@ -81,7 +81,8 @@ export default class ContentWrapper extends Component {
   }
 
   renderMessageList() {
-    const { conversation, clientUser, consumerUser } = this.props;
+    const { conversation, clientUser, consumerUser, isCollapsed,
+      onMarkMessageRead } = this.props;
     return (
       <MessageList
         {
@@ -89,6 +90,8 @@ export default class ContentWrapper extends Component {
             ...conversation,
             clientUser,
             consumerUser,
+            isCollapsed,
+            onMarkMessageRead,
             requestScrollDown: ()=> this.requestScrollDown()
           })
         }

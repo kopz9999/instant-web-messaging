@@ -32,7 +32,7 @@ class Messenger extends Component {
       container
     } = this.props;
     const composerMessage = this.props.conversation.composerMessage;
-    const { displayHeader } = container;
+    const { displayHeader, isCollapsed } = container;
     const {
       changeComposerMessage,
       submitComposerMessage,
@@ -41,6 +41,7 @@ class Messenger extends Component {
       showHeader,
       hideHeader
     } = containerActions;
+    const { loadMoreMessages, markMessageRead } = conversationActions;
 
     return (
       <div className={styles.messenger}>
@@ -54,8 +55,10 @@ class Messenger extends Component {
             clientUser={clientUser}
             consumerUser={consumerUser}
             conversation={conversation}
-            onLoadMoreMessages={conversationActions.loadMoreMessages}
+            onLoadMoreMessages={loadMoreMessages}
+            onMarkMessageRead={markMessageRead}
             displayHeader={displayHeader}
+            isCollapsed={isCollapsed}
             onScrollBelowHeader={showHeader}
             onScrollAboveHeader={hideHeader}
           />

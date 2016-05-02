@@ -5,6 +5,21 @@ import MessageMetadata from './MessageMetadata';
 import { formatTimestamp } from '../../utils/FormatHelper';
 
 export default class MessageListItem extends Component {
+  componentDidMount() {
+    this.markMessageRead();
+  }
+
+  componentWillReceiveProps() {
+    this.markMessageRead();
+  }
+
+  markMessageRead() {
+    const { onMarkMessageRead, message, canMarkRead } = this.props;
+    if (message.isUnread && canMarkRead) {
+      onMarkMessageRead(message.id);
+    }
+  }
+
   render() {
     const { message, clientUser, consumerUser } = this.props;
     const isClientMessage = message.sender.userId == clientUser.layerId;

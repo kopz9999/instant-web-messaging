@@ -21,13 +21,16 @@ export default class MessageList extends Component {
   }
 
   renderMessageItem(message) {
-    const { clientUser, consumerUser } = this.props;
+    const { clientUser, consumerUser, isCollapsed,
+      onMarkMessageRead } = this.props;
     return (
       <MessageListItem
         key={message.id}
         message={message}
         clientUser={clientUser}
         consumerUser={consumerUser}
+        canMarkRead={!isCollapsed}
+        onMarkMessageRead={onMarkMessageRead}
       />
     );
   }
