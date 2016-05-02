@@ -1,7 +1,9 @@
 import {
   SHOW_CONTAINER,
   HIDE_CONTAINER,
-  SETUP_VIEW_MODE
+  SETUP_VIEW_MODE,
+  SHOW_HEADER,
+  HIDE_HEADER,
 }
   from '../constants/ActionTypes';
 
@@ -14,6 +16,18 @@ export function showContainer() {
 export function hideContainer() {
   return {
     type: HIDE_CONTAINER,
+  };
+}
+
+export function showHeader() {
+  return {
+    type: SHOW_HEADER,
+  };
+}
+
+export function hideHeader() {
+  return {
+    type: HIDE_HEADER,
   };
 }
 

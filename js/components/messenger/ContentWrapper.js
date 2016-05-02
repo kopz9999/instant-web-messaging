@@ -26,6 +26,9 @@ export default class ContentWrapper extends Component {
   componentDidMount() {
     this.removeScrollListener = throttledEventListener(findDOMNode(this),
       'scroll', this.handleScroll, this);
+    this.removeHeaderScrollListener = throttledEventListener(findDOMNode(this),
+      'scroll', this.handleHeaderScroll, this);
+
     this.removeResizeListener = throttledEventListener(window,
       'resize', this.handleScroll, this);
     this.scrollBottom();
@@ -34,6 +37,20 @@ export default class ContentWrapper extends Component {
   componentWillUnmount() {
     this.removeResizeListener();
     this.removeScrollListener();
+  }
+
+  handleHeaderScroll() {
+    var el = findDOMNode(this);
+    const displayHeader = this.props.displayHeader;
+    if (el.scrollTop > 180) {
+      if (!displayHeader) {
+        this.props.onScrollBelowHeader();
+      }
+    } else {
+      if (displayHeader) {
+        this.props.onScrollAboveHeader();
+      }
+    }
   }
 
   handleScroll() {

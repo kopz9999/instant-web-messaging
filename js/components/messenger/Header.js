@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 // App
 import styles from './Header.css';
 import * as ContainerActions from '../../actions/ContainerActions';
+import DetailedHeader from './DetailedHeader';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -25,22 +26,18 @@ class Header extends Component {
   }
 
   render() {
-    const { clientUser } = this.props;
+    const { clientUser, displayHeader } = this.props;
+
     return (
       <div>
         <div className={styles.header}>
           { this.renderCloseButton() }
         </div>
-        <div className={`${styles.header} ${styles.hide}`}>
-          <div className={styles.description}>
-            <img src={clientUser.avatar.url} className={styles.avatar}/>
-            <div className={styles.body}>
-              <div className={styles.name}>{clientUser.displayName}</div>
-              <div className={styles.roleName}>{clientUser.roleName}</div>
-            </div>
-          </div>
-          { this.renderCloseButton() }
-        </div>
+        <DetailedHeader
+          displayHeader={displayHeader}
+          clientUser={clientUser}
+          renderCloseButton={ this.renderCloseButton.bind(this) }
+        />
       </div>
     );
   };
