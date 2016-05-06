@@ -7,7 +7,7 @@ export default ({ clientUser }) => (
       <div className={styles.data}>
         <div className={styles.info}>
           <div className={styles.avatar}>
-            <img src={clientUser.avatar.url} />
+            <img src={clientUser.avatarURL} />
           </div>
           <div className={styles.name}>
             { clientUser.displayName }

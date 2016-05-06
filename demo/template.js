@@ -1,24 +1,7 @@
 // Template example
 var layerAppId ='layer:///apps/staging/52e7c9b4-e9cb-11e5-a188-7d4ed71366e8';
 var identityProviderURL = 'https://layer-identity-provider.herokuapp.com/identity_tokens';
-
-// Layer custom variables
-var clientUser = {
-  displayName: 'Margaret Bell',
-  roleName: 'Product support',
-  layerId: 'Customer Support',
-  avatar: {
-    url: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/admin-avatar.png'
-  }
-};
-
-var consumerUser = {
-  displayName: 'Customer',
-  layerId: 'Customer',
-  avatar: {
-    url: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/user-avatar-small.png'
-  }
-};
+var consumerUser = null, clientUser = null;
 
 var QueryString = function () {
   // This function is anonymous, is executed immediately and
@@ -68,12 +51,29 @@ function getIdentityToken(nonce, callback){
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+  // Layer custom variables
+
+  clientUser = new webMessenger.User({
+    displayName: 'Margaret Bell',
+    roleName: 'Product support',
+    layerId: 'Customer Support',
+    avatarURL: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/admin-avatar.png'
+  });
+
+  consumerUser = new webMessenger.User({
+    displayName: 'Customer',
+    layerId: 'Customer',
+    avatarURL: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/user-avatar-small.png'
+  });
+
+  var targetNode = document.getElementById('app-container');
+
   if (QueryString.username) {
     consumerUser.displayName = consumerUser.layerId =
       decodeURIComponent(QueryString.username.replace(/\+/g, '%20'));
   }
 
-  webMessenger.render('app-container',
+  webMessenger.createApp(targetNode,
     {
       appId: layerAppId,
       challengeCallback: getIdentityToken,

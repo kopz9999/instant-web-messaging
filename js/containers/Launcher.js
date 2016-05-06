@@ -28,7 +28,7 @@ export default class Launcher extends Component {
 
     return (
       <div className={styles.launcher} onClick={showContainer}>
-        <Avatar url={clientUser.avatar.url} />
+        <Avatar url={clientUser.avatarURL} />
         { notification }
       </div>
     );

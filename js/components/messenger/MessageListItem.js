@@ -26,7 +26,7 @@ export default class MessageListItem extends Component {
     const messageStyle = isClientMessage ?
       styles.clientMessage : styles.consumerMessage;
     const avatarURL = isClientMessage ?
-      clientUser.avatar.url : consumerUser.avatar.url;
+      clientUser.avatarURL : consumerUser.avatarURL;
     const displayUserName = isClientMessage ?
       clientUser.displayName : consumerUser.displayName;
     const timeAtText = formatTimestamp(message.sentAt);

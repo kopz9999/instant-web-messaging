@@ -6,7 +6,7 @@ export default ({ user, text }) => (
   <div className={listStyles.list}>
     <div className={styles.listItem}>
       <div className={`${styles.message} ${styles.clientMessage}`}>
-        <img src={user.avatar.url} className={styles.avatar}/>
+        <img src={user.avatarURL} className={styles.avatar}/>
         <div className={styles.body}>
           <div className={styles.embedBody}>
             <p className={styles.textPart}>{text}</p>

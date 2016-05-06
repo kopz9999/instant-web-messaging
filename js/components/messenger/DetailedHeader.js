@@ -22,7 +22,7 @@ export default class DetailedHeader extends Component {
     return (
       <div className={`${styles.header} ${styles.hide}`}>
         <div className={styles.description}>
-          <img src={clientUser.avatar.url} className={styles.avatar}/>
+          <img src={clientUser.avatarURL} className={styles.avatar}/>
           <div className={styles.body}>
             <div className={styles.name}>{clientUser.displayName}</div>
             <div className={styles.role}>{clientUser.roleName}</div>

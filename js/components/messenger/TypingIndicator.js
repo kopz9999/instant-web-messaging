@@ -33,7 +33,7 @@ class TypingIndicator extends Component {
       <div className={wrapperStyle}>
         <div className={styles.listItem}>
           <div className={`${styles.message} ${styles.clientMessage}`}>
-            <img src={user.avatar.url} className={`${typingStyles.avatar} ${styles.avatar}`}/>
+            <img src={user.avatarURL} className={`${typingStyles.avatar} ${styles.avatar}`}/>
             <div className={`${typingStyles.body} ${styles.body}`}>
               <div className={`${typingStyles.embedBody} ${typingStyles.blinkAnimation} ${styles.embedBody}`}>
                 <p className={`${typingStyles.textPart} ${styles.textPart}`}>&bull;&bull;&bull;</p>
