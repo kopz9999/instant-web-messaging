@@ -226,3 +226,8 @@ To build for production, this command will output optimized production code:
 ```bash
 $ NODE_ENV=production npm run build
 ```
+
+## TODO:
+
+- Add Unit Testing
+- Add Integration Testing
