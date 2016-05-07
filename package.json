@@ -1,9 +1,15 @@
 {
   "name": "instant-web-messaging",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kopz9999/instant-web-messaging"
+  },
   "scripts": {
     "postinstall": "webpack --config ./webpack.production.js --progress --colors",
-    "start": "DEBUG=true node server.js",
+    "start": "node server.js",
+    "debug": "DEBUG=true node server.js",
     "build": "webpack -p --config webpack.production.js",
     "build-dev": "webpack -p"
   },

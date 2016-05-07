@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {
       appId: layerAppId,
       challengeCallback: getIdentityToken,
-      viewMode: 'split',
+      viewMode: webMessenger.VIEW_MODES.SPLIT,
       pageContentNode: document.getElementsByClassName("page-content")[0],
       welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
       messageNotification: 'Hey, let me know if you have any question',
