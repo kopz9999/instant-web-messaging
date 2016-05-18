@@ -92,7 +92,7 @@ The package contains:
  * the top
  * @param {User} opts.clientUser Admin User on the backend
  * @param {User} opts.consumerUser User who is viewing your app
- * @return {App}
+ * @return {Messenger}
  * */
 function createApp(parentNode, opts = {}) {
     /* Rendering logic */
@@ -104,7 +104,18 @@ function createApp(parentNode, opts = {}) {
  */
 const VIEW_MODES = {
   SPLIT: 'split',
-  OVERLAY: 'overlay'
+  OVERLAY: 'overlay',
+  MANUAL: 'manual'
+};
+
+/**
+ * Enumeration specifying the Available Events
+ * @enum {String}
+ */
+const EVENT_ACTIONS = {
+  SHOW_CONTAINER: 'SHOW_CONTAINER',
+  HIDE_CONTAINER: 'HIDE_CONTAINER',
+  MESSENGER_SHEET_RENDERED: 'MESSENGER_SHEET_RENDERED'
 };
 
 /**
@@ -134,6 +145,21 @@ class User {
   set avatarURL(value) {}
 }
 
+/*
+* This class has the [EventDispatcher] Mixin which provides the
+* following methods on, bind, addEventListener, addListener,
+* off, unbind, removeEventListener, removeListener, once, one, addListenerOnce,
+* trigger, dispatchEvent, dispatch
+*/
+class Messenger {
+  get app() {}
+
+  get sheet() {}
+
+  constructor(targetNode, opts) {
+      /* Render application */
+  }
+}
 ```
 
 ### Overlay View mode
@@ -205,6 +231,71 @@ Recommended:
   overflow: auto;
 }
 
+```
+
+### Manual View Mode
+
+This view mode won't show the application when clicking the launcher.
+This option is useful for customization purposes.
+
+The following example shows a responsive way of displaying the component
+using the events and manual view mode.
+
+![Demo](https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/Responsive.gif)
+
+[Live Demo](https://curaytor-web-messaging.herokuapp.com/examples/callbacks.html)
+
+```js
+  var messengerApp = webMessenger.createApp(targetNode,
+    {
+      appId: layerAppId,
+      challengeCallback: getIdentityToken,
+      viewMode: webMessenger.VIEW_MODES.MANUAL,
+      welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
+      messageNotification: 'Hey, let me know if you have any question',
+      clientUser: clientUser,
+      consumerUser: consumerUser
+    }
+  );
+  var sheetNode = null;
+
+  messengerApp.on(webMessenger.EVENT_ACTIONS.MESSENGER_SHEET_RENDERED, function(e) {
+    sheetNode = jQuery(messengerApp.sheet);
+    sheetNode.addClass('app-wrapper');
+  });
+
+  messengerApp.on(webMessenger.EVENT_ACTIONS.SHOW_CONTAINER, function(e) {
+    jQuery('body').addClass('chat-open');
+    sheetNode.addClass('open');
+  });
+
+  messengerApp.on(webMessenger.EVENT_ACTIONS.HIDE_CONTAINER, function(e) {
+    jQuery('body').removeClass('chat-open');
+    sheetNode.removeClass('open');
+  });
+```
+
+```css
+body.chat-active.chat-open { width:calc(100% - 320px); }
+
+#app-container .app-wrapper {
+    right: 0;
+    width: 0;
+}
+
+#app-container .app-wrapper.open {
+    width: 320px;
+}
+
+@media screen and (max-width: 800px) {
+    body.chat-active.chat-open {
+      width:0;
+      overflow: hidden;
+    }
+    body.chat-open #app-container .app-wrapper {
+        width: 100%;
+    }
+}
 ```
 
 ## Running your project
