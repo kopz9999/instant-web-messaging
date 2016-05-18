@@ -9,7 +9,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    max-width: 336px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .composerContainer .composer .textAreaContainer .textArea {
-    width: 215px;
+    width: calc(100% - 70px);
     display: inline-block;
     vertical-align: top;
     border-radius: 4px 0 0 4px;

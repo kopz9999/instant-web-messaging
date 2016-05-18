@@ -1,8 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './containers/App';
 import User from './utils/User';
+import Messenger from './utils/Messenger';
 import VIEW_MODES from './constants/ViewModes';
+import {
+  SHOW_CONTAINER,
+  HIDE_CONTAINER,
+  MESSENGER_SHEET_RENDERED
+} from './constants/ActionTypes';
+
+const EVENT_ACTIONS = {
+  SHOW_CONTAINER, HIDE_CONTAINER, MESSENGER_SHEET_RENDERED
+};
 
 /** @module WebMessenger */
 
@@ -21,14 +28,10 @@ import VIEW_MODES from './constants/ViewModes';
  * the top
  * @param {User} opts.clientUser Admin User on the backend
  * @param {User} opts.consumerUser User who is viewing your app
- * @return {App}
+ * @return {Messenger}
  * */
 function createApp(targetNode, opts = {}) {
-  return ReactDOM.render(
-    <App
-      {...opts}
-    />,
-    targetNode);
+  return new Messenger(targetNode, opts);
 }
 
-export { createApp, User, VIEW_MODES };
+export { createApp, User, VIEW_MODES, Messenger, EVENT_ACTIONS };

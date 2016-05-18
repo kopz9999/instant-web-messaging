@@ -27,7 +27,8 @@ class Messenger extends Component {
       composerActions,
       conversationActions,
       containerActions,
-      container
+      container,
+      messengerInstance
     } = this.props;
     const composerMessage = this.props.conversation.composerMessage;
     const { displayHeader, isCollapsed } = container;
@@ -43,7 +44,13 @@ class Messenger extends Component {
 
     return (
       <div className={styles.messenger}>
-        <Container { ...container }>
+        <Container {
+          ...({
+            ...container,
+            messengerInstance
+          })
+        }
+        >
           <Header
             clientUser={clientUser}
             displayHeader={displayHeader}

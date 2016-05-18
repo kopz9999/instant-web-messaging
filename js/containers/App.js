@@ -31,10 +31,10 @@ export default class App extends Component {
   render() {
     const {
       appId, challengeCallback, clientUser, consumerUser, viewMode,
-      pageContentNode, messageNotification
+      pageContentNode, messageNotification, messengerInstance
     } = this.props;
     const client = App.generateClient(appId, challengeCallback);
-    const store = configureStore(client);
+    const store = configureStore(client, messengerInstance);
 
     store.dispatch(fetchUsersSuccess(clientUser, consumerUser));
     store.dispatch(setupViewMode( viewMode || ViewModes.OVERLAY,
@@ -48,7 +48,10 @@ export default class App extends Component {
             <MessengerProvider>
               <Launcher />
               <MessageNotification messageNotification={messageNotification} />
-              <Messenger welcomeMessage={this.props.welcomeMessage} />
+              <Messenger
+                messengerInstance={messengerInstance}
+                welcomeMessage={this.props.welcomeMessage}
+              />
             </MessengerProvider>
           </Provider>
         </LayerProvider>
@@ -65,5 +68,6 @@ App.propTypes = {
   challengeCallback: React.PropTypes.func,
   clientUser: React.PropTypes.object,
   consumerUser: React.PropTypes.object,
+  messenger: React.PropTypes.object,
   welcomeMessage: React.PropTypes.string,
 };

@@ -1,0 +1,18 @@
+body.chat-active { /*transition:width 200ms linear;*/ }
+body.chat-active.chat-open { width:calc(100% - 320px); /*transition:width 200ms linear;*/ }
+
+#app-container .app-wrapper {
+    right: 0;
+    width: 0;
+}
+
+#app-container .app-wrapper.open {
+    width: 320px;
+}
+
+@media screen and (max-width: 800px) {
+    body.chat-active.chat-open { width:0; overflow:hidden; }
+    body.chat-open #app-container .app-wrapper {
+        width: 100%;
+    }
+}

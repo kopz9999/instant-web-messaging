@@ -8,6 +8,7 @@ var config = null;
 var compiler = null;
 
 app.use('/demo', express.static('demo'));
+app.use('/examples', express.static('examples'));
 if (isDevelopment) {
   config = require('./webpack.config');
   webpack = require('webpack');

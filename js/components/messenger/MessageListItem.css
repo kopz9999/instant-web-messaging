@@ -17,13 +17,12 @@
     line-height: 20px;
     position: relative;
     clear: both;
-    max-width: 272px;
 }
 
 .listItem .message.clientMessage {
     padding-left: 0;
-    width: 100%;
-    float: left;
+    width: 98%;
+    float: right;
 }
 
 .listItem .message.consumerMessage {

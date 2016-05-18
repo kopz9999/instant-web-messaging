@@ -3,14 +3,17 @@ import { findDOMNode } from 'react-dom';
 // Libs
 import Velocity from 'velocity-animate';
 // App
-import * as ViewModes from '../../constants/ViewModes';
+import * as VIEW_MODES from '../../constants/ViewModes';
 import styles from '../../containers/Messenger.css';
 
 export default class Container extends Component {
   componentDidMount() {
+    const { messengerInstance } = this.props;
     const node = findDOMNode(this);
     const rightValue = window.getComputedStyle(node, null)
                               .getPropertyValue('right');
+
+    messengerInstance.setMessengerSheet(node);
     this.initialRight = parseFloat(rightValue);
   }
 
@@ -19,9 +22,13 @@ export default class Container extends Component {
     const finalRight = isCollapsed ? this.initialRight : 0;
     const domNode = findDOMNode(this);
     let finalWidth;
-    Velocity(domNode, { right: finalRight }, 500);
+
     switch (viewMode) {
-      case ViewModes.SPLIT:
+      case VIEW_MODES.OVERLAY:
+        Velocity(domNode, { right: finalRight }, 500);
+        break;
+      case VIEW_MODES.SPLIT:
+        Velocity(domNode, { right: finalRight }, 500);
         finalWidth = window.innerWidth;
         if (!isCollapsed) {
           finalWidth+= this.initialRight;
