@@ -241,7 +241,7 @@ This option is useful for customization purposes.
 The following example shows a responsive way of displaying the component
 using the events and manual view mode.
 
-![Demo](https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/Responsive.gif)
+![Demo Responsive3](https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/Responsive.gif)
 
 [Live Demo](https://curaytor-web-messaging.herokuapp.com/examples/callbacks.html)
 
