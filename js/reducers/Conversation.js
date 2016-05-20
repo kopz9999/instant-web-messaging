@@ -1,5 +1,6 @@
 import {
   SETUP_CONVERSATION,
+  CONVERSATION_CREATE,
   CHANGE_COMPOSER_MESSAGE,
   LOAD_MORE_MESSAGES,
   SUBMIT_COMPOSER_MESSAGE,
@@ -23,6 +24,11 @@ export default function(state = initialState, action) {
         ...state,
         activeConversationId: payload.activeConversation.id,
         activeConversation: payload.activeConversation
+      };
+    case CONVERSATION_CREATE:
+      return {
+        ...state,
+        activeConversationId: payload.activeConversationId,
       };
     case CHANGE_COMPOSER_MESSAGE:
       return {

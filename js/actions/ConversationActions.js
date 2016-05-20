@@ -3,6 +3,7 @@ import {
   LOAD_MORE_MESSAGES,
   MARK_MESSAGE_READ,
   RECEIVE_MESSAGE,
+  CONVERSATION_CREATE,
 } from '../constants/ActionTypes';
 
 export function setupConversation(activeConversation) {
@@ -10,6 +11,15 @@ export function setupConversation(activeConversation) {
     type: SETUP_CONVERSATION,
     payload: {
       activeConversation
+    }
+  };
+}
+
+export function conversationCreate(activeConversationId) {
+  return {
+    type: CONVERSATION_CREATE,
+    payload: {
+      activeConversationId
     }
   };
 }

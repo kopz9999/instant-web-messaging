@@ -1,6 +1,7 @@
 import {
   setupConversation,
-  receiveMessage
+  receiveMessage,
+  conversationCreate,
 } from '../actions/ConversationActions';
 import { Query } from 'layer-sdk';
 
@@ -28,8 +29,13 @@ export default class ConversationManager {
   handleConversationChange(e) {
     if (e.changes) {
       e.changes.forEach((change)=> {
-        if (change.property == "lastMessage") {
-          this.next(receiveMessage(change.newValue));
+        switch (change.property) {
+          case "lastMessage":
+            this.next(receiveMessage(change.newValue));
+            break;
+          case "id":
+            this.next(conversationCreate(change.newValue));
+            break;
         }
       });
     }
