@@ -15,7 +15,7 @@ export default class Container extends Component {
     this.initialRight = parseFloat(rightValue);
   }
 
-  componentDidUpdate() {
+  doCollapseAnimation() {
     const { isCollapsed, viewMode, pageContentNode } = this.props;
     const finalRight = isCollapsed ? this.initialRight : 0;
     const domNode = findDOMNode(this);
@@ -34,6 +34,12 @@ export default class Container extends Component {
         Velocity(pageContentNode, { width: finalWidth }, 500);
         break;
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isCollapsed } = this.props;
+    const prevIsCollapsed = prevProps.isCollapsed;
+    if (isCollapsed != prevIsCollapsed) this.doCollapseAnimation();
   }
 
   render() {
