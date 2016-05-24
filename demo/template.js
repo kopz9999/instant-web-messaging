@@ -14,23 +14,22 @@ document.addEventListener("DOMContentLoaded", function() {
     avatarURL: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/user-avatar-small.png'
   });
 
-  var targetNode = document.getElementById('app-container');
-
   if (QueryString.username) {
     consumerUser.displayName = consumerUser.layerId =
       decodeURIComponent(QueryString.username.replace(/\+/g, '%20'));
   }
 
-  webMessenger.createApp(targetNode,
-    {
-      appId: layerAppId,
-      challengeCallback: getIdentityToken,
-      viewMode: webMessenger.VIEW_MODES.SPLIT,
-      pageContentNode: document.getElementsByClassName("page-content")[0],
-      welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
-      messageNotification: 'Hey, let me know if you have any question',
-      clientUser: clientUser,
-      consumerUser: consumerUser
-    }
-  );
+  webMessenger.createApp({
+    launcherElement: document.getElementById('chat-app-trigger'),
+    closeButtonElement: document.getElementById('chat-app-close'),
+    messengerElement: document.getElementById('chat-app-content'),
+    appId: layerAppId,
+    challengeCallback: getIdentityToken,
+    viewMode: webMessenger.VIEW_MODES.SPLIT,
+    pageContentNode: document.getElementsByClassName("page-content")[0],
+    welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
+    messageNotification: 'Hey, let me know if you have any question',
+    clientUser: clientUser,
+    consumerUser: consumerUser
+  });
 });

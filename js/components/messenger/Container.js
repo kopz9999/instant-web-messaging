@@ -8,12 +8,10 @@ import styles from '../../containers/Messenger.css';
 
 export default class Container extends Component {
   componentDidMount() {
-    const { messengerInstance } = this.props;
     const node = findDOMNode(this);
     const rightValue = window.getComputedStyle(node, null)
                               .getPropertyValue('right');
 
-    messengerInstance.setMessengerSheet(node);
     this.initialRight = parseFloat(rightValue);
   }
 

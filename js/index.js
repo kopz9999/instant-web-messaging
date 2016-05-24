@@ -14,8 +14,10 @@ const EVENT_ACTIONS = {
 /** @module WebMessenger */
 
 /**
- * @param {DocumentFragment} targetNode Where the component will be rendered
  * @param {Object} opts Application parameters
+ * @param {DocumentFragment} opts.messengerNode Where messenger will be placed
+ * @param {DocumentFragment} opts.launcherNode Where avatar will be placed
+ * @param {DocumentFragment} opts.closeButtonNode Where messenger will be placed
  * @param {String} opts.appId Layer Application Id
  * @param {Function} opts.challengeCallback Layer Authentication callback
  * The one who should be authenticated is consumerUser
@@ -30,8 +32,8 @@ const EVENT_ACTIONS = {
  * @param {User} opts.consumerUser User who is viewing your app
  * @return {Messenger}
  * */
-function createApp(targetNode, opts = {}) {
-  return new Messenger(targetNode, opts);
+function createApp(opts = {}) {
+  return new Messenger(opts);
 }
 
 export { createApp, User, VIEW_MODES, Messenger, EVENT_ACTIONS };

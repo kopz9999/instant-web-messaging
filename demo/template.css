@@ -1,53 +1,18 @@
 body {
+  margin-top: 80px;
+  margin-bottom: 50px;
   background: none;
   font-family: 'Montserrat', sans-serif;
   color: white;
-  height: 100%;
 }
-
-/* Split view fix */
 
 .full {
-  height: 100%;
-}
-
-.split-layout {
-  width: 100%;
-  min-height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.page-content {
-  width: 100%;
   background: url('./background.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 100%;
-  position: absolute;
-  overflow: auto;
-  /* These styles are just for centering the content, nothing else */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
-
-.page-content > .container {
-  max-width: 100%;
-}
-
-#navbar {
-  position: absolute;
-  width: 100%;
-}
-
-#navbar > .container {
-  max-width: 100%;
-}
-
-/* Customization */
 
 .navbar.transparent.navbar-inverse {
   border-width: 0px;
@@ -71,11 +36,6 @@ body {
   font-family: 'PT Serif', serif;
 }
 
-.row.bottom-columns.text-center {
-  margin-bottom: 20px;
-}
-
-/* big screen */
 @media only screen  and (min-width : 1224px) {
   #title {
     margin-top: 150px;
@@ -88,7 +48,7 @@ body {
     font-size: 20pt;
   }
   #navbar{
-    padding-top: 30px;
+    margin-top: 30px;
   }
   #navbar.navbar-inverse .navbar-nav > li > a {
     font-size: 11pt;
@@ -101,10 +61,9 @@ body {
   }
 }
 
-/* small screen */
 @media only screen  and (max-width : 1224px) {
   #navbar{
-    padding-top: 10px;
+    margin-top: 10px;
   }
   #title .jumbotron h1 {
     font-size: 31pt;
@@ -122,18 +81,8 @@ body {
     font-size: 11pt;
     font-family: 'PT Serif', serif;
   }
-  /* style fix */
-  .page-content > .container {
-    padding-top: 15%;
-  }
 }
 
 #title .jumbotron {
   background-color: transparent;
-}
-
-/* Modal testing code */
-
-.modal {
-  color: black;
 }

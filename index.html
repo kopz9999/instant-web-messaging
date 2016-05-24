@@ -1,133 +1,111 @@
 <!DOCTYPE html>
 <html class="full" lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Layer Messaging Demo</title>
-  <!-- CSS and JavaScript Files -->
-  <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat' />
-  <link href='https://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
-  <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/62e9cdee-1429-474a-8e7d-1929c597add2.css"/>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-        rel="stylesheet"
-        type="text/css" />
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+  <head>
+    <meta charset="utf-8">
+    <title>Layer Messaging Demo</title>
+    <!-- CSS and JavaScript Files -->
+    <link type='text/css' rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat' />
+    <link href='https://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/62e9cdee-1429-474a-8e7d-1929c597add2.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          rel="stylesheet"
+          type="text/css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  <!-- App CSS Files -->
-  <link href="./demo/template.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-  <div class="split-layout">
-    <div class="page-content">
-      <!-- Navigation -->
-      <nav id="navbar" class="navbar transparent navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-              <img style="" src="./demo/logo.png">
-            </a>
-          </div>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right text-uppercase">
-              <li>
-                <a id="clean-trigger" href="#">Blog</a>
-              </li>
-              <li>
-                <a href="#">Work</a>
-              </li>
-              <li>
-                <a href="#">Crew</a>
-              </li>
-              <li>
-                <a data-toggle="modal" data-target="#login-modal" href="#">Contact</a>
-              </li>
-            </ul>
-          </div>
-          <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-      </nav>
-
-      <!-- Page Content -->
+    <![endif]-->
+    <!-- App CSS Files -->
+    <link href="./demo/template.css" rel="stylesheet" type="text/css" />
+    <link href="./demo/responsive.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body class="chat-active">
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar transparent navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
-        <div id="title" class="row text-center">
-          <div class="jumbotron">
-            <div class="container">
-              <h1>Hi! We’re the Studio!</h1>
-              <p>We are studio and we are Great. And Simple. And Studio. Yo!  Wath the showreel.</p>
-            </div>
-          </div>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img style="" src="./demo/logo.png">
+          </a>
         </div>
-        <!-- /.row -->
-        <div class="row bottom-columns text-center">
-          <div class="col-md-4">
-            <p class="text-uppercase title">GIMME ALL YOUR LOVE</p>
-            <p class="description">A set of 130 elements, perfectly fitting each other </p>
-          </div>
-          <div class="col-md-4">
-            <p class="text-uppercase title">C’MON BE HAPPY</p>
-            <p class="description">An excellent way of preparing a project's wireframe</p>
-          </div>
-          <div class="col-md-4">
-            <p class="text-uppercase title">DANCE WITH ME</p>
-            <p class="description">A whole lot of inspiration you can get from the vast variety</p>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right text-uppercase">
+            <li>
+              <a href="#">Blog</a>
+            </li>
+            <li>
+              <a href="#">Work</a>
+            </li>
+            <li>
+              <a href="#">Crew</a>
+            </li>
+            <li>
+              <a href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div id="title" class="row text-center">
+        <div class="jumbotron">
+          <div class="container">
+            <h1>Hi! We’re the Studio!</h1>
+            <p>We are studio and we are Great. And Simple. And Studio. Yo!  Wath the showreel.</p>
           </div>
         </div>
       </div>
-      <!-- /.container -->
-      <!-- Modal for testing purposes -->
-      <div id="login-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Login</h4>
-            </div>
-            <div class="modal-body">
-              <form method="get">
-                <div class="form-group">
-                  <label for="user-name" class="control-label">User:</label>
-                  <input type="text" name="username" class="form-control" id="user-name">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+      <!-- /.row -->
+      <div class="row bottom-columns text-center">
+        <div class="col-md-4">
+          <p class="text-uppercase title">GIMME ALL YOUR LOVE</p>
+          <p class="description">A set of 130 elements, perfectly fitting each other </p>
+        </div>
+        <div class="col-md-4">
+          <p class="text-uppercase title">C’MON BE HAPPY</p>
+          <p class="description">An excellent way of preparing a project's wireframe</p>
+        </div>
+        <div class="col-md-4">
+          <p class="text-uppercase title">DANCE WITH ME</p>
+          <p class="description">A whole lot of inspiration you can get from the vast variety</p>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+
+    <div id="chat-app-trigger"></div>
+    <div id="chat-app-container">
+      <div id="chat-app-close"><i class="fa fa-times"></i></div>
+      <div id="chat-app-content"></div>
     </div>
     <!--
-    TODO: Point of mounting, remove the code and move it to the component
+    TODO: End point of mounting
     -->
-    <div id="app-container">
-    </div>
-  </div>
-  <!--
-  TODO: End point of mounting
-  -->
-  <!--
-  <div id="main"></div>
-  -->
-  <!-- JavaScript Libraries -->
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <!-- Bootstrap Core JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src='//cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
-  <!-- App JavaScript Files -->
-  <script src="./static/bundle.js"></script>
-  <script src="./demo/base.js"></script>
-  <script src="./demo/template.js"></script>
-</body>
+    <!--
+    <div id="main"></div>
+    -->
+    <!-- JavaScript Libraries -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='https://cdn.layer.com/sdk/0.9/layer-websdk.min.js'></script>
+    <!-- App JavaScript Files -->
+    <script src="./static/bundle.js"></script>
+    <script src="./demo/base.js"></script>
+    <script src="./demo/template.js"></script>
+  </body>
 </html>
