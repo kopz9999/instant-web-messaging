@@ -24,6 +24,14 @@ function mapDispatchToProps(dispatch) {
 };
 
 class MessengerProvider extends Component {
+  static propTypes = {
+    extraComponent: React.PropTypes.element,
+  };
+
+  static defaultProps = {
+    extraComponent: null
+  };
+
   getChildrenWithProps() {
     const { clientUser, consumerUser, conversation, container,
       containerActions } = this.props;
@@ -38,11 +46,13 @@ class MessengerProvider extends Component {
   }
 
   render() {
-    const { ready } = this.props;
+    const { ready, extraComponent } = this.props;
     const childrenWithProps = ready ? this.getChildrenWithProps() : null;
+    
     return (
       <div>
         {childrenWithProps}
+        {extraComponent}
       </div>
     );
   }
