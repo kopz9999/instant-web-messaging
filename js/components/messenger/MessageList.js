@@ -36,7 +36,9 @@ export default class MessageList extends Component {
   }
 
   render() {
-    const reversedMessages = this.props.messages.concat().reverse();
+    const { messages } = this.props;
+    const reversedMessages = messages.filter((m)=> m.isSaved).reverse();
+
     return (
       <div className={styles.list}>
         {reversedMessages.map((m)=> this.renderMessageItem(m))}
