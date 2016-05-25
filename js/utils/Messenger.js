@@ -7,7 +7,7 @@ import { Client } from 'layer-sdk';
 // App
 import MessengerApp from '../containers/MessengerApp';
 import LauncherApp from '../containers/LauncherApp';
-import CloseButtonWrapper from '../containers/CloseButtonWrapper';
+import CloseButton from '../containers/CloseButton';
 import * as ViewModes from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
 // Actions
@@ -32,8 +32,8 @@ export default class Messenger {
     return this._launcherApp;
   }
 
-  get closeButtonWrapper() {
-    return this._closeButtonWrapper;
+  get closeButton() {
+    return this._closeButton;
   }
 
   constructor(opts) {
@@ -78,8 +78,8 @@ export default class Messenger {
       />,
       launcherElement);
 
-    this._closeButtonWrapper = ReactDOM.render(
-      <CloseButtonWrapper
+    this._closeButton = ReactDOM.render(
+      <CloseButton
         {...opts}
       />,
       closeButtonElement);

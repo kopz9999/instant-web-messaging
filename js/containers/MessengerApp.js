@@ -5,10 +5,19 @@ import { LayerProvider } from 'layer-react';
 // App
 import Messenger from './Messenger';
 import MessengerProvider from './MessengerProvider';
-// DevTools
-// import DevTools from '../utils/DevTools';
 
 export default class MessengerApp extends Component {
+  static propTypes = {
+    appId: React.PropTypes.string,
+    pageContentNode: React.PropTypes.object,
+    viewMode: React.PropTypes.string,
+    challengeCallback: React.PropTypes.func,
+    clientUser: React.PropTypes.object,
+    consumerUser: React.PropTypes.object,
+    messenger: React.PropTypes.object,
+    welcomeMessage: React.PropTypes.string,
+  };
+
   getDevTools() {
     const DevTools = require('../utils/DevTools').default;
     return (<DevTools />);
@@ -33,14 +42,3 @@ export default class MessengerApp extends Component {
     );
   }
 }
-
-MessengerApp.propTypes = {
-  appId: React.PropTypes.string,
-  pageContentNode: React.PropTypes.object,
-  viewMode: React.PropTypes.string,
-  challengeCallback: React.PropTypes.func,
-  clientUser: React.PropTypes.object,
-  consumerUser: React.PropTypes.object,
-  messenger: React.PropTypes.object,
-  welcomeMessage: React.PropTypes.string,
-};

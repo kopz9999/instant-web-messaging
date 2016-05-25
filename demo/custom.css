@@ -1,3 +1,12 @@
+#chat-app-close {
+    position:fixed;
+    top:20px;
+    right:20px;
+    cursor:pointer;
+    display:none;
+    z-index: 100000;
+}
+
 /*
 body.chat-active { }
 body.chat-active.chat-open { width:calc(100% - 320px);}

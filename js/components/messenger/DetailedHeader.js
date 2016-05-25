@@ -16,8 +16,12 @@ export default class DetailedHeader extends Component {
     Velocity(domNode, effect, { stagger: 75 });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.displayHeader != nextProps.displayHeader;
+  }
+
   render() {
-    const { clientUser, renderCloseButton } = this.props;
+    const { clientUser } = this.props;
 
     return (
       <div className={`${styles.header} ${styles.hide}`}>
@@ -28,7 +32,6 @@ export default class DetailedHeader extends Component {
             <div className={styles.role}>{clientUser.roleName}</div>
           </div>
         </div>
-        { renderCloseButton() }
       </div>
     );
   }

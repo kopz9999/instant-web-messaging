@@ -14,31 +14,6 @@
     height: 48px;
 }
 
-.header .closeButton {
-    float: right;
-    margin-left: 15px;
-    margin-right: 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    z-index: 2147483001;
-    position: relative;
-    height: 48px;
-    color: inherit;
-    background: 0 0;
-    text-shadow: none;
-}
-
-.header .closeButton .icon {
-    /* TODO: Use Webpack */
-    background-image: url('./images/close.png');
-    background-size: 13px 13px;
-    background-repeat: no-repeat;
-    width: 16px;
-    opacity: .4;
-    height: 100%;
-    background-position: 50%;
-}
-
 .header .description {
     float: left;
     margin-top: 5px;

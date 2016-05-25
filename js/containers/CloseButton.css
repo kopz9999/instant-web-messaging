@@ -1,0 +1,10 @@
+.icon {
+    cursor: pointer;
+    content: ' ';
+    background-image: url('./images/close.png');
+    background-size: 11px 11px;
+    background-repeat: no-repeat;
+    width: 11px;
+    height: 11px;
+    background-position: 0 0;
+}

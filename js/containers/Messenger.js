@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // App
 import styles from './Messenger.css';
-import Header from '../components/messenger/Header';
+import DetailedHeader from '../components/messenger/DetailedHeader';
 import MessageComposer from '../components/messenger/MessageComposer';
 import ContentWrapper from '../components/messenger/ContentWrapper';
 import Container from '../components/messenger/Container';
@@ -44,7 +44,7 @@ class Messenger extends Component {
     return (
       <div className={styles.messenger}>
         <Container { ...container }>
-          <Header
+          <DetailedHeader
             clientUser={clientUser}
             displayHeader={displayHeader}
           />
