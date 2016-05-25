@@ -1,23 +1,29 @@
 import React from 'react';
 
-// Exported from redux-devtools
-let { createDevTools } = require('redux-devtools');
+let DevTools;
 
-// Monitors are separate packages, and you can make a custom one
-let LogMonitor = require('redux-devtools-log-monitor').default;
-let DockMonitor = require('redux-devtools-dock-monitor').default;
+if (__DEV__) {
+  // Exported from redux-devtools
+  let { createDevTools } = require('redux-devtools');
 
-const DevTools = createDevTools(
-  // Monitors are individually adjustable with props.
-  // Consult their repositories to learn about those props.
-  // Here, we put LogMonitor inside a DockMonitor.
-  // Note: DockMonitor is visible by default.
-  <DockMonitor toggleVisibilityKey='ctrl-h'
-               changePositionKey='ctrl-q'
-               defaultIsVisible={true}
-               defaultPosition='left'>
-    <LogMonitor theme='tomorrow' />
-  </DockMonitor>
-);
+  // Monitors are separate packages, and you can make a custom one
+  let LogMonitor = require('redux-devtools-log-monitor').default;
+  let DockMonitor = require('redux-devtools-dock-monitor').default;
+
+  DevTools = createDevTools(
+    // Monitors are individually adjustable with props.
+    // Consult their repositories to learn about those props.
+    // Here, we put LogMonitor inside a DockMonitor.
+    // Note: DockMonitor is visible by default.
+    <DockMonitor toggleVisibilityKey='ctrl-h'
+                 changePositionKey='ctrl-q'
+                 defaultIsVisible={true}
+                 defaultPosition='bottom'>
+      <LogMonitor theme='tomorrow' />
+    </DockMonitor>
+  );
+} else {
+  DevTools = null;
+}
 
 export default DevTools;

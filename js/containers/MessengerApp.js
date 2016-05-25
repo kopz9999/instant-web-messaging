@@ -23,24 +23,14 @@ export default class MessengerApp extends Component {
     isWrapped: true
   };
 
-  getDevTools() {
-    const DevTools = require('../utils/DevTools').default;
-    return (<DevTools />);
-  }
-
-  renderDevTools() {
-    return (__DEV__) ? this.getDevTools() : null;
-  }
-
   render() {
     const { client, store, welcomeMessage, isWrapped } = this.props;
-    const DevTools = this.renderDevTools();
     const MessengerComponent = isWrapped ? WrappedMessenger : Messenger;
 
     return (
       <LayerProvider client={client}>
         <Provider store={store}>
-          <MessengerProvider extraComponent={DevTools}>
+          <MessengerProvider>
             <MessengerComponent welcomeMessage={welcomeMessage} />
           </MessengerProvider>
         </Provider>
