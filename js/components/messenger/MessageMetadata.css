@@ -1,6 +1,7 @@
 .metadataContainer {
     padding: 2px 2px 0;
     display: block;
+    font-family: 'Proxima N W01 Smbd', sans-serif;
 }
 
 .metadataContainer .metadata {
