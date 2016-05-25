@@ -8,6 +8,7 @@ import { Client } from 'layer-sdk';
 import MessengerApp from '../containers/MessengerApp';
 import LauncherApp from '../containers/LauncherApp';
 import CloseButton from '../containers/CloseButton';
+import DevTools from './DevTools';
 import * as ViewModes from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
 // Actions
@@ -64,7 +65,8 @@ export default class Messenger {
   }
 
   setupComponents(opts) {
-    const { messengerElement, launcherElement, closeButtonElement } = opts;
+    const { messengerElement, launcherElement, closeButtonElement,
+      devToolsNode } = opts;
 
     this._messengerApp = ReactDOM.render(
       <MessengerApp
@@ -83,6 +85,14 @@ export default class Messenger {
         {...opts}
       />,
       closeButtonElement);
+
+    if (devToolsNode && DevTools !== null) {
+      ReactDOM.render(
+        <DevTools
+          {...opts}
+        />,
+        devToolsNode);
+    }
   }
 
   setupStore(opts) {

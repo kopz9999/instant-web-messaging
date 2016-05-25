@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     launcherElement: launcherNode.get(0),
     closeButtonElement: closeButtonNode.get(0),
     messengerElement: messengerNode.get(0),
+    devToolsNode: document.getElementById('dev-tools'),
     appId: layerAppId,
     challengeCallback: getIdentityToken,
     viewMode: webMessenger.VIEW_MODES.MANUAL,
