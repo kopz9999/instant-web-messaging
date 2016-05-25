@@ -3,6 +3,7 @@ import {Provider} from 'react-redux';
 // Layer
 import { LayerProvider } from 'layer-react';
 // App
+import WrappedMessenger from './WrappedMessenger';
 import Messenger from './Messenger';
 import MessengerProvider from './MessengerProvider';
 
@@ -16,6 +17,10 @@ export default class MessengerApp extends Component {
     consumerUser: React.PropTypes.object,
     messenger: React.PropTypes.object,
     welcomeMessage: React.PropTypes.string,
+    isWrapped: React.PropTypes.bool,
+  };
+  static defaultProps = {
+    isWrapped: true
   };
 
   getDevTools() {
@@ -28,14 +33,15 @@ export default class MessengerApp extends Component {
   }
 
   render() {
-    const { client, store, welcomeMessage } = this.props;
+    const { client, store, welcomeMessage, isWrapped } = this.props;
     const DevTools = this.renderDevTools();
+    const MessengerComponent = isWrapped ? WrappedMessenger : Messenger;
 
     return (
       <LayerProvider client={client}>
         <Provider store={store}>
           <MessengerProvider extraComponent={DevTools}>
-            <Messenger welcomeMessage={welcomeMessage} />
+            <MessengerComponent welcomeMessage={welcomeMessage} />
           </MessengerProvider>
         </Provider>
       </LayerProvider>

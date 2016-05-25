@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // App
-import styles from './Messenger.css';
 import DetailedHeader from '../components/messenger/DetailedHeader';
 import MessageComposer from '../components/messenger/MessageComposer';
 import ContentWrapper from '../components/messenger/ContentWrapper';
-import Container from '../components/messenger/Container';
 import * as ComposerActions from '../actions/ComposerActions';
 import * as ConversationActions from '../actions/ConversationActions';
+import styles from './Wrapped.css';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -29,7 +28,7 @@ class Messenger extends Component {
       containerActions,
       container,
     } = this.props;
-    const composerMessage = this.props.conversation.composerMessage;
+    const composerMessage = conversation.composerMessage;
     const { displayHeader, isCollapsed } = container;
     const {
       changeComposerMessage,
@@ -42,32 +41,31 @@ class Messenger extends Component {
     const { loadMoreMessages, markMessageRead } = conversationActions;
 
     return (
-      <div className={styles.messenger}>
-        <Container { ...container }>
-          <DetailedHeader
-            clientUser={clientUser}
-            displayHeader={displayHeader}
-          />
-          <ContentWrapper
-            welcomeMessage={welcomeMessage}
-            clientUser={clientUser}
-            consumerUser={consumerUser}
-            conversation={conversation}
-            onLoadMoreMessages={loadMoreMessages}
-            onMarkMessageRead={markMessageRead}
-            displayHeader={displayHeader}
-            isCollapsed={isCollapsed}
-            onScrollBelowHeader={showHeader}
-            onScrollAboveHeader={hideHeader}
-          />
-          <MessageComposer
-            value={composerMessage}
-            onChange={changeComposerMessage}
-            onSubmit={submitComposerMessage} />
-        </Container>
+      <div className={styles.wrapped}>
+        <DetailedHeader
+          clientUser={clientUser}
+          displayHeader={displayHeader}
+        />
+        <ContentWrapper
+          welcomeMessage={welcomeMessage}
+          clientUser={clientUser}
+          consumerUser={consumerUser}
+          conversation={conversation}
+          onLoadMoreMessages={loadMoreMessages}
+          onMarkMessageRead={markMessageRead}
+          displayHeader={displayHeader}
+          isCollapsed={isCollapsed}
+          onScrollBelowHeader={showHeader}
+          onScrollAboveHeader={hideHeader}
+        />
+        <MessageComposer
+          value={composerMessage}
+          onChange={changeComposerMessage}
+          onSubmit={submitComposerMessage} />
       </div>
     );
   };
 };
 
 export default connect(null, mapDispatchToProps)(Messenger);
+

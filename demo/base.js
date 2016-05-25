@@ -1,7 +1,7 @@
 // Template example
 var layerAppId ='layer:///apps/staging/52e7c9b4-e9cb-11e5-a188-7d4ed71366e8';
 var identityProviderURL = 'https://layer-identity-provider.herokuapp.com/identity_tokens';
-var consumerUser = null, clientUser = null;
+var consumerUser = null, clientUser = null, messengerApp = null;
 
 var QueryString = function () {
   // This function is anonymous, is executed immediately and

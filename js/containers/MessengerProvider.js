@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { QueryBuilder } from 'layer-sdk';
 // App
 import * as ContainerActions from '../actions/ContainerActions';
+import styles from './Wrapped.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -50,7 +51,7 @@ class MessengerProvider extends Component {
     const childrenWithProps = ready ? this.getChildrenWithProps() : null;
     
     return (
-      <div>
+      <div className={styles.wrapped}>
         {childrenWithProps}
         {extraComponent}
       </div>

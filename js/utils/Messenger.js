@@ -12,7 +12,7 @@ import * as ViewModes from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
 // Actions
 import { fetchUsersSuccess } from '../actions/AppActions';
-import { setupViewMode } from '../actions/ContainerActions';
+import { setupViewMode, showContainer, hideContainer } from '../actions/ContainerActions';
 import { setupMessageNotification } from '../actions/NotificationActions';
 
 export default class Messenger {
@@ -93,6 +93,14 @@ export default class Messenger {
     this.store.dispatch(setupViewMode(viewMode || ViewModes.OVERLAY,
       pageContentNode ));
 
+  }
+
+  show() {
+    this.store.dispatch(showContainer());
+  }
+
+  hide() {
+    this.store.dispatch(hideContainer());
   }
 }
 

@@ -1,8 +1,8 @@
 .notification {
     display: none;
-    position: fixed;
-    top: 75px;
-    right: 30px;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: -7px;
     width: 240px;
     height: auto;
     z-index: 10000;

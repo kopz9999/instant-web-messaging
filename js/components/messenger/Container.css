@@ -1,0 +1,10 @@
+.sheet {
+    right: -320px;
+    width: 320px;
+    visibility: visible;
+    z-index: 10001;
+    position: fixed;
+    height: 100%;
+    bottom: 0;
+    background-color: #ffffff;
+}

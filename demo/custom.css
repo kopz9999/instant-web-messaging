@@ -4,7 +4,46 @@
     right:20px;
     cursor:pointer;
     display:none;
-    z-index: 100000;
+    z-index: 2147483004;
+}
+
+#chat-app-container {
+    position:fixed;
+    top:0;
+    right:0;
+    z-index:2000;
+    height:100%;
+    background-color:#ffffff;
+    overflow:auto;
+    box-sizing:border-box;
+    border-left:solid 1px #e3e3e3;
+    /*transition:width 200ms linear;*/
+}
+
+#chat-app-container.open {
+    width:320px;
+}
+
+#chat-app-container.open #chat-app-close { display:block; }
+
+#chat-app-content {
+    height: 100%;
+    width: 100%;
+}
+
+#chat-app-trigger {
+    position:fixed;
+    top:20px;
+    right:20px;
+    width:54px;
+    height:54px;
+    z-index: 2000;
+    cursor:pointer;
+}
+
+@media screen and (max-width: 800px) {
+    body.chat-active.chat-open { width:0; overflow:hidden; }
+    body.chat-open #chat-app-container { width:100%; }
 }
 
 /*

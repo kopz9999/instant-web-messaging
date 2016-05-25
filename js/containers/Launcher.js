@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 // App
-import styles from './Launcher.css';
+import styles from './Wrapped.css';
 import Avatar from '../components/launcher/Avatar';
 import Notification from '../components/launcher/Notification';
 
@@ -27,7 +26,7 @@ export default class Launcher extends Component {
     const notification = messageReady ? this.renderNotification() : null;
 
     return (
-      <div className={styles.launcher} onClick={showContainer}>
+      <div className={styles.wrapped} onClick={showContainer}>
         <Avatar url={clientUser.avatarURL} />
         { notification }
       </div>

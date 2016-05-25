@@ -4,7 +4,7 @@ import { findDOMNode } from 'react-dom';
 import Velocity from 'velocity-animate';
 // App
 import * as VIEW_MODES from '../../constants/ViewModes';
-import styles from '../../containers/Messenger.css';
+import styles from './Container.css';
 
 export default class Container extends Component {
   componentDidMount() {

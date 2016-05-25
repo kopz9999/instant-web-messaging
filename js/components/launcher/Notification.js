@@ -13,7 +13,7 @@ const getQueries = ({activeConversationId, messagePagination}) => {
   };
 };
 
-export default class Notification extends Component {
+class Notification extends Component {
   render() {
     const { messages, clientUser } = this.props;
     const notReadMessages = messages
@@ -34,5 +34,4 @@ Notification.propTypes = {
   count: React.PropTypes.number
 };
 
-const ConnectedNotification = connectQuery({}, getQueries)(Notification);
-export default ConnectedNotification;
+export default connectQuery({}, getQueries)(Notification);
