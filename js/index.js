@@ -1,15 +1,7 @@
 import User from './utils/User';
 import Messenger from './utils/Messenger';
 import VIEW_MODES from './constants/ViewModes';
-import {
-  SHOW_CONTAINER,
-  HIDE_CONTAINER,
-  MESSENGER_SHEET_RENDERED
-} from './constants/ActionTypes';
-
-const EVENT_ACTIONS = {
-  SHOW_CONTAINER, HIDE_CONTAINER, MESSENGER_SHEET_RENDERED
-};
+import ACTION_EVENTS from './constants/ActionEvents';
 
 /** @module WebMessenger */
 
@@ -36,4 +28,4 @@ function createApp(opts = {}) {
   return new Messenger(opts);
 }
 
-export { createApp, User, VIEW_MODES, Messenger, EVENT_ACTIONS };
+export { createApp, User, VIEW_MODES, Messenger, ACTION_EVENTS };

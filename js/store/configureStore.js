@@ -14,13 +14,13 @@ let createStoreWithMiddleware = (layerClient, messengerInstance) => {
     return compose(
       applyMiddleware(thunkMiddleware,
         listen(listener),
-        layerMiddleware(layerClient)),
+        layerMiddleware(layerClient, messengerInstance)),
       DevTools.instrument()
     )(createStore);
   } else {
     return applyMiddleware(thunkMiddleware,
       listen(listener),
-      layerMiddleware(layerClient))(createStore);
+      layerMiddleware(layerClient, messengerInstance))(createStore);
   }
 };
 

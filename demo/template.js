@@ -38,16 +38,24 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   launcherNode.on('click', function(){
-    jQuery('body')/*.css('overflow','hidden')*/.addClass('chat-open');
+    jQuery('body').addClass('chat-open');
     jQuery('#chat-app-container').addClass('open');
-    messengerApp.show();
-    //jQuery('header').addClass('dark');
   });
 
   closeButtonNode.on('click', function(){
-    jQuery('body').removeClass('chat-open')/*.css('overflow','auto')*/;
+    jQuery('body').removeClass('chat-open');
     jQuery('#chat-app-container').removeClass('open');
-    messengerApp.hide();
-    //jQuery('header').removeClass('dark');
+  });
+
+  messengerApp.on(webMessenger.ACTION_EVENTS.SHOW_CONTAINER, function(e) {
+    console.log('Show event');
+  });
+
+  messengerApp.on(webMessenger.ACTION_EVENTS.HIDE_CONTAINER, function(e) {
+    console.log('Hide event');
+  });
+
+  messengerApp.on(webMessenger.ACTION_EVENTS.MESSAGE_CREATE, function(e) {
+    console.log(e.consumerMessage.id);
   });
 });

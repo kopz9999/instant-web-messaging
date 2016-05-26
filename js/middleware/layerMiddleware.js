@@ -2,16 +2,15 @@ import {
   SUBMIT_COMPOSER_MESSAGE,
   MARK_MESSAGE_READ,
   CHANGE_COMPOSER_MESSAGE,
-  SETUP_CONVERSATION,
   CLIENT_READY,
   FETCH_USERS_SUCCESS
 } from '../constants/ActionTypes';
 
+import ACTION_EVENTS from '../constants/ActionEvents';
+
 import ConversationManager from '../utils/ConversationManager';
 
-import {
-  clientReady
-} from '../actions/AppActions';
+import { clientReady } from '../actions/AppActions';
 
 // Layer
 import { TypingIndicators, QueryBuilder } from 'layer-sdk';
@@ -35,12 +34,17 @@ function handleAfterAction(layerClient, state, action, next) {
   }
 }
 
-function handleAction(layerClient, typingPublisher, state, action, next) {
+function handleAction(layerClient, typingPublisher, state, action, next,
+                      messengerInstance) {
   const { type, payload } = action;
+  let consumerMessage = null;
 
   switch(type) {
     case SUBMIT_COMPOSER_MESSAGE:
-      state.Conversation.activeConversation.createMessage(state.Conversation.composerMessage).send();
+      consumerMessage = state.Conversation.activeConversation
+                             .createMessage(state.Conversation.composerMessage)
+      consumerMessage.send();
+      messengerInstance.dispatchEvent(ACTION_EVENTS.MESSAGE_CREATE, { consumerMessage });
       typingPublisher.setState(FINISHED);
       return;
     case MARK_MESSAGE_READ:
@@ -61,7 +65,7 @@ function handleAction(layerClient, typingPublisher, state, action, next) {
   }
 }
 
-const layerMiddleware = layerClient => store => {
+const layerMiddleware = (layerClient, messengerInstance) => store => {
 
   const typingPublisher = layerClient.createTypingPublisher();
 
@@ -72,7 +76,8 @@ const layerMiddleware = layerClient => store => {
   return next => action => {
     const state = store.getState();
 
-    handleAction(layerClient, typingPublisher, state, action, next);
+    handleAction(layerClient, typingPublisher, state, action, next,
+      messengerInstance);
 
     const nextState = next(action);
 

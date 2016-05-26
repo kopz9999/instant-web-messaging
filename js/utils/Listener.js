@@ -1,11 +1,15 @@
-import {
-  SHOW_CONTAINER,
-  HIDE_CONTAINER
-} from '../constants/ActionTypes';
+import ACTION_EVENTS from '../constants/ActionEvents';
 
 export default class Listener {
+  static processTypes() {
+    let arr = [];
+    for (let action in ACTION_EVENTS) arr.push(action);
+    return arr;
+  }
+
   constructor(messengerInstance) {
     this._messengerInstance = messengerInstance;
+    this._types = Listener.processTypes();
   }
 
   get messengerInstance() {
@@ -13,7 +17,7 @@ export default class Listener {
   }
 
   get types() {
-    return [ SHOW_CONTAINER, HIDE_CONTAINER ];
+    return this._types;
   }
 
   setStore (store) {
@@ -22,7 +26,12 @@ export default class Listener {
 
   // called when action from types is dispatched
   handleAction( action, dispatched, store ) {
-    this.messengerInstance.dispatchEvent(action.type,
-      store.getState().Container);
+    switch (action.type) {
+      case ACTION_EVENTS.SHOW_CONTAINER:
+      case ACTION_EVENTS.HIDE_CONTAINER:
+        this.messengerInstance.dispatchEvent(action.type,
+          store.getState().Container);
+        break;
+    }
   }
 }
