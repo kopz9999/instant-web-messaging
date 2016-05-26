@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", function() {
     avatarURL: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/admin-avatar.png'
   });
 
-  consumerUser = new webMessenger.User({
+  // Showing example with custom class and id
+  consumerUser = {
+    id: '502c0d48-8ae8-492e-8ec3-4d8b1d48d6f8',
     displayName: 'Customer',
     layerId: 'Customer',
     avatarURL: 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/user-avatar-small.png'
-  });
+  };
 
   if (QueryString.username) {
     consumerUser.displayName = consumerUser.layerId =
@@ -56,6 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   messengerApp.on(webMessenger.ACTION_EVENTS.MESSAGE_CREATE, function(e) {
-    console.log(e.consumerMessage.id);
+    trackMessage(consumerUser, e.consumerMessage);
   });
 });
