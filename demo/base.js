@@ -41,6 +41,10 @@ function trackMessage(user, message) {
       },
       type: "MESSAGE",
       content: {
+        page: {
+          name: window.document.title,
+          full_url: window.location.href
+        },
         message: {
           id: message.id,
           body: message.parts[0].body,
