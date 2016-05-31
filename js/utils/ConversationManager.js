@@ -14,13 +14,13 @@ export default class ConversationManager {
 
   filterConversation(conversations, clientUser, consumerUser) {
     const expectedUserIds = [ clientUser.layerId, consumerUser.layerId ];
+    let participants = null;
     return conversations.filter((conversation) => {
       if (conversation.participants.length <= 2) {
-        return conversation
-          .participants
-          .reduce((previousValue, currentValue, i, arr) => (
-            expectedUserIds.indexOf(arr[i]) > -1
-          ), true);
+        participants = conversation.participants;
+        return expectedUserIds.reduce((previousValue, currentValue, i, arr) => (
+          expectedUserIds.indexOf(participants[i]) > -1
+        ), true);
       }
       return false;
     });
