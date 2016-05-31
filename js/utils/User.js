@@ -1,3 +1,5 @@
+const PROPERTIES = [ 'displayName', 'roleName', 'layerId', 'avatarURL'];
+
 export default class User {
   constructor({displayName, roleName, layerId, avatarURL}) {
     this._displayName = displayName;
@@ -38,3 +40,19 @@ export default class User {
     this._avatarURL = value;
   }
 }
+
+export class UserFactory {
+  serializeUser(userObject) {
+    let obj = userObject;
+    if (obj instanceof User){
+      obj = {};
+      PROPERTIES.forEach((k) => {
+        obj[k] = userObject[k];
+      });
+      return obj;
+    }
+    return obj;
+  }
+}
+
+export const userFactoryInstance = new UserFactory();

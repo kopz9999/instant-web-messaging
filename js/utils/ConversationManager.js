@@ -1,9 +1,13 @@
+// Layer
+import { Query } from 'layer-sdk';
+// App
+import { userFactoryInstance } from '../utils/User';
+// Actions
 import {
   setupConversation,
   receiveMessage,
   conversationCreate,
 } from '../actions/ConversationActions';
-import { Query } from 'layer-sdk';
 
 export default class ConversationManager {
   assignProperties(client, App, next) {
@@ -41,6 +45,17 @@ export default class ConversationManager {
     }
   }
 
+  setupMetadata(conversation) {
+    const { clientUser, consumerUser } = this.App;
+    const appParticipants = [userFactoryInstance.serializeUser(clientUser),
+      userFactoryInstance.serializeUser(consumerUser)];
+    let metaData = {};
+    appParticipants.forEach((user, i) => {
+      metaData[`appParticipants.${i}`] = user;
+    });
+    conversation.setMetadataProperties(metaData);
+  }
+
   onQueryReady(conversations) {
     let expectedConversation = null;
     const { clientUser, consumerUser } = this.App;
@@ -56,6 +71,7 @@ export default class ConversationManager {
     }
     expectedConversation.on('conversations:change',
       (e)=> this.handleConversationChange(e) );
+    this.setupMetadata(expectedConversation);
     this.next(setupConversation(expectedConversation));
     this.next(receiveMessage(expectedConversation.lastMessage));
   }
