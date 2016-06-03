@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 // Layer
 import { QueryBuilder } from 'layer-sdk';
 import { connectQuery } from 'layer-react';
+import { connect } from 'react-redux';
 // App
 import  MessageListItem from './MessageListItem';
 import styles from './MessagesList.css';
+
+function mapStateToProps({ LayerUsers }) {
+  return {
+    LayerUsers,
+  };
+}
 
 const getQueries = ({activeConversationId, messagePagination}) => {
   return {
@@ -23,16 +30,22 @@ export default class MessageList extends Component {
   renderMessageItem(message) {
     const { clientUser, consumerUser, isCollapsed,
       onMarkMessageRead } = this.props;
-    return (
-      <MessageListItem
-        key={message.id}
-        message={message}
-        clientUser={clientUser}
-        consumerUser={consumerUser}
-        canMarkRead={!isCollapsed}
-        onMarkMessageRead={onMarkMessageRead}
-      />
-    );
+    const senderUser = this.props.LayerUsers[message.sender.userId];
+    if (senderUser) {
+      return (
+        <MessageListItem
+          key={message.id}
+          message={message}
+          senderUser={senderUser}
+          clientUser={clientUser}
+          consumerUser={consumerUser}
+          canMarkRead={!isCollapsed}
+          onMarkMessageRead={onMarkMessageRead}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -53,5 +66,6 @@ MessageList.propTypes = {
   consumerUser: React.PropTypes.object,
 };
 
-const ConnectedMessageList = connectQuery({}, getQueries)(MessageList);
+const ConnectedMessageList = connect(mapStateToProps,
+  null)(connectQuery({}, getQueries)(MessageList));
 export default ConnectedMessageList;

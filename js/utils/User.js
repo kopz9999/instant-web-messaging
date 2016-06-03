@@ -42,6 +42,13 @@ export default class User {
 }
 
 export class UserFactory {
+  buildFromMetadata(opts) {
+    return new User({
+      layerId: opts.layerId,
+      displayName: opts.displayName,
+    });
+  }
+
   serializeUser(userObject) {
     let obj = userObject;
     if (obj instanceof User){

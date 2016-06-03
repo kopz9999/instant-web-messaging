@@ -8,25 +8,27 @@ import {
   receiveMessage,
   conversationCreate,
 } from '../actions/ConversationActions';
+import {
+  receiveLayerUser
+} from '../actions/LayerUsersActions';
 
 export default class ConversationManager {
   assignProperties(client, App, next) {
     this.client = client;
     this.App = App;
     this.next = next;
+    this.getState = null;
   };
 
   filterConversation(conversations, clientUser, consumerUser) {
-    const expectedUserIds = [ clientUser.layerId, consumerUser.layerId ];
+    const expectedUserIds = [ clientUser.layerId.toString(),
+      consumerUser.layerId.toString() ];
     let participants = null;
     return conversations.filter((conversation) => {
-      if (conversation.participants.length <= 2) {
-        participants = conversation.participants;
-        return expectedUserIds.reduce((previousValue, currentValue, i, arr) => (
-          expectedUserIds.indexOf(participants[i]) > -1
-        ), true);
-      }
-      return false;
+      participants = conversation.participants;
+      return expectedUserIds.reduce((previousValue, currentValue, i, arr) => (
+        participants.indexOf(expectedUserIds[i]) > -1
+      ), true);
     });
   }
 
@@ -37,6 +39,9 @@ export default class ConversationManager {
           case "lastMessage":
             this.next(receiveMessage(change.newValue));
             break;
+          case "metadata":
+            this.readMetadata(change.newValue.appParticipants);
+            break;
           case "id":
             this.next(conversationCreate(change.newValue));
             break;
@@ -45,15 +50,42 @@ export default class ConversationManager {
     }
   }
 
-  setupMetadata(conversation) {
+  updateMetadata(conversation, storedParticipants = {}) {
     const { clientUser, consumerUser } = this.App;
     const appParticipants = [userFactoryInstance.serializeUser(clientUser),
       userFactoryInstance.serializeUser(consumerUser)];
     let metaData = {};
+    Object.keys(storedParticipants).forEach((i) => {
+      metaData[`appParticipants.${i}`] = storedParticipants[i];
+    });
     appParticipants.forEach((user, i) => {
       metaData[`appParticipants.${i}`] = user;
     });
     conversation.setMetadataProperties(metaData);
+  }
+
+  readMetadata(appParticipants) {
+    const state = this.getState();
+    const { LayerUsers } = state;
+    let metadataObject = null, layerUser, stateKey;
+    Object.keys(appParticipants).forEach((k)=> {
+      metadataObject = appParticipants[k];
+      stateKey = metadataObject.layerId.toString();
+      if (!LayerUsers[stateKey]) {
+        layerUser = userFactoryInstance.buildFromMetadata(metadataObject);
+        this.next( receiveLayerUser( stateKey, layerUser ) );
+      }
+    });
+  }
+
+  setupMetadata(conversation) {
+    const { appParticipants } = conversation.metadata;
+    if (appParticipants) {
+      this.updateMetadata(conversation, appParticipants);
+      this.readMetadata(appParticipants)
+    } else {
+      this.updateMetadata(conversation);
+    }
   }
 
   onQueryReady(conversations) {

@@ -75,6 +75,7 @@ const layerMiddleware = (layerClient, messengerInstance) => store => {
 
   return next => action => {
     const state = store.getState();
+    conversationManager.getState = store.getState;
 
     handleAction(layerClient, typingPublisher, state, action, next,
       messengerInstance);

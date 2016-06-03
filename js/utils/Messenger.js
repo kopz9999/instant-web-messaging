@@ -13,6 +13,8 @@ import * as ViewModes from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
 // Actions
 import { fetchUsersSuccess } from '../actions/AppActions';
+import { receiveLayerUser } from '../actions/LayerUsersActions';
+
 import { setupViewMode, showContainer, hideContainer } from '../actions/ContainerActions';
 import { setupMessageNotification } from '../actions/NotificationActions';
 
@@ -99,6 +101,8 @@ export default class Messenger {
     const { clientUser, consumerUser, viewMode, pageContentNode } = opts;
 
     this.store.dispatch(fetchUsersSuccess(clientUser, consumerUser));
+    this.store.dispatch(receiveLayerUser(clientUser.layerId, clientUser));
+    this.store.dispatch(receiveLayerUser(consumerUser.layerId, consumerUser));
     this.store.dispatch(setupMessageNotification());
     this.store.dispatch(setupViewMode(viewMode || ViewModes.OVERLAY,
       pageContentNode ));

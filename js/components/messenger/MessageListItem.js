@@ -21,14 +21,12 @@ export default class MessageListItem extends Component {
   }
 
   render() {
-    const { message, clientUser, consumerUser } = this.props;
-    const isClientMessage = message.sender.userId == clientUser.layerId;
+    const { message, clientUser, consumerUser, senderUser } = this.props;
+    const isClientMessage = message.sender.userId != consumerUser.layerId;
     const messageStyle = isClientMessage ?
       styles.clientMessage : styles.consumerMessage;
-    const avatarURL = isClientMessage ?
-      clientUser.avatarURL : consumerUser.avatarURL;
-    const displayUserName = isClientMessage ?
-      clientUser.displayName : consumerUser.displayName;
+    const avatarURL = senderUser.avatarURL || 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/user-avatar-small.png';
+    const displayUserName = senderUser.displayName;
     const timeAtText = formatTimestamp(message.sentAt);
     const displayReadFlag = message.isRead && !isClientMessage;
 
