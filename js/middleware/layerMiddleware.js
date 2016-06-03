@@ -7,8 +7,7 @@ import {
 } from '../constants/ActionTypes';
 
 import ACTION_EVENTS from '../constants/ActionEvents';
-
-import ConversationManager from '../utils/ConversationManager';
+import { conversationManagerInstance } from '../utils/ConversationManager';
 
 import { clientReady } from '../actions/AppActions';
 
@@ -20,16 +19,14 @@ const {
   FINISHED
 } = TypingIndicators;
 
-const conversationManager = new ConversationManager();
-
 function handleAfterAction(layerClient, state, action, next) {
   const { type } = action;
   switch(type) {
     case CLIENT_READY:
-      conversationManager.retrieveConversation(layerClient, state.App, next);
+      conversationManagerInstance.retrieveConversation(layerClient, state.App, next);
       return;
     case FETCH_USERS_SUCCESS:
-      conversationManager.retrieveConversation(layerClient, state.App, next);
+      conversationManagerInstance.retrieveConversation(layerClient, state.App, next);
       return;
   }
 }
@@ -68,6 +65,7 @@ function handleAction(layerClient, typingPublisher, state, action, next,
 const layerMiddleware = (layerClient, messengerInstance) => store => {
 
   const typingPublisher = layerClient.createTypingPublisher();
+  conversationManagerInstance.getStateCallback = store.getState;
 
   layerClient.on('ready', () => {
     store.dispatch(clientReady());
@@ -75,7 +73,6 @@ const layerMiddleware = (layerClient, messengerInstance) => store => {
 
   return next => action => {
     const state = store.getState();
-    conversationManager.getState = store.getState;
 
     handleAction(layerClient, typingPublisher, state, action, next,
       messengerInstance);

@@ -13,11 +13,22 @@ import {
 } from '../actions/LayerUsersActions';
 
 export default class ConversationManager {
+  set getStateCallback(value) {
+    this.getState = value;
+  }
+
+  get getStateCallback() {
+    return this.getState;
+  }
+
+  constructor() {
+    this.getState = null;
+  }
+
   assignProperties(client, App, next) {
     this.client = client;
     this.App = App;
     this.next = next;
-    this.getState = null;
   };
 
   filterConversation(conversations, clientUser, consumerUser) {
@@ -122,3 +133,5 @@ export default class ConversationManager {
     this.queryForConversations();
   };
 };
+
+export const conversationManagerInstance = new ConversationManager();
