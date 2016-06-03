@@ -5,10 +5,13 @@ import {
 } from '../constants/ActionTypes';
 
 const initialState = {
-  displayNotification: true,
+  displayNotification: false,
   displayInitialMessage: false
 };
 
+/*
+* TODO: Add action for displaying initial message
+* */
 export default function(state = initialState, action) {
   const { type } = action;
 
@@ -28,7 +31,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         displayNotification: false,
-        displayInitialMessage: false,
       };
     default:
       return state;

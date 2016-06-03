@@ -49,18 +49,21 @@ export default class MessageNotification extends Component {
   }
 
   verifyDisplayNotification(oldDisplayNotification) {
-    const { notification } = this.props;
+    const { notification, actions } = this.props;
     const { displayNotification, displayInitialMessage } = notification;
+    const { hideMessageNotification } = actions;
 
     // Is different?
     if (displayNotification != oldDisplayNotification) {
       // Is requesting to show?
       if (displayNotification) {
-        // It came from an update, so you must checj iu
+        // It came from an update, so you must check ui
         if (this.shouldShowLastMessage()) {
           this.displayNotification();
         } else if (displayInitialMessage) {
           this.displayNotification();
+        } else {
+          hideMessageNotification(); //Announce you are not displaying anything
         }
       } else {
         this.displayNotification();
@@ -69,10 +72,10 @@ export default class MessageNotification extends Component {
   }
 
   shouldShowLastMessage() {
-    const { clientUser, conversation } = this.props;
+    const { consumerUser, conversation } = this.props;
     const { lastMessage } = conversation;
     return (lastMessage && !lastMessage.isRead &&
-      lastMessage.sender.userId == clientUser.layerId &&
+      lastMessage.sender.userId != consumerUser.layerId &&
       lastMessage.parts.length > 0);
   }
 

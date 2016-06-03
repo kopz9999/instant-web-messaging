@@ -6,13 +6,13 @@ import Notification from '../components/launcher/Notification';
 
 export default class Launcher extends Component {
   renderNotification(){
-    const { clientUser, conversation } = this.props;
+    const { consumerUser, conversation } = this.props;
     return (
       <Notification
         {
           ...({
             ...conversation,
-            clientUser
+            consumerUser
           })
         }
       />

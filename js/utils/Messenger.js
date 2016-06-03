@@ -103,7 +103,7 @@ export default class Messenger {
     this.store.dispatch(fetchUsersSuccess(clientUser, consumerUser));
     this.store.dispatch(receiveLayerUser(clientUser.layerId, clientUser));
     this.store.dispatch(receiveLayerUser(consumerUser.layerId, consumerUser));
-    this.store.dispatch(setupMessageNotification());
+    // this.store.dispatch(setupMessageNotification());
     this.store.dispatch(setupViewMode(viewMode || ViewModes.OVERLAY,
       pageContentNode ));
 
