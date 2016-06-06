@@ -18,8 +18,9 @@ class CloseButton extends Component {
     const { hideContainer } = actions;
 
     return (
-      <div onClick={hideContainer}
-           className={styles.icon}>
+      <div className={styles.closeButton} onClick={hideContainer} >
+        <i className={styles.icon}></i>
+        Close chat
       </div>
     );
   };
