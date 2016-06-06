@@ -46,6 +46,7 @@ export class UserFactory {
     return new User({
       layerId: opts.layerId,
       displayName: opts.displayName,
+      avatarURL: opts.avatarURL,
     });
   }
 
