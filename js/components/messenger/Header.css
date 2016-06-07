@@ -4,3 +4,9 @@
     color: #3d4c53;
     margin: 0;
 }
+
+@media only screen and (max-width: 768px) {
+    .header {
+        width: calc(100% - 100px);
+    }
+}

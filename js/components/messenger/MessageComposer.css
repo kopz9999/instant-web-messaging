@@ -92,3 +92,18 @@
     height: 46px;
     cursor: pointer;
 }
+
+
+@media only screen and (max-width: 768px) {
+    .composerContainer {
+        padding-left: 0;
+        padding-right: 0;
+        width: calc(100% - 8px);
+    }
+    .composerContainer .composer .textAreaContainer .textArea {
+        width: calc(100% - 60px);
+    }
+    .composerContainer .composer {
+        padding: 15px 7px 0 15px;
+    }
+}
