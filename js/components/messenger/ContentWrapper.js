@@ -72,9 +72,12 @@ export default class ContentWrapper extends Component {
     }
   }
 
+  /* TODO: Fix this */
   requestScrollDown() {
     if (this.state.stickBottom) {
-      this.scrollBottom();
+      setTimeout( ()=> {
+        this.scrollBottom();
+      }, 100);
     }
   }
 
