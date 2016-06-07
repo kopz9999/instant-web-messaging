@@ -59,7 +59,7 @@ class Messenger extends Component {
       <div className={styles.wrapped}>
         <Header
           user={clientUser}
-          text={welcomeMessage}
+          text={clientUser.displayName}
           extraContent={this.renderCloseButton()}
         />
         <ContentWrapper

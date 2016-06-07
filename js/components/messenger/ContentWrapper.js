@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import { connect } from 'react-redux';
 // Layer
 import { QueryBuilder } from 'layer-sdk';
 // App
