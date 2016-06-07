@@ -92,10 +92,18 @@ export default class Messenger {
 
   setupComponents(opts) {
     const { devToolsNode, viewMode } = opts;
-    this.renderMessengerApp(opts);
-    if (viewMode != VIEW_MODES.FULL_SCREEN) {
-      this.renderLauncherApp(opts);
-      this.renderCloseButtonApp(opts);
+    switch (viewMode) {
+      case VIEW_MODES.NOTIFICATIONS:
+        this.renderLauncherApp(opts);
+        break;
+      case VIEW_MODES.FULL_SCREEN:
+        this.renderMessengerApp(opts);
+        break;
+      default:
+        this.renderMessengerApp(opts);
+        this.renderLauncherApp(opts);
+        this.renderCloseButtonApp(opts);
+        break;
     }
     if (devToolsNode && DevTools !== null) {
       ReactDOM.render(

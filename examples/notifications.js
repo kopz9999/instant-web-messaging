@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Layer custom variables
-  var messengerNode = document.getElementById('root');
+  var launcherNode = jQuery('#chat-app-trigger');
 
   clientUser = new webMessenger.User({
     displayName: 'Margaret Bell',
@@ -22,20 +22,20 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   messengerApp = webMessenger.createApp({
-    messengerElement: messengerNode,
+    launcherElement: launcherNode.get(0),
     devToolsNode: document.getElementById('dev-tools'),
     appId: layerAppId,
     challengeCallback: getIdentityToken,
-    viewMode: webMessenger.VIEW_MODES.FULL_SCREEN,
+    viewMode: webMessenger.VIEW_MODES.NOTIFICATIONS,
     welcomeMessage: 'Hello, I’m Margaret, realtor at Bridgewater, Warren, if you have any questions please feel free to write anytime.',
     messageNotification: 'Hey, let me know if you have any question',
     isWrapped: false,
     clientUser: clientUser,
     consumerUser: consumerUser,
-    closeRoute: './notifications.html'
   });
 
-  messengerApp.on(webMessenger.ACTION_EVENTS.MESSAGE_CREATE, function(e) {
-    trackMessage(consumerUser, e.consumerMessage);
+  launcherNode.on('click', function(){
+    window.open('./fullscreen.html', 'messenger');
+    return true;
   });
 });
