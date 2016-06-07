@@ -19,7 +19,7 @@ export default class Avatar extends Component {
   }
 
   renderDefault() {
-    const { color } = this.user;
+    const color = this.user.color || '#ff9aac';
     const inlineStyles = {
       backgroundColor: color,
       borderColor: color

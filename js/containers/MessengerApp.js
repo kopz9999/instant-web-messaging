@@ -17,6 +17,7 @@ export default class MessengerApp extends Component {
     consumerUser: React.PropTypes.object,
     messenger: React.PropTypes.object,
     welcomeMessage: React.PropTypes.string,
+    closeRoute: React.PropTypes.string,
     isWrapped: React.PropTypes.bool,
   };
   static defaultProps = {
@@ -24,14 +25,16 @@ export default class MessengerApp extends Component {
   };
 
   render() {
-    const { client, store, welcomeMessage, isWrapped } = this.props;
+    const { client, store, welcomeMessage, isWrapped, closeRoute } = this.props;
     const MessengerComponent = isWrapped ? WrappedMessenger : Messenger;
 
     return (
       <LayerProvider client={client}>
         <Provider store={store}>
           <MessengerProvider>
-            <MessengerComponent welcomeMessage={welcomeMessage} />
+            <MessengerComponent
+              welcomeMessage={welcomeMessage}
+              closeRoute={closeRoute} />
           </MessengerProvider>
         </Provider>
       </LayerProvider>

@@ -1,30 +1,19 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 // App
+import listItemStyles from './MessageListItem.css';
+import Avatar from './message-list-item/Avatar';
 import styles from './Header.css';
-import * as ContainerActions from '../../actions/ContainerActions';
-import DetailedHeader from './DetailedHeader';
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(ContainerActions, dispatch),
-  };
-}
-
-class Header extends Component {
-  render() {
-    const { clientUser, displayHeader } = this.props;
-
-    return (
-      <div>
-        <DetailedHeader
-          displayHeader={displayHeader}
-          clientUser={clientUser}
-        />
+export default ({ user, text, extraContent }) => (
+  <div className={styles.header}>
+    <div className={listItemStyles.listItem}>
+      <div className={listItemStyles.avatar}>
+        <Avatar user={user} />
       </div>
-    );
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Header);
+      <div className={styles.content}>
+        <p className={styles.text}>{text}</p>
+      </div>
+    </div>
+    { extraContent }
+  </div>
+);

@@ -9,7 +9,7 @@ import MessengerApp from '../containers/MessengerApp';
 import LauncherApp from '../containers/LauncherApp';
 import CloseButton from '../containers/CloseButton';
 import DevTools from './DevTools';
-import * as ViewModes from '../constants/ViewModes';
+import * as VIEW_MODES from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
 // Actions
 import { fetchUsersSuccess } from '../actions/AppActions';
@@ -66,28 +66,37 @@ export default class Messenger {
     this._store = configureStore(this.client, this);
   }
 
-  setupComponents(opts) {
-    const { messengerElement, launcherElement, closeButtonElement,
-      devToolsNode } = opts;
-
+  renderMessengerApp(opts) {
     this._messengerApp = ReactDOM.render(
       <MessengerApp
         {...opts}
       />,
-      messengerElement);
+      opts.messengerElement);
+  }
 
+  renderLauncherApp(opts) {
     this._launcherApp = ReactDOM.render(
       <LauncherApp
         {...opts}
       />,
-      launcherElement);
+      opts.launcherElement);
+  }
 
+  renderCloseButtonApp(opts) {
     this._closeButton = ReactDOM.render(
       <CloseButton
         {...opts}
       />,
-      closeButtonElement);
+      opts.closeButtonElement);
+  }
 
+  setupComponents(opts) {
+    const { devToolsNode, viewMode } = opts;
+    this.renderMessengerApp(opts);
+    if (viewMode != VIEW_MODES.FULL_SCREEN) {
+      this.renderLauncherApp(opts);
+      this.renderCloseButtonApp(opts);
+    }
     if (devToolsNode && DevTools !== null) {
       ReactDOM.render(
         <DevTools
@@ -105,7 +114,7 @@ export default class Messenger {
     this.store.dispatch(receiveLayerUser(consumerUser.layerId, consumerUser));
     // TODO: Use settings
     // this.store.dispatch(setupMessageNotification());
-    this.store.dispatch(setupViewMode(viewMode || ViewModes.OVERLAY,
+    this.store.dispatch(setupViewMode(viewMode || VIEW_MODES.OVERLAY,
       pageContentNode ));
 
   }

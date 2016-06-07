@@ -41,8 +41,10 @@
     cursor:pointer;
 }
 
-body.chat-active.chat-open { width:0; overflow:hidden; }
-body.chat-open #chat-app-container { width:100%; }
+@media screen and (max-width: 800px) {
+    body.chat-active.chat-open { width:0; overflow:hidden; }
+    body.chat-open #chat-app-container { width:100%; }
+}
 
 /*
 body.chat-active { }

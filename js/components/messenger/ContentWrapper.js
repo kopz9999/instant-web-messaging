@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 // Layer
 import { QueryBuilder } from 'layer-sdk';
 // App
-import WelcomeMessage from './WelcomeMessage';
 import MessageList from './MessageList';
 import TypingIndicator from './TypingIndicator';
 import styles from './ContentWrapper.css';
@@ -111,7 +110,7 @@ export default class ContentWrapper extends Component {
   }
 
   render() {
-    const { welcomeMessage, clientUser, conversation } = this.props;
+    const { conversation } = this.props;
     const { activeConversationId } = conversation;
     const messageListReady = activeConversationId != null;
     const messageList = messageListReady ? this.renderMessageList() : null;
@@ -121,10 +120,6 @@ export default class ContentWrapper extends Component {
     return (
       <div className={styles.content}>
         <div className={styles.listContainer}>
-          <WelcomeMessage
-            user={clientUser}
-            text={welcomeMessage}
-          />
           { messageList }
         </div>
       </div>

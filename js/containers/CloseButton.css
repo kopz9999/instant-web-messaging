@@ -1,4 +1,5 @@
 .closeButton {
+    text-decoration: none;
     position: relative;
     color: #c2cbd2;
     border: 1px solid #c2cbd2;
