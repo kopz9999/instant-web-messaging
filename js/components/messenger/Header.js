@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-// App
+import listStyles from './MessagesList.css';
 import listItemStyles from './MessageListItem.css';
-import Avatar from './message-list-item/Avatar';
 import styles from './Header.css';
+import Avatar from './message-list-item/Avatar';
 
 export default ({ user, text, extraContent }) => (
-  <div className={styles.header}>
+  <div className={listStyles.list}>
     <div className={listItemStyles.listItem}>
       <div className={listItemStyles.avatar}>
         <Avatar user={user} />
       </div>
-      <div className={styles.content}>
-        <p className={styles.text}>{text}</p>
+      <div className={listItemStyles.content}>
+        <p className={styles.header}>{text}</p>
       </div>
+      { extraContent }
     </div>
-    { extraContent }
   </div>
 );

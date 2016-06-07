@@ -6,6 +6,7 @@ import { QueryBuilder } from 'layer-sdk';
 import MessageList from './MessageList';
 import TypingIndicator from './TypingIndicator';
 import styles from './ContentWrapper.css';
+import Header from './Header';
 // Utils
 import throttledEventListener from '../../utils/throttledEventListener';
 
@@ -112,7 +113,7 @@ export default class ContentWrapper extends Component {
   }
 
   render() {
-    const { conversation } = this.props;
+    const { conversation, closeButton } = this.props;
     const { activeConversationId } = conversation;
     const messageListReady = activeConversationId != null;
     const messageList = messageListReady ? this.renderMessageList() : null;
@@ -121,6 +122,13 @@ export default class ContentWrapper extends Component {
 
     return (
       <div className={styles.content}>
+        <div className={styles.listContainer}>
+          <Header
+            user={clientUser}
+            text={clientUser.displayName}
+            extraContent={closeButton}
+          />
+        </div>
         <div className={styles.listContainer}>
           { messageList }
         </div>

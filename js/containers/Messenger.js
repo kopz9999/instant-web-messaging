@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // App
-import Header from '../components/messenger/Header';
 import AnchorCloseButton from './AnchorCloseButton';
 import MessageComposer from '../components/messenger/MessageComposer';
 import ContentWrapper from '../components/messenger/ContentWrapper';
@@ -34,7 +33,6 @@ class Messenger extends Component {
 
   render() {
     const {
-      welcomeMessage,
       consumerUser,
       clientUser,
       conversation,
@@ -57,11 +55,6 @@ class Messenger extends Component {
 
     return (
       <div className={styles.wrapped}>
-        <Header
-          user={clientUser}
-          text={clientUser.displayName}
-          extraContent={this.renderCloseButton()}
-        />
         <ContentWrapper
           clientUser={clientUser}
           consumerUser={consumerUser}
@@ -72,6 +65,7 @@ class Messenger extends Component {
           isCollapsed={isCollapsed}
           onScrollBelowHeader={showHeader}
           onScrollAboveHeader={hideHeader}
+          closeButton={this.renderCloseButton()}
         />
         <MessageComposer
           value={composerMessage}
