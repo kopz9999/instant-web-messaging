@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 // Layer
 import { QueryBuilder } from 'layer-sdk';
 // App
-import Profile from './Profile';
 import WelcomeMessage from './WelcomeMessage';
 import MessageList from './MessageList';
 import TypingIndicator from './TypingIndicator';
@@ -121,14 +120,12 @@ export default class ContentWrapper extends Component {
 
     return (
       <div className={styles.content}>
-        <Profile clientUser={clientUser}/>
         <div className={styles.listContainer}>
           <WelcomeMessage
             user={clientUser}
             text={welcomeMessage}
           />
           { messageList }
-          { typingIndicator }
         </div>
       </div>
     );

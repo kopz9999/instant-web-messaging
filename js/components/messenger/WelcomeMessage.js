@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import listStyles from './MessagesList.css';
-import styles from './MessageListItem.css';
+import listItemStyles from './MessageListItem.css';
+import styles from './WelcomeMessage.css';
+import Avatar from './message-list-item/Avatar';
 
 export default ({ user, text }) => (
   <div className={listStyles.list}>
-    <div className={styles.listItem}>
-      <div className={`${styles.message} ${styles.clientMessage}`}>
-        <img src={user.avatarURL} className={styles.avatar}/>
-        <div className={styles.body}>
-          <div className={styles.embedBody}>
-            <p className={styles.textPart}>{text}</p>
-          </div>
-        </div>
+    <div className={listItemStyles.listItem}>
+      <div className={listItemStyles.avatar}>
+        <Avatar user={user} />
+      </div>
+      <div className={listItemStyles.content}>
+        <p className={styles.header}>{text}</p>
       </div>
     </div>
   </div>

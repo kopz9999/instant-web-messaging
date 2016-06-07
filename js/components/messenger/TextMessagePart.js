@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import styles from './MessageListItem.css';
+import styles from './TextMessagePart.css';
 
-export default ({ displayUserName, messagePart }) => (
+export default ({ messagePart }) => (
   <p className={styles.textPart}>
-    <span className={styles.userName}>{displayUserName}:</span>
-    <br/>
     {messagePart.body}
   </p>
 );

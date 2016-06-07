@@ -1,95 +1,35 @@
 .listItem {
-    padding-bottom: 16px;
     display: block;
+    margin-bottom: 15px;
 }
 
-.listItem:before, .listItem:after {
-    content: " ";
-    display: table;
-    box-sizing: border-box;
+.listItem .avatar, .listItem .content {
+    display: inline-block;
+    vertical-align: top;
 }
 
-.listItem:after {
-    clear: both;
+.listItem .content {
+    padding-left: 15px;
+    padding-top: 10px;
+    width: calc(100% - 37px);
 }
 
-.listItem .message {
-    line-height: 20px;
-    position: relative;
-    clear: both;
+.listItem .content .header .username {
+    color: #959595;
+    font-family: 'Proxima N W01 Reg', serif;
+    font-size: 14px;
+    margin-right: 5px;
 }
 
-.listItem .message.clientMessage {
-    padding-left: 0;
-    width: 98%;
-    float: right;
+.listItem .content .header > * {
+    display: inline-block;
 }
 
-.listItem .message.consumerMessage {
-    width: 100%;
-    float: left;
-    text-align: left;
-}
-
-.listItem .message .avatar {
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    position: absolute;
-    top: 9px;
-}
-
-.listItem .message .body {
-    margin-right: 30px;
-    margin-left: 30px;
+.listItem .content .body {
     width: auto;
     display: block;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    border-radius: 9px;
-    position: relative;
-    max-width: 100%;
 }
 
-.listItem .message.clientMessage .body {
-    background-color: #f5f7fa;
-    border: 1px solid #e6e9ee;
-    color: #78909c;
-}
-
-.listItem .message.consumerMessage .body {
-    background-color: #1b83db;
-    color: #fff;
-}
-
-.listItem .message.clientMessage .avatar {
-    left: initial;
-    right: 0;
-}
-
-.listItem .message .body .embedBody {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    padding: 12px 17px;
-}
-
-.listItem .message .body .embedBody .textPart {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-family: 'Proxima Nova W01 Medium', serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    word-wrap: break-word;
-}
-
-.listItem .message.clientMessage .body .embedBody .textPart .userName {
-    color: #3d4c53;
-}
-
-.listItem .message .body .embedBody .textPart .userName {
-    font-weight: bold;
-    font-family: 'Proxima Nova W01 Medium', serif;
+.listItem .content .footer {
+    margin-top: -10px;
 }

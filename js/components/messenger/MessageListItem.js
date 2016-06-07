@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styles from './MessageListItem.css';
 import TextMessagePart from './TextMessagePart';
-import MessageMetadata from './MessageMetadata';
-import { formatTimestamp } from '../../utils/FormatHelper';
+import ReadFlag from './message-list-item/ReadFlag';
+import Timestamp from './message-list-item/Timestamp';
+import Avatar from './message-list-item/Avatar';
+import { timeSinceCompose } from '../../utils/FormatHelper';
 
 export default class MessageListItem extends Component {
   componentDidMount() {
@@ -21,19 +23,24 @@ export default class MessageListItem extends Component {
   }
 
   render() {
-    const { message, clientUser, consumerUser, senderUser } = this.props;
-    const isClientMessage = message.sender.userId != consumerUser.layerId;
-    const messageStyle = isClientMessage ?
-      styles.clientMessage : styles.consumerMessage;
-    const avatarURL = senderUser.avatarURL || 'https://s3-us-west-2.amazonaws.com/kopz-projects/Curaytor/Messenger/user-avatar-small.png';
-    const displayUserName = senderUser.displayName;
-    const timeAtText = formatTimestamp(message.sentAt);
-    const displayReadFlag = message.isRead && !isClientMessage;
+    const { message, consumerUser, senderUser } = this.props;
+    const isConsumerMessage = senderUser == consumerUser;
+    const displayUserName = isConsumerMessage ? 'You' : senderUser.displayName;
+    const timeAtText = timeSinceCompose(message.sentAt);
+    const displayReadFlag = message.isRead && !isConsumerMessage;
+    const readFlag = displayReadFlag ?
+      <ReadFlag isRead={message.isRead} /> : null;
 
     return (
       <div className={styles.listItem}>
-        <div className={`${styles.message} ${messageStyle}`}>
-          <img src={avatarURL} className={styles.avatar}/>
+        <div className={styles.avatar}>
+          <Avatar user={senderUser} />
+        </div>
+        <div className={styles.content}>
+          <div className={styles.header}>
+            <div className={styles.username}> {displayUserName} </div>
+            <Timestamp timeAtText={timeAtText} />
+          </div>
           <div className={styles.body}>
             <div className={styles.embedBody}>
               {message.parts.map((messagePart) => {
@@ -46,10 +53,9 @@ export default class MessageListItem extends Component {
               })}
             </div>
           </div>
-          <MessageMetadata
-            timeAtText={timeAtText}
-            isRead={displayReadFlag}
-          />
+          <div className={styles.footer}>
+            { readFlag }
+          </div>
         </div>
       </div>
     );

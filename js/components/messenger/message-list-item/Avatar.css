@@ -1,0 +1,16 @@
+.avatar {
+    height: 37px;
+    width: 37px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.avatar.default {
+    border-width: 2px;
+    border-style: solid;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+}
