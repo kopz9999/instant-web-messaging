@@ -7,83 +7,14 @@ import MessageList from './MessageList';
 import TypingIndicator from './TypingIndicator';
 import styles from './ContentWrapper.css';
 import Header from './Header';
-// Utils
-import throttledEventListener from '../../utils/throttledEventListener';
 
 /*
 * This component is created to handle scroll
 */
 export default class ContentWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stickBottom: true
-    };
-  }
-
-  componentDidMount() {
-    this.removeScrollListener = throttledEventListener(findDOMNode(this),
-      'scroll', this.handleScroll, this);
-    this.removeHeaderScrollListener = throttledEventListener(findDOMNode(this),
-      'scroll', this.handleHeaderScroll, this);
-
-    this.removeResizeListener = throttledEventListener(window,
-      'resize', this.handleScroll, this);
-    this.scrollBottom();
-  }
-
-  componentWillUnmount() {
-    this.removeResizeListener();
-    this.removeScrollListener();
-  }
-
-  handleHeaderScroll() {
-    var el = findDOMNode(this);
-    const displayHeader = this.props.displayHeader;
-    if (el.scrollTop > 180) {
-      if (!displayHeader) {
-        this.props.onScrollBelowHeader();
-      }
-    } else {
-      if (displayHeader) {
-        this.props.onScrollAboveHeader();
-      }
-    }
-  }
-
-  handleScroll() {
-    var el = findDOMNode(this);
-    if (el.scrollTop === 0) {
-      this.props.onLoadMoreMessages();
-    }
-
-    const stickBottom = el.scrollHeight - 1 <= el.clientHeight + el.scrollTop;
-
-    if (stickBottom !== this.state.stickBottom) {
-      this.setState({ stickBottom });
-    }
-
-  }
-
-  scrollBottom() {
-    if (!this.state.isScrolling) {
-      var el = findDOMNode(this);
-      el.scrollTop = el.scrollHeight;
-    }
-  }
-
-  /* TODO: Fix this */
-  requestScrollDown() {
-    if (this.state.stickBottom) {
-      setTimeout( ()=> {
-        this.scrollBottom();
-      }, 100);
-    }
-  }
-
   renderMessageList() {
     const { conversation, clientUser, consumerUser, isCollapsed,
-      onMarkMessageRead } = this.props;
+      onMarkMessageRead, requestScrollDown } = this.props;
     return (
       <MessageList
         {
@@ -93,7 +24,7 @@ export default class ContentWrapper extends Component {
             consumerUser,
             isCollapsed,
             onMarkMessageRead,
-            requestScrollDown: ()=> this.requestScrollDown()
+            requestScrollDown
           })
         }
       />
@@ -101,13 +32,13 @@ export default class ContentWrapper extends Component {
   }
 
   renderTypingIndicator() {
-    const { clientUser, conversation } = this.props;
+    const { clientUser, conversation, requestScrollDown } = this.props;
     const { activeConversationId } = conversation;
     return (
       <TypingIndicator
         clientUser={clientUser}
         conversationId={activeConversationId}
-        onDisplay={this.requestScrollDown.bind(this)}
+        onDisplay={requestScrollDown}
       />
     );
   }

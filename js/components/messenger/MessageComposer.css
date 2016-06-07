@@ -1,11 +1,18 @@
 .composerContainer {
     display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(100% - 15px);
+    padding-left: 100px;
+    padding-right: 85px;
+    background-color: white;
 }
 
 .composerContainer .composer {
     padding: 15px 15px 0;
     background-color: white;
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;

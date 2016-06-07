@@ -25,7 +25,8 @@ export default class MessengerApp extends Component {
   };
 
   render() {
-    const { client, store, welcomeMessage, isWrapped, closeRoute } = this.props;
+    const { client, store, welcomeMessage, isWrapped, closeRoute,
+      messengerElement } = this.props;
     const MessengerComponent = isWrapped ? WrappedMessenger : Messenger;
 
     return (
@@ -33,6 +34,7 @@ export default class MessengerApp extends Component {
         <Provider store={store}>
           <MessengerProvider>
             <MessengerComponent
+              messengerElement={messengerElement}
               welcomeMessage={welcomeMessage}
               closeRoute={closeRoute} />
           </MessengerProvider>

@@ -9,6 +9,8 @@ import * as ComposerActions from '../actions/ComposerActions';
 import * as ConversationActions from '../actions/ConversationActions';
 import * as VIEW_MODES from '../constants/ViewModes';
 import styles from './Wrapped.css';
+// Utils
+import throttledEventListener from '../utils/throttledEventListener';
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -18,6 +20,60 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Messenger extends Component {
+  get scrollNode() {
+    return this.props.messengerElement;
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      stickBottom: true
+    };
+  }
+
+  componentDidMount() {
+    this.removeScrollListener = throttledEventListener(this.scrollNode,
+      'scroll', this.handleScroll, this);
+
+    this.removeResizeListener = throttledEventListener(window,
+      'resize', this.handleScroll, this);
+    this.scrollBottom();
+  }
+
+  componentWillUnmount() {
+    this.removeResizeListener();
+    this.removeScrollListener();
+  }
+
+  handleScroll() {
+    const { loadMoreMessages } = this.props.conversationActions;
+    var el = this.scrollNode;
+    if (el.scrollTop === 0) {
+      loadMoreMessages();
+    }
+
+    const stickBottom = el.scrollHeight - 1 <= el.clientHeight + el.scrollTop;
+
+    if (stickBottom !== this.state.stickBottom) {
+      this.setState({ stickBottom });
+    }
+
+  }
+  scrollBottom() {
+    if (!this.state.isScrolling) {
+      var el = this.scrollNode;
+      el.scrollTop = el.scrollHeight;
+    }
+  }
+
+  requestScrollDown() {
+    if (this.state.stickBottom) {
+      setTimeout( ()=> {
+        this.scrollBottom();
+      }, 100);
+    }
+  }
+
   renderCloseButton() {
     const { closeRoute, container } = this.props;
     if (container.viewMode == VIEW_MODES.FULL_SCREEN) {
@@ -37,7 +93,6 @@ class Messenger extends Component {
       clientUser,
       conversation,
       composerActions,
-      conversationActions,
       containerActions,
       container,
     } = this.props;
@@ -51,15 +106,15 @@ class Messenger extends Component {
       showHeader,
       hideHeader
     } = containerActions;
-    const { loadMoreMessages, markMessageRead } = conversationActions;
+    const { markMessageRead } = this.props.conversationActions;
 
     return (
       <div className={styles.wrapped}>
         <ContentWrapper
+          requestScrollDown={this.requestScrollDown.bind(this)}
           clientUser={clientUser}
           consumerUser={consumerUser}
           conversation={conversation}
-          onLoadMoreMessages={loadMoreMessages}
           onMarkMessageRead={markMessageRead}
           displayHeader={displayHeader}
           isCollapsed={isCollapsed}

@@ -1,9 +1,10 @@
 .content {
-    bottom: 80px;
-    overflow-y: auto;
     position: absolute;
     top: 15px;
     padding-top: 10px;
+    padding-bottom: 80px;
+    padding-left: 100px;
+    padding-right: 100px;
     right: 0;
     width: 100%;
     -webkit-transform: translateZ(0);
