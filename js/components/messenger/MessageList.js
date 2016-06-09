@@ -4,12 +4,12 @@ import { QueryBuilder } from 'layer-sdk';
 import { connectQuery } from 'layer-react';
 import { connect } from 'react-redux';
 // App
-import  MessageListItem from './MessageListItem';
+import  MessageListItem from './message-list-item/MessageListItem';
 import styles from './MessagesList.css';
 
 function mapStateToProps({ LayerUsers }) {
   return {
-    LayerUsers,
+    layerUsers: LayerUsers,
   };
 }
 
@@ -29,8 +29,8 @@ export default class MessageList extends Component {
 
   renderMessageItem(message) {
     const { clientUser, consumerUser, isCollapsed,
-      onMarkMessageRead } = this.props;
-    const senderUser = this.props.LayerUsers[message.sender.userId];
+      onMarkMessageRead, layerUsers } = this.props;
+    const senderUser = layerUsers[message.sender.userId];
     if (senderUser) {
       return (
         <MessageListItem

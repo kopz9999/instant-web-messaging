@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styles from './MessageListItem.css';
-import TextMessagePart from './TextMessagePart';
-import ReadFlag from './message-list-item/ReadFlag';
-import Timestamp from './message-list-item/Timestamp';
-import Avatar from './message-list-item/Avatar';
-import { timeSinceCompose } from '../../utils/FormatHelper';
+import TextMessagePart from './../TextMessagePart';
+import ReadFlag from './ReadFlag';
+import Timestamp from './Timestamp';
+import Avatar from './Avatar';
+import { timeSinceCompose } from '../../../utils/FormatHelper';
 
 export default class MessageListItem extends Component {
   componentDidMount() {

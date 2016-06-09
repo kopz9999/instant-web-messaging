@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import listStyles from './MessagesList.css';
-import listItemStyles from './MessageListItem.css';
+import listItemStyles from './message-list-item/MessageListItem.css';
 import styles from './Header.css';
 import Avatar from './message-list-item/Avatar';
 

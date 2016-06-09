@@ -4,7 +4,7 @@ import { findDOMNode } from 'react-dom';
 import { QueryBuilder } from 'layer-sdk';
 // App
 import MessageList from './MessageList';
-import TypingIndicator from './TypingIndicator';
+import TypingIndicatorManager from './typing-indicator-manager/TypingIndicatorManager';
 import styles from './ContentWrapper.css';
 import Header from './Header';
 
@@ -31,14 +31,13 @@ export default class ContentWrapper extends Component {
     );
   }
 
-  renderTypingIndicator() {
-    const { clientUser, conversation, requestScrollDown } = this.props;
-    const { activeConversationId } = conversation;
+  renderTypingIndicatorManager() {
+    const { requestScrollDown } = this.props;
+    const { activeConversationId } = this.props.conversation;
     return (
-      <TypingIndicator
-        clientUser={clientUser}
+      <TypingIndicatorManager
         conversationId={activeConversationId}
-        onDisplay={requestScrollDown}
+        requestScrollDown={requestScrollDown}
       />
     );
   }
@@ -48,8 +47,8 @@ export default class ContentWrapper extends Component {
     const { activeConversationId } = conversation;
     const messageListReady = activeConversationId != null;
     const messageList = messageListReady ? this.renderMessageList() : null;
-    const typingIndicator = messageListReady ?
-      this.renderTypingIndicator() : null;
+    const typingIndicatorManager = messageListReady ?
+      this.renderTypingIndicatorManager() : null;
 
     return (
       <div className={styles.content}>
@@ -62,6 +61,9 @@ export default class ContentWrapper extends Component {
         </div>
         <div className={styles.listContainer}>
           { messageList }
+        </div>
+        <div className={styles.listContainer}>
+          { typingIndicatorManager }
         </div>
       </div>
     );
