@@ -27,7 +27,7 @@ export default class MessageListItem extends Component {
     const isConsumerMessage = senderUser == consumerUser;
     const displayUserName = isConsumerMessage ? 'You' : senderUser.displayName;
     const timeAtText = timeSinceCompose(message.sentAt);
-    const displayReadFlag = message.isRead && !isConsumerMessage;
+    const displayReadFlag = message.readStatus !== 'NONE' && isConsumerMessage;
     const readFlag = displayReadFlag ?
       <ReadFlag isRead={message.isRead} /> : null;
 

@@ -30,6 +30,7 @@ export default class MessageComposer extends Component {
             <div className={styles.textArea}>
               <pre><span></span><br/></pre>
               <textarea
+                autoFocus={true}
                 value={this.props.value}
                 onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}

@@ -125,6 +125,9 @@ export default class Messenger {
     this.store.dispatch(setupViewMode(viewMode || VIEW_MODES.OVERLAY,
       pageContentNode ));
 
+    if (viewMode == VIEW_MODES.FULL_SCREEN) {
+      this.store.dispatch(showContainer());
+    }
   }
 
   show() {

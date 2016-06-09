@@ -15,9 +15,9 @@ const getQueries = ({activeConversationId, messagePagination}) => {
 
 class Notification extends Component {
   render() {
-    const { messages, consumerUser } = this.props;
+    const { messages } = this.props;
     const notReadMessages = messages
-      .filter((m) => (m.isUnread && m.sender.userId != consumerUser.layerId ));
+      .filter((m) => (m.isUnread ));
     const count = notReadMessages.length + 1;
 
     return (
