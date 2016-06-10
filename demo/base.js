@@ -1,7 +1,7 @@
 // Template example
 var layerAppId ='layer:///apps/staging/52e7c9b4-e9cb-11e5-a188-7d4ed71366e8';
 var identityProviderURL = 'https://layer-identity-provider.herokuapp.com/identity_tokens';
-var testAPIURL = 'https://private-9b421-events59.apiary-mock.com/events';
+var testAPIURL = 'https://m.curaytor.com/api/events';
 var consumerUser = null, clientUser = null, messengerApp = null;
 
 var QueryString = function () {
@@ -34,22 +34,24 @@ function trackMessage(user, message) {
     xmlhttp.open("POST", testAPIURL);
     requestBody = {
       user: {
-        id: user.id
+        id: user.id,
+        layer_id: user.layerId,
+        display_name: user.displayName,
+        icon_identity: user.iconIdentity,
+        color: user.color,
       },
       site: {
-        domain: "weinigerhomes.com",
+        domain: "curaytor.com",
       },
       type: "MESSAGE",
-      content: {
-        page: {
-          name: window.document.title,
-          full_url: window.location.href
-        },
-        message: {
-          id: message.id,
-          body: message.parts[0].body,
-          conversation_id: message.conversationId
-        }
+      page: {
+        name: window.document.title,
+        full_url: window.location.href
+      },
+      message: {
+        id: message.id,
+        body: message.parts[0].body,
+        conversation_id: message.conversationId
       },
       logged_at: Date.now()
     };
