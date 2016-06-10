@@ -11,6 +11,7 @@ import CloseButton from '../containers/CloseButton';
 import DevTools from './DevTools';
 import * as VIEW_MODES from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
+import { conversationManagerInstance } from '../utils/ConversationManager';
 // Actions
 import { fetchUsersSuccess } from '../actions/AppActions';
 import { receiveLayerUser } from '../actions/LayerUsersActions';
@@ -43,6 +44,7 @@ export default class Messenger {
     // Setup properties
     EventDispatcher.apply(this);
     // Initialize Methods
+    this.initializeConversationManager(opts);
     this.initializeClient(opts);
     this.initializeStore();
     // Setup Methods
@@ -53,6 +55,13 @@ export default class Messenger {
   }
 
   /* Setup Methods */
+
+  // TODO: Remove middleware
+  initializeConversationManager(opts) {
+    if (opts.canUpdateMetadata !== undefined) {
+      conversationManagerInstance.canUpdateMetadata = opts.canUpdateMetadata;
+    }
+  }
 
   initializeClient(opts) {
     const { appId, challengeCallback } = opts;

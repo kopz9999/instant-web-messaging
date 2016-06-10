@@ -21,8 +21,17 @@ export default class ConversationManager {
     return this.getState;
   }
 
+  set canUpdateMetadata(value) {
+    this._canUpdateMetadata = value;
+  }
+
+  get canUpdateMetadata() {
+    return this._canUpdateMetadata;
+  }
+
   constructor() {
     this.getState = null;
+    this._canUpdateMetadata = false;
   }
 
   assignProperties(client, App, next) {
@@ -61,11 +70,16 @@ export default class ConversationManager {
     }
   }
 
+  // NOTE: This process is supposed to be done 1 time
   updateMetadata(conversation, storedParticipants = {}) {
     const { clientUser, consumerUser } = this.App;
-    const appParticipants = [userFactoryInstance.serializeUser(clientUser),
-      userFactoryInstance.serializeUser(consumerUser)];
+    const originalAppParticipants = [clientUser, consumerUser];
     let metaData = {};
+    // Serialize Properties
+    const appParticipants = originalAppParticipants.map((userObj) => {
+      userFactoryInstance.applyDefaultProperties(userObj);
+      return userFactoryInstance.serializeUser(userObj)
+    });
     Object.keys(storedParticipants).forEach((i) => {
       metaData[`appParticipants.${i}`] = storedParticipants[i];
     });
@@ -75,16 +89,20 @@ export default class ConversationManager {
     conversation.setMetadataProperties(metaData);
   }
 
-  readMetadata(appParticipants) {
+  // TODO: Read previously stored users to merge stored properties
+  readMetadata(appParticipants, canMerge=false) {
     const state = this.getState();
-    const { LayerUsers } = state;
+    const { LayerUsers: layerUsers  } = state;
     let metadataObject = null, layerUser, stateKey;
     Object.keys(appParticipants).forEach((k)=> {
       metadataObject = appParticipants[k];
       stateKey = metadataObject.layerId.toString();
-      if (!LayerUsers[stateKey]) {
+      layerUser = layerUsers[stateKey];
+      if (!layerUser) {
         layerUser = userFactoryInstance.buildFromMetadata(metadataObject);
         this.next( receiveLayerUser( stateKey, layerUser ) );
+      } else if(canMerge) {
+        userFactoryInstance.applyMetaDataProperties(layerUser, metadataObject);
       }
     });
   }
@@ -92,8 +110,10 @@ export default class ConversationManager {
   setupMetadata(conversation) {
     const { appParticipants } = conversation.metadata;
     if (appParticipants) {
-      this.updateMetadata(conversation, appParticipants);
-      this.readMetadata(appParticipants)
+      if (this.canUpdateMetadata) {
+        this.updateMetadata(conversation, appParticipants);
+      }
+      this.readMetadata(appParticipants, true);
     } else {
       this.updateMetadata(conversation);
     }

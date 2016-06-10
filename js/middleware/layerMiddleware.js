@@ -1,3 +1,5 @@
+// TODO: Remove middleware and setup as admin
+
 import {
   SUBMIT_COMPOSER_MESSAGE,
   MARK_MESSAGE_READ,
@@ -65,6 +67,7 @@ function handleAction(layerClient, typingPublisher, state, action, next,
 const layerMiddleware = (layerClient, messengerInstance) => store => {
 
   const typingPublisher = layerClient.createTypingPublisher();
+  // Before initializing store reference
   conversationManagerInstance.getStateCallback = store.getState;
 
   layerClient.on('ready', () => {

@@ -1,11 +1,17 @@
-const PROPERTIES = [ 'displayName', 'roleName', 'layerId', 'avatarURL'];
+import { getRandomInt }  from './Helper';
+import randomColor from 'randomcolor';
+
+const PROPERTIES = [ 'displayName', 'roleName', 'layerId', 'avatarURL',
+  'iconIdentity', 'color'];
 
 export default class User {
-  constructor({displayName, roleName, layerId, avatarURL}) {
+  constructor({displayName, roleName, layerId, avatarURL, color, iconIdentity}) {
     this._displayName = displayName;
     this._roleName = roleName;
     this._layerId = layerId;
     this._avatarURL = avatarURL;
+    this._color = color;
+    this._iconIdentity = iconIdentity;
   }
 
   get displayName() {
@@ -39,6 +45,22 @@ export default class User {
   set avatarURL(value) {
     this._avatarURL = value;
   }
+
+  get color() {
+    return this._color;
+  }
+
+  set color(value) {
+    this._color = value;
+  }
+
+  get iconIdentity() {
+    return this._iconIdentity;
+  }
+
+  set iconIdentity(value) {
+    this._iconIdentity = value;
+  }
 }
 
 export class UserFactory {
@@ -50,6 +72,20 @@ export class UserFactory {
     });
   }
 
+  applyDefaultProperties(userObject) {
+    if (!userObject.iconIdentity) {
+      userObject.iconIdentity = getRandomInt(0, 12).toString();
+    }
+    if (!userObject.color) {
+      userObject.color = randomColor({hue: 'orange' });
+    }
+  }
+
+  applyMetaDataProperties(userObject, metadataObject) {
+    userObject.iconIdentity = metadataObject.iconIdentity;
+    userObject.color = metadataObject.color;
+  }
+
   serializeUser(userObject) {
     let obj = userObject;
     if (obj instanceof User){
@@ -57,7 +93,6 @@ export class UserFactory {
       PROPERTIES.forEach((k) => {
         obj[k] = userObject[k];
       });
-      return obj;
     }
     return obj;
   }
