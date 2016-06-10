@@ -18,7 +18,7 @@ if (__DEV__) {
     <DockMonitor toggleVisibilityKey='ctrl-h'
                  changePositionKey='ctrl-q'
                  defaultIsVisible={true}
-                 defaultPosition='left'>
+                 defaultPosition='top'>
       <LogMonitor theme='tomorrow' />
     </DockMonitor>
   );
