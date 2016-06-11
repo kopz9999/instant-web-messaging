@@ -27,19 +27,24 @@ var QueryString = function () {
   return query_string;
 }();
 
-function trackMessage(user, message) {
+function getAlgoliaUser(user) {
+  return {
+    id: user.id,
+    avatar_url: user.avatarURL,
+    layer_id: user.layerId,
+    display_name: user.displayName,
+    icon_identity: user.iconIdentity,
+    color: user.color,
+  };
+}
+
+function sendLayerMessage(user, message, conversationUsers) {
   var requestBody = null, xmlhttp = new XMLHttpRequest();
 
   message.once('messages:sent', function () {
     xmlhttp.open("POST", testAPIURL);
     requestBody = {
-      user: {
-        id: user.id,
-        layer_id: user.layerId,
-        display_name: user.displayName,
-        icon_identity: user.iconIdentity,
-        color: user.color,
-      },
+      user: getAlgoliaUser(user),
       site: {
         domain: "curaytor.com",
       },
@@ -53,12 +58,32 @@ function trackMessage(user, message) {
         body: message.parts[0].body,
         conversation_id: message.conversationId
       },
+      users: conversationUsers.map(function(u) {
+        return getAlgoliaUser(u);
+      }),
       logged_at: Date.now()
     };
 
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.send( JSON.stringify(requestBody) );
   });
+}
+
+function getConversationUsers() {
+  var layerUsers = messengerApp.store.getState().LayerUsers, users = [], layerUser,
+    results, userLayerIds = [consumerUser.layerId, clientUser.layerId];
+  Object.keys(layerUsers).filter((k)=>{
+    results = userLayerIds.filter(layerId => k == layerId);
+    if (results.length == 0) {
+      layerUser = layerUsers[k];
+      users.push(layerUser);
+    }
+  });
+  return users;
+}
+
+function trackMessage(user, message) {
+  sendLayerMessage(user, message, getConversationUsers());
 }
 
 function getIdentityToken(nonce, callback){
