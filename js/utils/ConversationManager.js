@@ -1,5 +1,5 @@
 // Layer
-import { Query } from 'layer-sdk';
+import { Query, QueryBuilder } from 'layer-sdk';
 // App
 import { userFactoryInstance } from '../utils/User';
 // Actions
@@ -11,6 +11,8 @@ import {
 import {
   receiveLayerUser
 } from '../actions/LayerUsersActions';
+// Events
+import ACTION_EVENTS from '../constants/ActionEvents';
 
 export default class ConversationManager {
   set getStateCallback(value) {
@@ -19,6 +21,14 @@ export default class ConversationManager {
 
   get getStateCallback() {
     return this.getState;
+  }
+
+  set messengerInstance(value) {
+    this._messengerInstance = value;
+  }
+
+  get messengerInstance() {
+    return this._messengerInstance;
   }
 
   set canUpdateMetadata(value) {
@@ -31,6 +41,7 @@ export default class ConversationManager {
 
   constructor() {
     this.getState = null;
+    this._messengerInstance = null;
     this._canUpdateMetadata = false;
   }
 
@@ -52,6 +63,25 @@ export default class ConversationManager {
     });
   }
 
+  processFirstMessage(conversationId) {
+    let query = this.client.createQuery({
+      model: Query.Message,
+      dataType: Query.InstanceDataType
+    });
+    query.update(
+      QueryBuilder
+        .messages()
+        .forConversation(conversationId)
+        .paginationWindow(1)
+    );
+    query.once('change', (evt)=>{
+      if (evt.type === 'insert') {
+        this.messengerInstance.dispatchEvent(ACTION_EVENTS.MESSAGE_CREATE,
+          { consumerMessage: evt.target });
+      }
+    })
+  }
+
   handleConversationChange(e) {
     if (e.changes) {
       e.changes.forEach((change)=> {
@@ -64,6 +94,7 @@ export default class ConversationManager {
             break;
           case "id":
             this.next(conversationCreate(change.newValue));
+            this.processFirstMessage(change.newValue);
             break;
         }
       });

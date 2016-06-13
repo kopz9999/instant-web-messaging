@@ -38,35 +38,39 @@ function getAlgoliaUser(user) {
   };
 }
 
+function processMessengerApp(msgApp) {
+  msgApp.on(webMessenger.ACTION_EVENTS.MESSAGE_CREATE, function(e) {
+    trackMessage(consumerUser, e.consumerMessage);
+  });
+}
+
 function sendLayerMessage(user, message, conversationUsers) {
   var requestBody = null, xmlhttp = new XMLHttpRequest();
 
-  message.once('messages:sent', function () {
-    xmlhttp.open("POST", testAPIURL);
-    requestBody = {
-      user: getAlgoliaUser(user),
-      site: {
-        domain: "curaytor.com",
-      },
-      type: "MESSAGE",
-      page: {
-        name: window.document.title,
-        full_url: window.location.href
-      },
-      message: {
-        id: message.id,
-        body: message.parts[0].body,
-        conversation_id: message.conversationId
-      },
-      users: conversationUsers.map(function(u) {
-        return getAlgoliaUser(u);
-      }),
-      logged_at: Date.now()
-    };
+  xmlhttp.open("POST", testAPIURL);
+  requestBody = {
+    user: getAlgoliaUser(user),
+    site: {
+      domain: "curaytor.com",
+    },
+    type: "MESSAGE",
+    page: {
+      name: window.document.title,
+      full_url: window.location.href
+    },
+    message: {
+      id: message.id,
+      body: message.parts[0].body,
+      conversation_id: message.conversationId
+    },
+    users: conversationUsers.map(function(u) {
+      return getAlgoliaUser(u);
+    }),
+    logged_at: Date.now()
+  };
 
-    xmlhttp.setRequestHeader('Content-Type', 'application/json');
-    xmlhttp.send( JSON.stringify(requestBody) );
-  });
+  xmlhttp.setRequestHeader('Content-Type', 'application/json');
+  xmlhttp.send( JSON.stringify(requestBody) );
 }
 
 function getConversationUsers() {

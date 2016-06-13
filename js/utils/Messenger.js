@@ -58,6 +58,7 @@ export default class Messenger {
 
   // TODO: Remove middleware
   initializeConversationManager(opts) {
+    conversationManagerInstance.messengerInstance = this;
     if (opts.canUpdateMetadata !== undefined) {
       conversationManagerInstance.canUpdateMetadata = opts.canUpdateMetadata;
     }

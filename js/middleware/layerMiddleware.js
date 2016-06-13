@@ -40,10 +40,14 @@ function handleAction(layerClient, typingPublisher, state, action, next,
 
   switch(type) {
     case SUBMIT_COMPOSER_MESSAGE:
-      consumerMessage = state.Conversation.activeConversation
-                             .createMessage(state.Conversation.composerMessage)
-      consumerMessage.send();
-      messengerInstance.dispatchEvent(ACTION_EVENTS.MESSAGE_CREATE, { consumerMessage });
+      const { activeConversation } = state.Conversation;
+      consumerMessage =
+        activeConversation.createMessage(state.Conversation.composerMessage)
+        .send();
+      if (activeConversation.isSaved()) {
+        messengerInstance.dispatchEvent(ACTION_EVENTS.MESSAGE_CREATE,
+          { consumerMessage });
+      }
       typingPublisher.setState(FINISHED);
       return;
     case MARK_MESSAGE_READ:

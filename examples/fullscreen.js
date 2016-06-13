@@ -35,7 +35,5 @@ document.addEventListener("DOMContentLoaded", function() {
     closeRoute: './notifications.html'
   });
 
-  messengerApp.on(webMessenger.ACTION_EVENTS.MESSAGE_CREATE, function(e) {
-    trackMessage(consumerUser, e.consumerMessage);
-  });
+  processMessengerApp(messengerApp);
 });
