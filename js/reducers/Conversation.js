@@ -12,7 +12,8 @@ const initialState = {
   activeConversation: null,
   lastMessage: null,
   messagePagination: 30,
-  composerMessage: ''
+  composerMessage: '',
+  onConversationCreateCallbacks: [],
 };
 
 export default function(state = initialState, action) {

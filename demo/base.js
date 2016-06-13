@@ -72,8 +72,10 @@ function sendLayerMessage(user, message, conversationUsers) {
 function getConversationUsers() {
   var layerUsers = messengerApp.store.getState().LayerUsers, users = [], layerUser,
     results, userLayerIds = [consumerUser.layerId, clientUser.layerId];
-  Object.keys(layerUsers).filter((k)=>{
-    results = userLayerIds.filter(layerId => k == layerId);
+  Object.keys(layerUsers).forEach(function(k) {
+    results = userLayerIds.filter(function(layerId){
+      return k == layerId;
+    });
     if (results.length == 0) {
       layerUser = layerUsers[k];
       users.push(layerUser);
