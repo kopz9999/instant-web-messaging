@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './MessageListItem.css';
+import textPartStyles from '../TextMessagePart.css';
 import TextMessagePart from './../TextMessagePart';
 import ReadFlag from './ReadFlag';
 import Timestamp from './Timestamp';
@@ -46,9 +47,9 @@ export default class MessageListItem extends Component {
               {message.parts.map((messagePart) => {
                 return (
                   <TextMessagePart
+                    styles={textPartStyles}
                     key={messagePart.id}
-                    displayUserName={displayUserName}
-                    messagePart={messagePart}/>
+                    text={messagePart.body}/>
                 )
               })}
             </div>
