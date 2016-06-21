@@ -41,11 +41,12 @@ function getAlgoliaUser(user) {
 
 function processMessengerApp(msgApp) {
   msgApp.on(webMessenger.ACTION_EVENTS.MESSAGE_CREATE, function(e) {
-    trackMessage(consumerUser, e.consumerMessage);
+    trackMessage(consumerUser, e.consumerMessage,
+      msgApp.closeRoute || window.location.href);
   });
 }
 
-function sendLayerMessage(user, message, conversationUsers) {
+function sendLayerMessage(user, message, conversationUsers, url) {
   var requestBody = null, xmlhttp = new XMLHttpRequest();
 
   xmlhttp.open("POST", eventsAPI);
@@ -57,7 +58,7 @@ function sendLayerMessage(user, message, conversationUsers) {
     type: "MESSAGE",
     page: {
       name: window.document.title,
-      full_url: window.location.href
+      full_url: url
     },
     message: {
       id: message.id,
@@ -89,8 +90,8 @@ function getConversationUsers() {
   return users;
 }
 
-function trackMessage(user, message) {
-  sendLayerMessage(user, message, getConversationUsers());
+function trackMessage(user, message, url) {
+  sendLayerMessage(user, message, getConversationUsers(), url);
 }
 
 function getIdentityToken(nonce, callback){

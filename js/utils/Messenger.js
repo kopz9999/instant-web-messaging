@@ -40,9 +40,14 @@ export default class Messenger {
     return this._closeButton;
   }
 
+  get closeRoute() {
+    return this._closeRoute;
+  }
+
   constructor(opts) {
     // Setup properties
     EventDispatcher.apply(this);
+    this._closeRoute = opts.closeRoute;
     // Initialize Methods
     this.initializeConversationManager(opts);
     this.initializeClient(opts);
