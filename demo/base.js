@@ -1,7 +1,8 @@
 // Template example
 var layerAppId ='layer:///apps/staging/52e7c9b4-e9cb-11e5-a188-7d4ed71366e8';
 var identityProviderURL = 'https://layer-identity-provider.herokuapp.com/identity_tokens';
-var testAPIURL = 'https://m.curaytor.com/api/events';
+var eventsAPI = 'https://m.curaytor.com/api/events';
+var usersAPI = 'https://m.curaytor.com/api/users';
 var consumerUser = null, clientUser = null, messengerApp = null;
 
 var QueryString = function () {
@@ -47,7 +48,7 @@ function processMessengerApp(msgApp) {
 function sendLayerMessage(user, message, conversationUsers) {
   var requestBody = null, xmlhttp = new XMLHttpRequest();
 
-  xmlhttp.open("POST", testAPIURL);
+  xmlhttp.open("POST", eventsAPI);
   requestBody = {
     user: getAlgoliaUser(user),
     site: {
