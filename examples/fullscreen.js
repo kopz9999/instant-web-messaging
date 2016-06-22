@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   if (QueryString.username) {
-    userData.displayName = userData.layerId =
+    userData.displayName = userData.layerId = userData.id =
       decodeURIComponent(QueryString.username.replace(/\+/g, '%20'));
   }
 
