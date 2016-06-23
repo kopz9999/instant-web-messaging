@@ -8,7 +8,6 @@ import { Client } from 'layer-sdk';
 import MessengerApp from '../containers/MessengerApp';
 import LauncherApp from '../containers/LauncherApp';
 import CloseButton from '../containers/CloseButton';
-import DevTools from './DevTools';
 import * as VIEW_MODES from '../constants/ViewModes';
 import configureStore from '../store/configureStore';
 import { conversationManagerInstance } from '../utils/ConversationManager';
@@ -106,7 +105,7 @@ export default class Messenger {
   }
 
   setupComponents(opts) {
-    const { devToolsNode, viewMode } = opts;
+    const { viewMode } = opts;
     switch (viewMode) {
       case VIEW_MODES.NOTIFICATIONS:
         this.renderLauncherApp(opts);
@@ -119,13 +118,6 @@ export default class Messenger {
         this.renderLauncherApp(opts);
         this.renderCloseButtonApp(opts);
         break;
-    }
-    if (devToolsNode && DevTools !== null) {
-      ReactDOM.render(
-        <DevTools
-          {...opts}
-        />,
-        devToolsNode);
     }
   }
 

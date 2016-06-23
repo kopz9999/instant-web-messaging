@@ -3,7 +3,6 @@ function initializeApp() {
 
   messengerApp = webMessenger.createApp({
     messengerElement: messengerNode,
-    devToolsNode: document.getElementById('dev-tools'),
     appId: layerAppId,
     challengeCallback: getIdentityToken,
     viewMode: webMessenger.VIEW_MODES.FULL_SCREEN,
