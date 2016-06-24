@@ -5,12 +5,14 @@ import {
   LOAD_MORE_MESSAGES,
   SUBMIT_COMPOSER_MESSAGE,
   RECEIVE_MESSAGE,
+  SET_LISTENER_QUERY,
 } from '../constants/ActionTypes';
 
 const initialState = {
   activeConversationId: null,
   activeConversation: null,
   lastMessage: null,
+  listenerQuery: null,
   messagePagination: 30,
   composerMessage: '',
   onConversationCreateCallbacks: [],
@@ -30,6 +32,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         activeConversationId: payload.activeConversationId,
+      };
+    case SET_LISTENER_QUERY:
+      return {
+        ...state,
+        listenerQuery: payload.listenerQuery,
       };
     case CHANGE_COMPOSER_MESSAGE:
       return {

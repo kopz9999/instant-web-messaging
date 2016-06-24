@@ -73,6 +73,7 @@ const layerMiddleware = (layerClient, messengerInstance) => store => {
   const typingPublisher = layerClient.createTypingPublisher();
   // Before initializing store reference
   conversationManagerInstance.getStateCallback = store.getState;
+  conversationManagerInstance.dispatchCallback = store.dispatch;
 
   layerClient.on('ready', () => {
     store.dispatch(clientReady());

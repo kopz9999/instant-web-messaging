@@ -7,6 +7,8 @@ import {
   setupConversation,
   receiveMessage,
   conversationCreate,
+  removeListenerQuery,
+  setupListenerQuery,
 } from '../actions/ConversationActions';
 import {
   receiveLayerUser
@@ -21,6 +23,14 @@ export default class ConversationManager {
 
   get getStateCallback() {
     return this.getState;
+  }
+
+  set dispatchCallback(value) {
+    this.dispatch = value;
+  }
+
+  get dispatchCallback() {
+    return this.dispatch;
   }
 
   set messengerInstance(value) {
@@ -41,7 +51,9 @@ export default class ConversationManager {
 
   constructor() {
     this.getState = null;
+    this.dispatch = null;
     this._messengerInstance = null;
+    this._currentQuery = null;
     this._canUpdateMetadata = false;
   }
 
@@ -93,6 +105,7 @@ export default class ConversationManager {
             this.readMetadata(change.newValue.appParticipants);
             break;
           case "id":
+            this.dispatch(removeListenerQuery());
             this.next(conversationCreate(change.newValue));
             this.processFirstMessage(change.newValue);
             break;
@@ -151,7 +164,7 @@ export default class ConversationManager {
   }
 
   onQueryReady(conversations) {
-    let expectedConversation = null;
+    let expectedConversation = null, listenerQuery;
     const { clientUser, consumerUser } = this.App;
     const expectedConversationResult =
       this.filterConversation(conversations, clientUser, consumerUser);
@@ -162,12 +175,20 @@ export default class ConversationManager {
         true,
         participants: [ this.App.clientUser.layerId ]
       });
+      listenerQuery = this.client.createQuery({ model: Query.Conversation });
+      this.dispatch(
+        setupListenerQuery(listenerQuery, this.setConversation.bind(this))
+      );
     }
-    expectedConversation.on('conversations:change',
+    this.setConversation(expectedConversation);
+  }
+
+  setConversation(conversation) {
+    conversation.on('conversations:change',
       (e)=> this.handleConversationChange(e) );
-    this.setupMetadata(expectedConversation);
-    this.next(setupConversation(expectedConversation));
-    this.next(receiveMessage(expectedConversation.lastMessage));
+    this.setupMetadata(conversation);
+    this.next(setupConversation(conversation));
+    this.next(receiveMessage(conversation.lastMessage));
   }
 
   queryForConversations() {
