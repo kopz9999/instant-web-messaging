@@ -4,8 +4,10 @@ import {Provider} from 'react-redux';
 import { LayerProvider } from 'layer-react';
 // App
 import WrappedMessenger from './WrappedMessenger';
+import ModalMessenger from './ModalMessenger';
 import Messenger from './Messenger';
 import MessengerProvider from './MessengerProvider';
+import * as VIEW_MODES from '../constants/ViewModes';
 
 export default class MessengerApp extends Component {
   static propTypes = {
@@ -23,11 +25,26 @@ export default class MessengerApp extends Component {
   static defaultProps = {
     isWrapped: true
   };
+  
+  getMessengerComponent() {
+    const { isWrapped, viewMode } = this.props;
+    if (isWrapped) {
+      switch (viewMode) {
+        case VIEW_MODES.OVERLAY:
+        case VIEW_MODES.SPLIT:
+          return WrappedMessenger;
+        case VIEW_MODES.MODAL:
+          return ModalMessenger;
+      }
+    } else {
+      return Messenger;
+    }
+  }
 
   render() {
-    const { client, store, welcomeMessage, isWrapped, closeRoute,
+    const { client, store, welcomeMessage, closeRoute,
       messengerElement } = this.props;
-    const MessengerComponent = isWrapped ? WrappedMessenger : Messenger;
+    const MessengerComponent = this.getMessengerComponent();
 
     return (
       <LayerProvider client={client}>

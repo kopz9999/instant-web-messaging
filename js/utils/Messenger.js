@@ -113,6 +113,10 @@ export default class Messenger {
       case VIEW_MODES.FULL_SCREEN:
         this.renderMessengerApp(opts);
         break;
+      case VIEW_MODES.MODAL:
+        this.renderMessengerApp(opts);
+        this.renderLauncherApp(opts);
+        break;
       default:
         this.renderMessengerApp(opts);
         this.renderLauncherApp(opts);

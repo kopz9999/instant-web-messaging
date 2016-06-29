@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { findDOMNode } from 'react-dom';
 // App
 import AnchorCloseButton from './AnchorCloseButton';
 import MessageComposer from '../components/messenger/MessageComposer';
@@ -21,7 +22,13 @@ function mapDispatchToProps(dispatch) {
 
 class Messenger extends Component {
   get scrollNode() {
-    return this.props.messengerElement;
+    const { container } = this.props;
+    switch (container.viewMode) {
+      case VIEW_MODES.MODAL:
+        return findDOMNode(this).parentNode;
+      default:
+        return this.props.messengerElement;
+    }
   }
 
   constructor(props) {
@@ -75,15 +82,23 @@ class Messenger extends Component {
   }
 
   renderCloseButton() {
-    const { closeRoute, container } = this.props;
-    if (container.viewMode == VIEW_MODES.FULL_SCREEN) {
-      return (
-        <div className={styles.closeButton}>
-          <AnchorCloseButton to={closeRoute} />
-        </div>
-      );
-    } else {
-      return null;
+    const { closeRoute, container, containerActions } = this.props;
+    switch (container.viewMode) {
+      case VIEW_MODES.FULL_SCREEN:
+        return (
+          <div className={styles.closeButton}>
+            <AnchorCloseButton to={closeRoute} />
+          </div>
+        );
+      case VIEW_MODES.MODAL:
+        return (
+          <div className={styles.closeButton}>
+            <AnchorCloseButton to={'#'}
+                               onClick={containerActions.hideContainer} />
+          </div>
+        );
+      default:
+        return null;
     }
   }
 

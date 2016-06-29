@@ -28,7 +28,7 @@ export default class Dialog extends Component {
   }
 
   displayMessenger() {
-    window.location.href = "http://curaytor.com/chat?src=" + encodeURIComponent(window.location.href);
+    this.props.onReply();
   }
 
   renderDialog() {

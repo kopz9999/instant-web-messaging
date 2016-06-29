@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as ConversationActions from '../actions/ConversationActions';
+import * as ContainerActions from '../actions/ContainerActions';
 
 const mapStateToProps = ({Notification: notification, LayerUsers: layerUsers}) => {
   return {
@@ -15,6 +16,7 @@ const mapStateToProps = ({Notification: notification, LayerUsers: layerUsers}) =
 function mapDispatchToProps(dispatch) {
   return {
     ...bindActionCreators(ConversationActions, dispatch),
+    containerActions: bindActionCreators(ContainerActions, dispatch),
   };
 }
 
@@ -40,6 +42,7 @@ class NotificationManager extends Component {
       layerUsers[lastMessage.sender.userId] : null;
     return senderUser && (
       <Dialog
+        onReply={showContainer}
         onMarkMessageRead={this.onMarkMessageRead.bind(this)}
         senderUser={senderUser}
         message={lastMessage}
