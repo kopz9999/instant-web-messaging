@@ -34,6 +34,8 @@ export default class Dialog extends Component {
   renderDialog() {
     const { message, senderUser } = this.props;
     const { displayName, avatarURL } = senderUser;
+    const shortDisplayName = typeof(displayName) === 'string' ?
+      displayName.split(' ')[0] : '';
 
     return (
       <div className={styles.message}>
@@ -44,7 +46,7 @@ export default class Dialog extends Component {
         </div>
         <div className={styles.content}>
           <div className={styles.header}>
-            <div className={styles.username}> {displayName} </div>
+            <div className={styles.username}> {shortDisplayName} </div>
           </div>
           <div className={styles.body}>
             {message.parts.map((messagePart) => {
@@ -59,7 +61,7 @@ export default class Dialog extends Component {
           <div className={styles.footer}>
             <div className={styles.replyButton} onClick={this.displayMessenger.bind(this)}>
               <i className={styles.reply}></i>
-              <span>Reply to {displayName}</span>
+              <span>Reply to {shortDisplayName}</span>
             </div>
           </div>
         </div>
