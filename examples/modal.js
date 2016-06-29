@@ -17,8 +17,7 @@ function initializeApp() {
   });
 
   launcherNode.on('click', function(){
-    window.open('./fullscreen.html', 'messenger');
-    return true;
+    messengerApp.show();
   });
 }
 
