@@ -3,12 +3,20 @@ import Dialog from '../components/modal-notification/Dialog';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as ConversationActions from '../actions/ConversationActions';
+
 const mapStateToProps = ({Notification: notification, LayerUsers: layerUsers}) => {
   return {
     notification,
     layerUsers
   }
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(ConversationActions, dispatch),
+  };
+}
 
 class NotificationManager extends Component {
   shouldShowLastMessage() {
@@ -19,6 +27,11 @@ class NotificationManager extends Component {
     lastMessage.parts.length > 0);
   }
 
+  onMarkMessageRead(messageId) {
+    this.props.markMessageRead(messageId);
+    this.setState({}); // Trigger update to force re-render
+  }
+
   render() {
     const { containerActions, conversation, layerUsers } = this.props;
     const { showContainer } = containerActions;
@@ -27,6 +40,7 @@ class NotificationManager extends Component {
       layerUsers[lastMessage.sender.userId] : null;
     return senderUser && (
       <Dialog
+        onMarkMessageRead={this.onMarkMessageRead.bind(this)}
         senderUser={senderUser}
         message={lastMessage}
       />
@@ -34,4 +48,4 @@ class NotificationManager extends Component {
   }
 }
 
-export default connect(mapStateToProps)(NotificationManager);
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationManager);

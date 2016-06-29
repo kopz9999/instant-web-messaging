@@ -9,21 +9,17 @@ import textPartStyles from './TextMessagePart.css';
 import styles from './Dialog.css';
 
 export default class Dialog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isShowingModal: true,
-    };
-  }
-
-  componentDidMount() {
-    // this.markMessageRead();
+  markMessageRead() {
+    const { onMarkMessageRead, message } = this.props;
+    if (message && message.isUnread) {
+      onMarkMessageRead(message.id);
+    }
   }
 
   renderCloseButton() {
     return (
       <div className={styles.buttonWrapper}>
-        <div className={styles.button} onClick={this.handleClose}>
+        <div className={styles.button} onClick={this.handleClose.bind(this)}>
           <i className={styles.close}></i>
           <span>Close</span>
         </div>
@@ -71,20 +67,19 @@ export default class Dialog extends Component {
     );
   }
 
-  handleClose = () => this.setState({isShowingModal: false})
+  handleClose() {
+    this.markMessageRead();
+  }
 
   render() {
     return (
       <div>
-        {
-          this.state.isShowingModal &&
-          <ModalContainer>
-            <ModalDialog onClose={this.handleClose} className={styles.modalDialog}>
-              { this.renderCloseButton() }
-              { this.renderDialog() }
-            </ModalDialog>
-          </ModalContainer>
-        }
+        <ModalContainer>
+          <ModalDialog onClose={this.handleClose.bind(this)} className={styles.modalDialog}>
+            { this.renderCloseButton() }
+            { this.renderDialog() }
+          </ModalDialog>
+        </ModalContainer>
       </div>
     );
   }
