@@ -94,3 +94,7 @@
         max-width: 300px;
     }
 }
+
+.modalDialog a {
+    display: none;
+}

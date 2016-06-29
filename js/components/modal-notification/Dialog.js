@@ -31,6 +31,10 @@ export default class Dialog extends Component {
     );
   }
 
+  displayMessenger() {
+    window.location.href = "http://curaytor.com/chat?src=" + encodeURIComponent(window.location.href);
+  }
+
   renderDialog() {
     const { message, senderUser } = this.props;
     const { displayName, avatarURL } = senderUser;
@@ -57,7 +61,7 @@ export default class Dialog extends Component {
             })}
           </div>
           <div className={styles.footer}>
-            <div className={styles.replyButton}>
+            <div className={styles.replyButton} onClick={this.displayMessenger.bind(this)}>
               <i className={styles.reply}></i>
               <span>Reply to {displayName}</span>
             </div>
@@ -75,7 +79,7 @@ export default class Dialog extends Component {
         {
           this.state.isShowingModal &&
           <ModalContainer>
-            <ModalDialog>
+            <ModalDialog onClose={this.handleClose} className={styles.modalDialog}>
               { this.renderCloseButton() }
               { this.renderDialog() }
             </ModalDialog>
