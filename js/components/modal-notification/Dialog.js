@@ -23,7 +23,7 @@ export default class Dialog extends Component {
   renderCloseButton() {
     return (
       <div className={styles.buttonWrapper}>
-        <div className={styles.button}>
+        <div className={styles.button} onClick={this.handleClose}>
           <i className={styles.close}></i>
           <span>Close</span>
         </div>
@@ -66,6 +66,8 @@ export default class Dialog extends Component {
       </div>
     );
   }
+
+  handleClose = () => this.setState({isShowingModal: false})
 
   render() {
     return (
