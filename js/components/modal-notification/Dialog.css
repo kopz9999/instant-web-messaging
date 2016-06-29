@@ -1,0 +1,96 @@
+.buttonWrapper {
+    position: absolute;
+    top: -47px;
+    right: 0;
+}
+
+.button {
+    display: block;
+    color: white;
+    font-family: "Proxima N W01 Bold", serif;
+    font-size: 12px;
+    background-color: rgba(250, 250, 250, .2);
+    padding: 8px 12px;
+    height: 32px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.close {
+    display: inline-block;
+    content: ' ';
+    margin-right: 8px;
+    width: 8px;
+    height: 8px;
+    background-image: url('./images/close.png');
+}
+
+.avatarWrapper {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: -30px;
+    width: 60px;
+}
+
+.avatar {
+    height: 60px;
+    width: 60px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 15px 1px rgba(0,0,0,0.75);
+}
+
+.avatar img {
+    height: 100%;
+    width: 100%;
+}
+
+.message {
+    padding-top: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 7px;
+    width: 517px;
+}
+
+.content {
+    text-align: center;
+}
+
+.content .header {
+    font-family: 'Proxima N W01 Smbd', serif;
+    font-size: 18px;
+}
+
+.replyButton {
+    cursor: pointer;
+    background-color: #1b83db;
+    color: white;
+    font-family: 'Proxima N W01 Smbd', serif;
+    padding: 15px 73px;
+    font-size: 16px;
+    border-radius: 12px;
+    max-width: 329px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.reply {
+    display: inline-block;
+    content: ' ';
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    background-image: url('./images/reply.png');
+    vertical-align: bottom;
+    margin-bottom: 3px;
+}
+
+@media screen and (max-width: 600px) {
+    .message {
+        max-width: 300px;
+    }
+}

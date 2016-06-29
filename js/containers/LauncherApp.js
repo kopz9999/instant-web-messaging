@@ -6,8 +6,16 @@ import { LayerProvider } from 'layer-react';
 import MessengerProvider from './MessengerProvider';
 import Launcher from './Launcher';
 import MessageNotification from './MessageNotification';
+import NotificationManager from './NotificationManager';
 
 export default class LauncherApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowingModal: false,
+    };
+  }
+
   render() {
     const { client, store, messageNotification } = this.props;
 
@@ -16,7 +24,7 @@ export default class LauncherApp extends Component {
         <Provider store={store}>
           <MessengerProvider>
             <Launcher />
-            <MessageNotification messageNotification={messageNotification} />
+            <NotificationManager />
           </MessengerProvider>
         </Provider>
       </LayerProvider>

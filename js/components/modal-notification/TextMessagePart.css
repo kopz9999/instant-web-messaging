@@ -1,0 +1,25 @@
+.textPart {
+    color: #616161;
+    font-family: 'Proxima N W01 Reg', serif;
+    font-size: 18px;
+    word-wrap: break-word;
+    margin: 0 0 10px;
+}
+
+.textPart .link {
+    color: #1b83db;
+    text-decoration: none;
+}
+
+.textPart .link:visited {
+    color: #1b83db;
+}
+
+.textPart .link:hover {
+    color: #2459db;
+    text-decoration: underline;
+}
+
+.textLine {
+    display: block;
+}
