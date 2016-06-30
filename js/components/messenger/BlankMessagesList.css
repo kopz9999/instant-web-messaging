@@ -3,7 +3,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    height: calc(100vh - 150px);
+    height: calc(100vh - 180px);
 }
 
 .defaultMessage {
@@ -45,4 +45,14 @@
     font-family: 'Proxima N W01 Reg', serif;
     font-size: 18px;
     word-wrap: break-word;
+}
+
+@media only screen and (max-width: 768px) {
+    .defaultMessage {
+        padding: 30px;
+        margin-left: 20px;
+    }
+    .blankMessageList {
+        background-position: center 70%;
+    }
 }
