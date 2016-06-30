@@ -4,8 +4,8 @@ import {Provider} from 'react-redux';
 import { LayerProvider } from 'layer-react';
 // App
 import MessengerProvider from './MessengerProvider';
-import Launcher from './Launcher';
-import MessageNotification from './MessageNotification';
+import NotificationLauncher from './NotificationLauncher';
+import TypingLauncher from './TypingLauncher';
 import NotificationManager from './NotificationManager';
 
 export default class LauncherApp extends Component {
@@ -23,7 +23,7 @@ export default class LauncherApp extends Component {
       <LayerProvider client={client}>
         <Provider store={store}>
           <MessengerProvider>
-            <Launcher />
+            <TypingLauncher />
             <NotificationManager />
           </MessengerProvider>
         </Provider>

@@ -4,7 +4,7 @@ import styles from './Wrapped.css';
 import Avatar from '../components/launcher/Avatar';
 import Notification from '../components/launcher/Notification';
 
-export default class Launcher extends Component {
+export default class NotificationLauncher extends Component {
   renderNotification(){
     const { consumerUser, conversation } = this.props;
     return (

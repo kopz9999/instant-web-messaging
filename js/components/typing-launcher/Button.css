@@ -1,0 +1,71 @@
+.button {
+    overflow: hidden;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    box-shadow: 0 0 31px -2px rgba(0,0,0,0.75);
+    background-color: #3686ff;
+}
+
+@keyframes bounce
+{
+    25%  {transform: translateY(0px);}
+    50% {transform: translateY( 3px);}
+}
+
+.button img {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    padding: 13px 10px 10px 10px;
+}
+
+.button .dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 25px;
+    height: 11px;
+}
+
+.button.typing .dots > div {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.button.typing .dots div:nth-of-type(2) {
+    animation-delay: 0.10s;
+}
+
+.button.typing .dots div:last-of-type {
+    animation-delay: 0.20s;
+}
+
+.dots > div {
+    border-radius: 100%;
+    height: 4px;
+    width: 4px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    transform: translateY(3px);
+}
+
+.dots div:first-of-type {
+    left: 3px;
+}
+
+.dots div:nth-of-type(2) {
+    left: 10px;
+}
+
+.dots div:last-of-type {
+    left: 17px;
+}
