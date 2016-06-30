@@ -13,8 +13,8 @@
 
 @keyframes bounce
 {
-    25%  {transform: translateY(0px);}
-    50% {transform: translateY(-90%);}
+    25%  {transform: translateY(-90%);}
+    50% {transform: translateY(0%);}
 }
 
 .button img {
@@ -57,6 +57,7 @@
     background-color: #ffffff;
     position: absolute;
     top: 0;
+    transform: translateY(0%);
 }
 
 .dots div:first-of-type {
