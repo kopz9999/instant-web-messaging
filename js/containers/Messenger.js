@@ -93,7 +93,7 @@ class Messenger extends Component {
         );
       case VIEW_MODES.MODAL:
         return (
-          <div className={styles.closeButton}>
+          <div className={styles.closeButtonModal}>
             <AnchorCloseButton to={'#'}
                                onClick={containerActions.hideContainer} />
           </div>
