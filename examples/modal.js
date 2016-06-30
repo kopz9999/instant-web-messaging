@@ -16,9 +16,7 @@ function initializeApp() {
     consumerUser: consumerUser,
   });
 
-  launcherNode.on('click', function(){
-    messengerApp.show();
-  });
+  processMessengerApp(messengerApp);
 }
 
 document.addEventListener("DOMContentLoaded", function() {

@@ -44,6 +44,12 @@ function processMessengerApp(msgApp) {
     trackMessage(consumerUser, e.consumerMessage,
       msgApp.closeRoute || window.location.href);
   });
+  msgApp.on(webMessenger.ACTION_EVENTS.SHOW_CONTAINER, function(e) {
+    document.body.style.overflow = 'hidden';
+  });
+  msgApp.on(webMessenger.ACTION_EVENTS.HIDE_CONTAINER, function(e) {
+    document.body.style.overflow = 'auto';
+  });
 }
 
 function sendLayerMessage(user, message, conversationUsers, url) {
