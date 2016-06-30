@@ -14,7 +14,7 @@ import Header from './Header';
 export default class ContentWrapper extends Component {
   renderMessageList() {
     const { conversation, clientUser, consumerUser, isCollapsed,
-      onMarkMessageRead, requestScrollDown } = this.props;
+      onMarkMessageRead, requestScrollDown, blankMessagesList } = this.props;
     return (
       <MessageList
         {
@@ -24,7 +24,8 @@ export default class ContentWrapper extends Component {
             consumerUser,
             isCollapsed,
             onMarkMessageRead,
-            requestScrollDown
+            requestScrollDown,
+            blankMessagesList
           })
         }
       />
@@ -53,11 +54,7 @@ export default class ContentWrapper extends Component {
     return (
       <div className={styles.content}>
         <div className={styles.listContainer}>
-          <Header
-            user={clientUser}
-            text={clientUser.displayName}
-            extraContent={closeButton}
-          />
+          <Header extraContent={closeButton} />
         </div>
         <div className={styles.listContainer}>
           { messageList }

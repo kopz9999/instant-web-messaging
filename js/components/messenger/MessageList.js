@@ -49,14 +49,14 @@ export default class MessageList extends Component {
   }
 
   render() {
-    const { messages } = this.props;
+    const { messages, blankMessagesList } = this.props;
     const reversedMessages = messages.filter((m)=> m.isSaved).reverse();
 
     return (
-      <div className={styles.list}>
-        {reversedMessages.map((m)=> this.renderMessageItem(m))}
-      </div>
-    );
+      messages.length > 0 ?
+        (<div className={styles.list}>
+          {reversedMessages.map((m)=> this.renderMessageItem(m))}
+        </div>) : blankMessagesList);
   };
 };
 

@@ -1,0 +1,48 @@
+.blankMessageList {
+    background-image: url('./images/chat-icon.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: calc(100vh - 150px);
+}
+
+.defaultMessage {
+    text-align: center;
+    background-color: #fffbf4;
+    border: 1px solid #ffa200;
+    padding-left: 155px;
+    padding-right: 155px;
+    padding-top: 27px;
+    padding-bottom: 38px;
+    margin-top: 65px;
+}
+
+.avatar {
+    display: block;
+    margin: auto;
+    height: 64px;
+    width: 64px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.avatar img {
+    height: 100%;
+    width: 100%;
+}
+
+.content {
+    margin-top: 15px;
+    color: #3d4c53;
+}
+
+.content .header {
+    font-family: 'Proxima N W01 Smbd', serif;
+    font-size: 18px;
+}
+
+.content .body {
+    font-family: 'Proxima N W01 Reg', serif;
+    font-size: 18px;
+    word-wrap: break-word;
+}

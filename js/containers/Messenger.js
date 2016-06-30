@@ -6,6 +6,7 @@ import { findDOMNode } from 'react-dom';
 import AnchorCloseButton from './AnchorCloseButton';
 import MessageComposer from '../components/messenger/MessageComposer';
 import ContentWrapper from '../components/messenger/ContentWrapper';
+import BlankMessagesList from './../components/messenger/BlankMessagesList';
 import * as ComposerActions from '../actions/ComposerActions';
 import * as ConversationActions from '../actions/ConversationActions';
 import * as VIEW_MODES from '../constants/ViewModes';
@@ -102,6 +103,16 @@ class Messenger extends Component {
     }
   }
 
+  renderBlankMessagesList() {
+    const { clientUser, welcomeMessage } = this.props;
+    return (
+      <BlankMessagesList
+        clientUser={clientUser}
+        defaultMessage={welcomeMessage}
+      />
+    );
+  }
+
   render() {
     const {
       consumerUser,
@@ -136,6 +147,7 @@ class Messenger extends Component {
           onScrollBelowHeader={showHeader}
           onScrollAboveHeader={hideHeader}
           closeButton={this.renderCloseButton()}
+          blankMessagesList={this.renderBlankMessagesList()}
         />
         <MessageComposer
           value={composerMessage}
