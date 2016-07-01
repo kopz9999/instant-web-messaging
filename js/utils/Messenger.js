@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 // Lib
 import EventDispatcher from 'eventdispatcher';
-import { Client } from 'layer-sdk';
+import { Client } from 'layer-websdk';
 // App
 import MessengerApp from '../containers/MessengerApp';
 import LauncherApp from '../containers/LauncherApp';

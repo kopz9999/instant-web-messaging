@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 // Layer
-import { QueryBuilder } from 'layer-sdk';
+import { QueryBuilder } from 'layer-websdk';
 // App
 import MessageList from './MessageList';
 import TypingIndicatorManager from './typing-indicator-manager/TypingIndicatorManager';

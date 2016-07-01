@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Notification.css';
 // Layer
-import { QueryBuilder } from 'layer-sdk';
+import { QueryBuilder } from 'layer-websdk';
 import { connectQuery } from 'layer-react';
 
 const getQueries = ({activeConversationId, messagePagination}) => {

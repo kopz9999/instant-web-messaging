@@ -1,5 +1,5 @@
 // Layer
-import { Query, QueryBuilder } from 'layer-sdk';
+import { Query, QueryBuilder } from 'layer-websdk';
 // App
 import { userFactoryInstance } from '../utils/User';
 // Actions

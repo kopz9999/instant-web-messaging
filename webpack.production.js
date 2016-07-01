@@ -22,9 +22,6 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({minimize: true}),
     devFlagPlugin,
   ],
-  externals: {
-    'layer-sdk': 'layer'
-  },
   module: {
     loaders: [
       { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
@@ -34,8 +31,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.json'],
-    alias: {
-      'layer-react': path.join(__dirname, 'layer-react')
-    }
   }
 };

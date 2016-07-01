@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // Layer
-import { QueryBuilder } from 'layer-sdk';
+import { QueryBuilder } from 'layer-websdk';
 // App
 import * as ContainerActions from '../actions/ContainerActions';
 import styles from './Wrapped.css';
