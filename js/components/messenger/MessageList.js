@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // Layer
-import { QueryBuilder } from 'layer-sdk';
+import { QueryBuilder } from 'layer-websdk';
 import { connectQuery } from 'layer-react';
 import { connect } from 'react-redux';
 // App

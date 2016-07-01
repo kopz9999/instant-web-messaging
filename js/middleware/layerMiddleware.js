@@ -14,7 +14,7 @@ import { conversationManagerInstance } from '../utils/ConversationManager';
 import { clientReady } from '../actions/AppActions';
 
 // Layer
-import { TypingIndicators, QueryBuilder } from 'layer-sdk';
+import { TypingIndicators, QueryBuilder } from 'layer-websdk';
 
 const {
   STARTED,
