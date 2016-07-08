@@ -1,4 +1,5 @@
 .closeButton {
+    cursor: pointer;
     text-decoration: none !important;
     position: relative;
     color: #c2cbd2;
