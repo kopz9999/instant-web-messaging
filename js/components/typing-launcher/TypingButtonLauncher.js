@@ -11,7 +11,9 @@ export default class TypingButtonLauncher extends Component {
     return conversation.activeConversationId != null && (
       <div className={styles.button} onClick={showContainer}>
         <div className={styles.bubble}>
-          <Bubble conversationId={conversation.activeConversationId} />
+          <div className={styles.bubbleContainer}>
+            <Bubble conversationId={conversation.activeConversationId} />
+          </div>
         </div>
         <div className={styles.label}>
           Live Chat

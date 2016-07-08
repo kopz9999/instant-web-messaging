@@ -10,26 +10,29 @@
     padding-top: 1px;
     padding-bottom: 1px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
 }
 
-.button > div > div {
+.button > div > div > div {
     background-color: transparent;
 }
 
 .bubble, .label {
     position: relative;
-    display: inline-block;
-    vertical-align: top;
 }
 
 .bubble {
     width: 41.5%;
-    height: 100%;
+}
+
+.bubble .bubbleContainer {
+    height: 0;
+    padding-bottom: 100%;
 }
 
 .label {
     color: white;
-    margin-top: 11%;
     width: 58%;
     font-family: "Proxima N W01 Bold", serif;
     font-size: 13px;
