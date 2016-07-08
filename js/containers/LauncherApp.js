@@ -1,11 +1,14 @@
+// React
 import React, { Component } from 'react';
 import {Provider} from 'react-redux';
 // Layer
 import { LayerProvider } from 'layer-react';
 // App
+import LAUNCHER_MODES from '../constants/LauncherModes';
 import MessengerProvider from './MessengerProvider';
-import NotificationLauncher from './NotificationLauncher';
-import TypingLauncher from './TypingLauncher';
+import AvatarLauncher from '../components/avatar-launcher/AvatarLauncher';
+import TypingBubbleLauncher from './../components/typing-launcher/TypingBubbleLauncher';
+import TypingButtonLauncher from './../components/typing-launcher/TypingButtonLauncher';
 import NotificationManager from './NotificationManager';
 
 export default class LauncherApp extends Component {
@@ -16,14 +19,28 @@ export default class LauncherApp extends Component {
     };
   }
 
+  renderLauncher() {
+    const { launcherMode } = this.props;
+    switch (launcherMode) {
+      case LAUNCHER_MODES.TYPING_BUBBLE:
+        return (<TypingBubbleLauncher />);
+      case LAUNCHER_MODES.TYPING_BUBBLE_BUTTON:
+        return (<TypingButtonLauncher />);
+      case LAUNCHER_MODES.AVATAR_BUBBLE:
+        return (<AvatarLauncher />);
+      default:
+        return (<TypingButtonLauncher />);
+    }
+  }
+
   render() {
-    const { client, store, messageNotification } = this.props;
+    const { client, store } = this.props;
 
     return (
       <LayerProvider client={client}>
         <Provider store={store}>
           <MessengerProvider>
-            <TypingLauncher />
+            { this.renderLauncher() }
             <NotificationManager />
           </MessengerProvider>
         </Provider>

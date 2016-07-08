@@ -1,0 +1,6 @@
+.bubbleWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 31px -2px rgba(0,0,0,0.75);
+}

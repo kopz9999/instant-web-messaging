@@ -35,8 +35,8 @@
     position:fixed;
     top:20px;
     right:20px;
-    width:54px;
-    height:54px;
+    width:116px;
+    height: 42px;
     z-index: 2000;
     cursor:pointer;
 }

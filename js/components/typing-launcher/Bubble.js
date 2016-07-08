@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // Layer
 import { connectTypingIndicator } from 'layer-react';
 // App
-import styles from './Button.css';
+import styles from './Bubble.css';
 import icon from './images/chat-bubble.png'
 
 class Button extends Component {

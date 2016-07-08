@@ -1,74 +1,36 @@
 .button {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 1;
-    box-shadow: 0 0 31px -2px rgba(0,0,0,0.75);
-    background-color: #3686ff;
-}
-
-@keyframes bounce
-{
-    25%  {transform: translateY(-90%);}
-    50% {transform: translateY(0%);}
-}
-
-.button img {
-    height: 100%;
-    width: 100%;
     position: relative;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    padding: 24% 20% 23% 20%;
+    width: 100%;
+    height: 100%;
+    background-image: -moz-linear-gradient( 90deg, rgb(65,152,225) 0%, rgb(55,133,255) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgb(65,152,225) 0%, rgb(55,133,255) 100%);
+    background-image: -ms-linear-gradient( 90deg, rgb(65,152,225) 0%, rgb(55,133,255) 100%);
+    padding-left: 6px;
+    padding-right: 13px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 4px;
 }
 
-.button .dots {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 50%;
-    height: 10%;
+.button > div > div {
+    background-color: transparent;
 }
 
-.button.typing .dots > div {
-    animation: bounce 1s ease-in-out infinite;
+.bubble, .label {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.button.typing .dots div:nth-of-type(2) {
-    animation-delay: 0.10s;
+.bubble {
+    width: 41.5%;
+    height: 100%;
 }
 
-.button.typing .dots div:last-of-type {
-    animation-delay: 0.20s;
-}
-
-.dots > div {
-    border-radius: 100%;
-    height: 74.4%;
-    width: 14.85%;
-    background-color: #ffffff;
-    position: absolute;
-    top: 0;
-    transform: translateY(0%);
-}
-
-.dots div:first-of-type {
-    left: 19%;
-}
-
-.dots div:nth-of-type(2) {
-    left: 50%;
-    margin-left: -7.425%;
-}
-
-.dots div:last-of-type {
-    right: 19.5%;
+.label {
+    margin-top: 11%;
+    width: 58%;
+    font-family: "Proxima N W01 Bold", serif;
+    font-size: 13px;
+    white-space:nowrap;
 }

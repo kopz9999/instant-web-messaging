@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 // App
-import styles from './Wrapped.css';
-import Avatar from '../components/launcher/Avatar';
-import Notification from '../components/launcher/Notification';
+import styles from './../../containers/Wrapped.css';
+import Avatar from './Avatar';
+import Notification from './Notification';
 
-export default class NotificationLauncher extends Component {
+export default class AvatarLauncher extends Component {
   renderNotification(){
     const { consumerUser, conversation } = this.props;
     return (

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 // App
-import styles from './Wrapped.css';
-import Button from '../components/typing-launcher/Button';
+import styles from './BubbleWrapper.css';
+import Bubble from './Bubble';
 
-export default class TypingLauncher extends Component {
+export default class TypingBubbleLauncher extends Component {
   render() {
     const { conversation, containerActions } = this.props;
     const { showContainer } = containerActions;
     const messageReady = conversation.activeConversationId != null;
     const button = messageReady ?
-      (<Button conversationId={conversation.activeConversationId} />) : null;
+      (<Bubble conversationId={conversation.activeConversationId} />) : null;
 
     return (
-      <div className={styles.wrapped} onClick={showContainer}>
+      <div className={styles.bubbleWrapper} onClick={showContainer}>
         { button }
       </div>
     );
