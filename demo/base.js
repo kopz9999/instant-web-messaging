@@ -2,7 +2,7 @@
 var layerAppId ='layer:///apps/staging/52e7c9b4-e9cb-11e5-a188-7d4ed71366e8';
 var identityProviderURL = 'https://layer-identity-provider.herokuapp.com/identity_tokens';
 var eventsAPI = 'https://m.curaytor.com/api/events';
-var usersAPI = 'https://m.curaytor.com/api/users';
+var usersAPI = 'https://curaytor-m-api.herokuapp.com/layer_users?request_case=camel';
 var consumerUser = null, clientUser = null, messengerApp = null;
 
 var QueryString = function () {

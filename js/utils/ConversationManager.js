@@ -122,7 +122,7 @@ export default class ConversationManager {
     // Serialize Properties
     const appParticipants = originalAppParticipants.map((userObj) => {
       userFactoryInstance.applyDefaultProperties(userObj);
-      return userFactoryInstance.serializeUser(userObj)
+      return userFactoryInstance.serializeToMetadata(userObj)
     });
     Object.keys(storedParticipants).forEach((i) => {
       metaData[`appParticipants.${i}`] = storedParticipants[i];

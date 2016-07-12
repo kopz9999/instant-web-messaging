@@ -86,14 +86,13 @@ export class UserFactory {
     userObject.color = metadataObject.color;
   }
 
-  serializeUser(userObject) {
-    let obj = userObject;
-    if (obj instanceof User){
-      obj = {};
-      PROPERTIES.forEach((k) => {
-        obj[k] = userObject[k];
-      });
-    }
+  serializeToMetadata(userObject) {
+    let obj = {};
+    PROPERTIES.forEach((k) => {
+      if (userObject[k]) {
+        obj[k] = userObject[k].toString();
+      }
+    });
     return obj;
   }
 }
